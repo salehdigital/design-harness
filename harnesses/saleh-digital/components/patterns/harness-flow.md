@@ -45,7 +45,7 @@ A classic black-and-white flowchart that sits straight on the page's paper. It i
 </div>
 ```
 
-Icons are 16px filled glyphs (comment, cube, sparkles, browser, shield-check) from **Amicons**, a commercial set (https://amicons.design/). They are not in this harness: license Amicons yourself, or leave `.hf-ico` empty. Never copy Amicons path data.
+Icons are 16px filled glyphs (comment, cube, sparkles, browser, shield-check) from **Amicons**, a commercial set (https://amicons.design/). They are not in this harness: license Amicons yourself, or leave `.hf-ico` as an empty 16px slot so the cards keep their live widths. Never copy Amicons path data.
 
 ## Content
 

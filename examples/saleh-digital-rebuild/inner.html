@@ -1,102 +1,126 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" class="has-nav-sheet" style="--col-nav: 80px; --col-sub: 253px;">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>What is a design harness – Saleh Digital Rebuild</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lead UX and Product Design Instructor, Ahmed Saleh</title>
+  <meta name="theme-color" content="#ffffff">
+  <!-- fonts/ is owner-supplied and gitignored. Shinka and Kult Luxury are commercial: license them yourself or the fallbacks apply. -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <svg style="position: absolute; width: 0; height: 0" aria-hidden="true">
-    <filter id="ink-ui">
-      <feTurbulence baseFrequency="0.6" numOctaves="2" seed="2" />
-      <feDisplacementMap in="SourceGraphic" scale="1.2" />
-      <feGaussianBlur stdDeviation="0.3" />
-    </filter>
-    <filter id="ink-body">
-      <feTurbulence baseFrequency="0.45" numOctaves="3" seed="1" />
-      <feDisplacementMap in="SourceGraphic" scale="1.6" />
-      <feGaussianBlur stdDeviation="0.4" />
-    </filter>
-  </svg>
-
-  <div class="reading-grid">
-    <nav class="col-nav">
-      <ul class="nav-list">
-        <li><a href="index.html" class="item">Home</a></li>
-        <li><a href="#" class="item is-active">Articles</a></li>
-        <li><a href="#" class="item">Library</a></li>
-        <li><a href="#" class="item">Experiments</a></li>
-        <li><a href="#" class="item">Settings</a></li>
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="ink-ui" x="-4%" y="-25%" width="108%" height="150%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="0.7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.22" result="b"/>
+    <feComponentTransfer in="b"><feFuncA type="linear" slope="1.34" intercept="0"/></feComponentTransfer>
+  </filter>
+  <filter id="ink-bio" x="-2%" y="-30%" width="104%" height="160%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-diagram" x="-1%" y="-2%" width="102%" height="104%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.25" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.6" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.1 0 0 0 1.5" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-bas" x="-2%" y="-40%" width="104%" height="180%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-mark" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-dots" x="-2%" y="-40%" width="104%" height="180%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-body" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="0.24" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.1" result="b"/>
+    <feComponentTransfer in="b"><feFuncA type="linear" slope="1.12" intercept="0"/></feComponentTransfer>
+  </filter>
+</svg>
+<a class="skip" href="#article">Skip to the writing</a>
+<div class="site">
+  <div class="cols">
+    <nav class="col col-nav" aria-label="Sections">
+      <button type="button" class="nav-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-sheet"><span class="nav-btn-l" aria-hidden="true"></span><span class="nav-btn-l" aria-hidden="true"></span></button>
+      <ul id="nav">
+        <li><a class="item" href="#/articles">Articles</a></li>
+        <li><a class="item is-active" href="#/lectures" aria-current="page">Lectures</a></li>
+        <li><a class="item" href="#/talks">Speaking</a></li>
+        <li><a class="item" href="#/experiments">Experiments</a></li>
+        <li><a class="item" href="#/library">Library</a></li>
+        <li><a class="item" href="#/coffee-table">Coffee table</a></li>
+        <li class="nav-step"><a class="item" href="#/contact">Contact</a></li>
+        <li><a class="item" href="#/settings">Settings</a></li>
       </ul>
     </nav>
-
-    <aside class="spine">
-      <span class="text">8 min · Nov 4, 2026 · Article</span>
-    </aside>
-
-    <main class="article-body">
-      <h1>What is a design harness</h1>
-      
-      <p>Design harnesses are specifications written in Markdown that tell AI agents how to recreate a design system. They bridge human intent and machine execution by documenting every design decision--tokens, components, interactions, and principles--in plain language.</p>
-      
-      <h2>Structure</h2>
-      <p>A harness is organized into three sections:</p>
-      
-      <p><strong>Foundations</strong> document the visual language: typography, colors, spacing, motion, materials, themes. These are the atoms of the design system.</p>
-      
-      <p><strong>Components</strong> specify UI elements: chips, buttons, switches, navigation items, covers. Each component has anatomy, states, styling, and usage rules.</p>
-      
-      <p><strong>Intelligence</strong> captures the project's memory: agents (Ada, Dev, Wren, Web), skills (procedures), tools (benches), vocabulary (project-specific terms), and policy (principles like "Detail Over Decoration").</p>
-      
-      <h2>Why harnesses work</h2>
-      <p>Traditional design systems are reference documents. Agents <span class="warm">read</span> them but still guess at implementation details. Harnesses are executable specifications. They include exact values, code snippets, and decision rationale.</p>
-      
-      <p>A harness says: "Chips have 4px padding, 16px height, 8px border-radius, and use var(--dot) at 12% alpha for borders." Not: "Chips are small rounded labels."</p>
-      
-      <h2>Tokens and sliders</h2>
-      <p>Foundation sliders let users tune the feel of the interface without breaking the design. Energy (0--1) adjusts motion speed. Texture (0--1) controls grain and ink filter intensity. Density (0--1) scales spacing.</p>
-      
-      <p>These sliders modulate token values. For example, --gap calculates as: <code>calc(24px + (.3 - var(--fnd-density)) * 20px)</code>. At density 0, gap is 44px (spacious). At density 1, gap is 10px (compact).</p>
-      
-      <h2>Writing a harness</h2>
-      <p>Start by documenting what exists. Measure the live site: hex colors, pixel sizes, font weights, easing curves. Capture the source CSS and component code. Write it down in Markdown with frontmatter (title, slug, status, chips).</p>
-      
-      <p>Test the harness by asking an agent to rebuild the site using only the harness. If the agent guesses, the harness is incomplete. If the agent asks for clarification, the harness is ambiguous. The goal: an agent can recreate the design closely without peeking at the source.</p>
-
-      <div class="post-actions">
-        <button class="meta-ico" aria-label="Discuss">
-          <span class="ico" data-icon="discuss">💬</span>
-          <span class="count">12</span>
-        </button>
-        <button class="meta-ico" aria-label="Copy link">
-          <span class="ico" data-icon="copy">🔗</span>
-        </button>
-        <button class="meta-ico" aria-label="Toggle sound">
-          <span class="ico" data-icon="sound-on">🔊</span>
-        </button>
-      </div>
+    <nav class="col col-sub" aria-label="In this section">
+      <ul id="sub" aria-label="Lectures">
+        <li><a class="item" href="#/lectures/philosophy-of-design">Philosophy of design</a></li>
+        <li><a class="item is-active" href="inner.html" aria-current="page">Lead UX and Product Design Instructor</a></li>
+      </ul>
+    </nav>
+    <main class="col col-body" id="main">
+      <article id="article" tabindex="-1">
+<h1 class="sr-only">Lead UX and Product Design Instructor</h1>
+<div class="records is-plain"><div class="record"><div class="rec-body"><div class="rec-title">Lead UX and Product Design Instructor</div><p class="rec-meta"><span>Teaching</span><span class="rec-sep" aria-hidden="true">·</span><span>Lead Instructor</span><span class="rec-sep" aria-hidden="true">·</span><span>Bitmaker (now General Assembly)</span><span class="rec-sep" aria-hidden="true">·</span><span>Greater Toronto Area, ON</span><span class="rec-sep" aria-hidden="true">·</span><span>Oct 2017 to Aug 2018</span></p></div></div></div>
+      </article>
     </main>
-
-    <div class="col-margin">
-      <!-- Empty -->
-    </div>
+    <aside class="col col-media" aria-hidden="true"></aside>
   </div>
-
-  <footer class="site-footer">
-    <div class="foot-grid">
+  <footer class="foot">
       <div class="foot-row">
-        <div></div>
-        <div class="bio">Ahmed Saleh أحمد صالح is a designer-founder in pursuit of the infinite.</div>
-        <div class="foot-dots">
-          <!-- Dot matrix placeholder -->
+        <div class="foot-side">
+          <p class="bio">Ahmed Saleh <span lang="ar" dir="rtl">أحمد صالح</span> is a designer-founder in pursuit of the infinite.</p>
+          <canvas class="foot-dots" aria-hidden="true"></canvas>
         </div>
-        <div class="marks">
-          <div class="basmala">بسم الله الرحمن الرحيم</div>
+        <p class="basmala" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</p>
+        <div class="foot-side foot-end">
+          <canvas class="foot-dots" aria-hidden="true"></canvas>
+          <ul class="foot-links" id="foot-links" aria-label="More" hidden></ul>
+          <!-- the four marks are the owner's PNG masks (assets/footer/*.png), not in this repo; a missing mask paints nothing -->
+          <ul class="marks" id="marks" aria-label="Marks">
+            <li><span class="mark" role="img" aria-label="Mark 1" style="--w: 22.4px; --src: url(assets/footer/27-45.png)"></span></li>
+            <li><span class="mark" role="img" aria-label="Mark 2" style="--w: 18.6px; --src: url(assets/footer/27-48.png); --soft: 0.42px"></span></li>
+            <li><span class="mark" role="img" aria-label="Mark 3" style="--w: 20px; --src: url(assets/footer/27-49.png)"></span></li>
+            <li><span class="mark" role="img" aria-label="Mark 4" style="--w: 18px; --src: url(assets/footer/27-50.png)"></span></li>
+          </ul>
         </div>
       </div>
-      <div class="wordmark">salehdigital</div>
-    </div>
-  </footer>
+      <svg class="wordmark" role="img" aria-label="salehdigital" tabindex="0"><text>salehdigital</text></svg>
+    </footer>
+</div>
+<dialog id="nav-sheet" class="nav-sheet" aria-label="Menu"><div class="nav-sheet-grab" aria-hidden="true"><span></span></div><nav aria-label="Sections"><ul class="nav-sheet-list"></ul></nav></dialog>
+<script src="site.js"></script>
 </body>
 </html>

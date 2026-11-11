@@ -96,7 +96,36 @@ On the live site a WebGL pass redraws the bio, basmala, dot strips and wordmark 
 
 ## The dot strips (js/footdots.js)
 
-Each `.foot-dots` canvas draws a grid of dots on a 4.8px pitch in the footer colour. Each dot's radius goes from 0.45px to 1.7px, larger inside a few soft blobs (one per 140px of width, minimum 2) that drift slowly with time and follow the pointer. Smoothstep the radius: `r = 0.45 + (1.7 - 0.45) * g*g*(3 - 2*g)`. A static rebuild may draw a single frame.
+Each `.foot-dots` canvas (index `R` = 0 for the left strip, 1 for the right) draws a grid of dots in the footer colour on a 4.8px pitch. A dot's radius grows from 0.45px to 1.7px inside a few soft blobs defined by a signed distance field; the blobs drift with time and one follows the pointer. One frame, as shipped:
+
+```js
+function drawDots(cv, R, time = 0) {
+  const rect = cv.getBoundingClientRect(), s = rect.width, h = rect.height, dpr = Math.min(2, devicePixelRatio || 1);
+  cv.width = Math.round(s * dpr); cv.height = Math.round(h * dpr);
+  const a = cv.getContext('2d'); a.setTransform(dpr, 0, 0, dpr, 0, 0); a.fillStyle = getComputedStyle(cv).color;
+  const u = 4.8, big = 1.7, small = .45;
+  const smin = (p, q, k) => { const e = Math.max(k - Math.abs(p - q), 0) / k; return Math.min(p, q) - e * e * k * .25; };
+  const sdf = (x, y) => { let e = 1e9; const C = Math.max(2, Math.round(s / 140));
+    for (let m = 0; m < C; m++) { const l = m * 2.399 + R * 1.3;
+      const f = ((m + .5) / C + .06 * Math.sin(time * .21 + l)) * s, M = h * (.5 + .35 * Math.sin(time * .33 + l * 1.7));
+      const p = 5 + 4 * (.5 + .5 * Math.sin(time * .27 + l * .9));
+      e = smin(e, Math.hypot((x - f) * .55, y - M) - p, 10); }
+    return e; };   // the live site also unions a 7px blob at the pointer: smin(e, hypot(x - px, y - py) - 7, 14)
+  const n = Math.floor(s / u), rows = Math.floor(h / u), ox = (s - (n - 1) * u) / 2, oy = (h - (rows - 1) * u) / 2;
+  a.beginPath();
+  for (let j = 0; j < rows; j++) for (let i = 0; i < n; i++) { const X = ox + i * u, Y = oy + j * u;
+    const g = 1 - Math.min(1, Math.max(0, (sdf(X, Y) + 2) / 8)), r = small + (big - small) * g * g * (3 - 2 * g);
+    a.moveTo(X + r, Y); a.arc(X, Y, r, 0, Math.PI * 2); }
+  a.fill();
+}
+```
+
+Animated, `time` is seconds since load times `0.4 + 1.2 * --fnd-energy`; under reduced motion it stays 0.
+
+## What the live footer looks like today
+
+- **Basmala face.** The CSS names Kufigraph Light with `font-display: optional`, and the WebGL footer snapshots the text with whatever face is ready. In practice visitors see the system Arabic fallback (a Naskh-style face), not the square Kufic of Kufigraph. To match the live look, do not load Kufigraph. Kufigraph's license is not covered by this repo either.
+- **Phone wordmark.** At 390 wide the live WebGL pass currently draws the word larger than the fitted DOM box, so it reads "salehdigi" and runs off the right edge. The fitted geometry above (the whole word, 6px from each edge) is the intended one.
 
 ## Rules
 

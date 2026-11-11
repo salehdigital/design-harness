@@ -1,69 +1,28 @@
-# saleh.digital Rebuild from Harness
+# saleh.digital rebuild from the harness
 
-This is a **fidelity test** of the saleh-digital design harness. The goal: rebuild the home page using **ONLY** the information in `harnesses/saleh-digital/`, without looking at the live site's source code.
+A fidelity test for `harnesses/saleh-digital`. Two pages were rebuilt by following only the harness text, then screenshotted next to the live site at the same sizes.
 
-## Rules
+| Page | Rebuild | Live | Harness records used |
+| --- | --- | --- | --- |
+| Home / article "What is a design harness?" | `index.html` | https://saleh.digital/ | templates/home.md, templates/article.md, components/screens/reading.md, components/patterns/harness-flow.md, components/components/term.md |
+| Record page, Lectures › Lead UX and Product Design Instructor | `inner.html` | https://saleh.digital/#/lectures/lead-ux-and-product-design-instructor | templates/record.md |
 
-1. **Only use the harness** — Read only `harnesses/saleh-digital/**/*.md`
-2. **No peeking** — Don't inspect the live site's HTML/CSS/JS
-3. **Commercial assets** — Use fallbacks (Georgia, Arial Black, no icons)
-4. **Minimal scope** — Home page layout + footer, no interactions or WebGL
+Both pages also use foundations/layout-grid.md, spacing/spacing.md, typography/type.md, colors.md, motion/motion.md, materials/texture.md, components/patterns/navigation.md and components/patterns/footer.md. Each block in `style.css` and `site.js` names the record it came from.
 
-## What's Included
+## Commercial assets: none are in this folder
 
-- Grid layout (nav + sub + body)
-- Typography system (sizes, weights, tracking)
-- Color tokens (light theme)
-- Spacing tokens (gap, para, stack)
-- Navigation (items, states, opacity)
-- Article body (h2, h3, p, strong, em)
-- Footer (bio, basmala, marks, wordmark)
-- Mobile responsive breakpoint
+- **Shinka** (Aeiou Tools) and **Kult Luxury** are commercial typefaces; **Amicons** is a commercial icon set. None of their files, SVGs, path data or base64 copies are committed.
+- `style.css` loads fonts from `./fonts/`, which is gitignored. Put your own licensed files there (`Shinka-Regular.otf`, `Shinka-RegularItalic.otf`, `Kult-Luxury.woff2`, and Inter Display, which is open under the SIL OFL). Without them the stacks fall back to Georgia and Times New Roman, and the page sets a little wider.
+- The flow cards keep an empty 16px icon slot where the Amicons glyphs go. The four footer marks point at the owner's `assets/footer/*.png` masks, which are not here, so they paint nothing.
+- The screenshots in `screenshots/` were taken with the owner's licensed fonts present locally. They are images of the page, not font files.
 
-## What's Missing
+## Run it
 
-- Ink texture filters (SVG filters not in harness yet)
-- WebGL effects
-- Dot matrix canvases
-- Theme switcher
-- Motion/transitions
-- Commercial fonts (Shinka, Kult, Kufigraph)
-- Icons (Amicons)
-- Marathon themes
-- Materials (glass, shadows)
+```bash
+cd examples/saleh-digital-rebuild
+./shoot.sh screenshots     # serves this folder on :8765 and screenshots rebuild and live at 1440x900 and 390x844
+```
 
-## Commercial Asset Fallbacks
+## Copy changes
 
-Per licensing requirements:
-
-- **Shinka** → Georgia serif
-- **Kult Luxury** → Arial Black / Impact
-- **Kufigraph** → UI font fallback
-- **Amicons** → Simple colored circles (marks)
-
-## Comparison
-
-See `comparison-*.png` screenshots for side-by-side:
-
-- `comparison-desktop-1440.png` — Desktop layout
-- `comparison-mobile-390.png` — Mobile layout
-
-## Learnings
-
-This test validates:
-- Typography specs are accurate (sizes, weights, tracking)
-- Color tokens are correct (hex values)
-- Spacing system is documented (gap, para, stack)
-- Grid layout is reproducible
-- Mobile breakpoints are documented
-- Footer structure is clear
-- Commercial asset notices are prominent
-
-## Next Steps
-
-Based on this rebuild:
-1. Fill remaining harness files (materials, more components)
-2. Add SVG filter specs
-3. Document glass/shadow system
-4. Complete component patterns
-5. Fill intelligence files
+The rebuild uses the live article's text, with two edits. The first sentence's company name is replaced with "[company]". The work grid, architecture diagram, harness viewer, download actions and FAQ embeds are left out, because the harness does not specify them yet. Everything above the fold matches the live page.
