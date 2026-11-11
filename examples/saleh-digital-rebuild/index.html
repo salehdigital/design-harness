@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-section="articles" class="has-nav-sheet" style="--col-nav: 80px; --col-sub: 253px;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>What is a design harness?, Ahmed Saleh</title>
+  <!-- first paint: foundations/themes.md › Before first paint -->
+  <meta name="theme-color" content="#ffffff">
+  <script>
+  /* the theme before first paint (js/theme.js has the same rules): ?theme=&accent= > stored > system */
+  (function(){var d=document.documentElement,q=new URLSearchParams(location.search),T=['light','dark','marathon-dark','marathon-light'],A=['lime','cyan','red','amber','green'],t=q.get('theme'),a=q.get('accent'),s=null;
+  if(T.indexOf(t)<0){try{s=JSON.parse(localStorage.getItem('sd.theme')||'null')}catch(e){}t=s&&T.indexOf(s.theme)>=0?s.theme:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');a=s&&(s.accent==='orange'?'amber':s.accent)}
+  d.setAttribute('data-theme',t);if(t.indexOf('marathon')===0)d.setAttribute('data-accent',A.indexOf(a)>=0?a:'lime');
+  var P={light:'#ffffff',dark:'#0b0b0c','marathon-dark':'#1c2338','marathon-light':'#f1f3f7'};document.currentScript.previousElementSibling.setAttribute('content',P[t]);})();
+  </script>
+  <!-- fonts/ is owner-supplied and gitignored. Shinka and Kult Luxury are commercial: license them yourself or the fallbacks apply. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="ink-ui" x="-4%" y="-25%" width="108%" height="150%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="0.7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.22" result="b"/>
+    <feComponentTransfer in="b"><feFuncA type="linear" slope="1.34" intercept="0"/></feComponentTransfer>
+  </filter>
+  <filter id="ink-bio" x="-2%" y="-30%" width="104%" height="160%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-diagram" x="-1%" y="-2%" width="102%" height="104%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.25" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.6" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.1 0 0 0 1.5" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-bas" x="-2%" y="-40%" width="104%" height="180%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-mark" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-dots" x="-2%" y="-40%" width="104%" height="180%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.3" result="b"/>
+    <feComponentTransfer in="b" result="i"><feFuncA type="linear" slope="1.8" intercept="0"/></feComponentTransfer>
+    <feTurbulence type="fractalNoise" baseFrequency="2.4" numOctaves="1" seed="11" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.4 0 0 0 1.6" result="gm"/>
+    <feComposite in="i" in2="gm" operator="in"/>
+  </filter>
+  <filter id="ink-body" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="0.24" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.1" result="b"/>
+    <feComponentTransfer in="b"><feFuncA type="linear" slope="1.12" intercept="0"/></feComponentTransfer>
+  </filter>
+</svg>
+<a class="skip" href="#article">Skip to the writing</a>
+<div class="site">
+  <div class="cols">
+    <nav class="col col-nav" aria-label="Sections">
+      <button type="button" class="nav-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-sheet"><span class="nav-btn-l" aria-hidden="true"></span><span class="nav-btn-l" aria-hidden="true"></span></button>
+      <ul id="nav">
+        <li><a class="item is-active" href="#/articles" aria-current="page">Articles</a></li>
+        <li><a class="item" href="#/lectures">Lectures</a></li>
+        <li><a class="item" href="#/talks">Speaking</a></li>
+        <li><a class="item" href="#/experiments">Experiments</a></li>
+        <li><a class="item" href="#/library">Library</a></li>
+        <li><a class="item" href="#/coffee-table">Coffee table</a></li>
+        <li class="nav-step"><a class="item" href="#/contact">Contact</a></li>
+        <li><a class="item" href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
+    <nav class="col col-sub" aria-label="In this section">
+      <ul id="sub" aria-label="Articles">
+        <li><a class="item is-active" href="index.html" aria-current="page">What is a design harness?</a></li>
+      </ul>
+    </nav>
+    <main class="col col-body" id="main">
+      <article id="article" tabindex="-1">
+<h1 class="sr-only">What is a design harness?</h1>
+<h2>Designing with agents</h2>
+<p style="opacity: 1;">Since starting [company], I've been continuously asked how to design with agents. I've never had an intellectually honest answer. Good design is genuinely hard. Even if you fulfill the conditions of a design being technically correct, compliant and on-spec, it doesn't necessarily make it "good". And what is "good" is tricky! Some say that what is good is objective but even great works can be contested on their greatness. All I know is that we all know very quickly if something is good or not.</p>
+<p>I always wanted to answer this question in a meaningful way. Design.md files, skill files and prompt engineering have been unsatisfactory in moving the needle on producing meaningfully better designs.</p>
+<p>I came to realize design is a complex problem, and complex problems need sophisticated solutions. In hopes of meaningfully answering the question, I began to tinker and explore a unified space for both design and agent knowledge, which I call a design harness.</p>
+<h2>What is a design harness?</h2>
+<p>A <button aria-controls="term-pop" aria-describedby="term-def-design-harness" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="design-harness" type="button">design harness</button> is an opinionated schema for an <button aria-controls="term-pop" aria-describedby="term-def-agent-native" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="agent-native" type="button">agent-native</button> design system to improve the user experience of designing with agents. A design harness is not a <button aria-controls="term-pop" aria-describedby="term-def-coding-harness" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="coding-harness" type="button">coding harness</button>. A coding harness, according to Rubric Labs' article <a href="https://rubriclabs.com/blog/what-is-an-agent-harness" rel="noopener" target="_blank">"What is an Agent Harness?"</a>, is the "software that translates a model into a system that can affect its environment". A coding harness is like giving an agent "hands" where a design harness is like giving an agent an "eye".</p>
+<p>In practice, a design harness could be as simple as a collection of folders and files or a GitHub repository. The magic isn't in the folders and files of the harness. The mere existence of a harness changes the way you work — instead of endlessly prompting an output, you focus on fine-tuning the harness which is the machine that produces the output. It's a simple change that has dramatically different outcomes. I like to think of the design harness as a way to change organizational behavior around design and agents, rather than a technological breakthrough. As Charlie Munger says, "Show me the incentives and I'll show you the outcome".</p>
+<h2>How does a design harness work?</h2>
+<div class="embed embed-harness-flow" data-embed="harness-flow" data-stream-skip=""><figure class="hf-fig"><div aria-label="Show the work before or after a design harness" class="hf-toggle" role="group"><button aria-pressed="false" class="hf-tab" data-state="before" type="button">Before</button><button aria-pressed="true" class="hf-tab" data-state="after" type="button">After</button></div><div class="hf-canvas"><div class="hf-row" data-state="after"><div aria-describedby="hf-def" aria-label="Prompt" class="hf-card hf-prompt" role="group" tabindex="0"><span class="hf-ico"></span><span class="hf-title">Prompt</span></div><div aria-describedby="hf-def" aria-label="Harness" class="hf-card hf-harness" role="group" tabindex="0"><span class="hf-ico"></span><span class="hf-title">Harness</span></div><div aria-describedby="hf-def" aria-label="Agent" class="hf-card hf-agent" role="group" tabindex="0"><span class="hf-ico"></span><span class="hf-title">Agent</span></div><div aria-describedby="hf-def" aria-label="Design" class="hf-card hf-design" role="group" tabindex="0"><span class="hf-ico"></span><span class="hf-title">Design</span></div><div aria-describedby="hf-def" aria-label="Design complete" class="hf-card hf-complete" role="group" tabindex="0"><span class="hf-ico"></span><span class="hf-title">Design complete</span></div></div><div class="hf-labels"><span class="hf-label is-below">moves: steer, concept, tune, comment</span><span class="hf-label is-above">fine-tune the harness: decisions kept as records</span></div></div><figcaption aria-live="polite" class="hf-def" id="hf-def"><span class="hf-def-name">With a harness</span><span class="hf-def-text">People fine-tune the harness, not the output. Every decision is kept, so each design starts further along than the last.</span></figcaption><p class="sr-only">After: a prompt goes to the harness, the harness gives the agent its context, the agent makes a design, and the design becomes design complete. The designer’s moves send the design back to the agent, and people fine-tune the harness: decisions are kept as records.</p></figure></div>
+<h2>Why build a design harness?</h2>
+<p>The notion of a design harness emerged from my frustration in designing with agents. I found myself in an endless back-and-forth fine-tuning outputs to be <button aria-controls="term-pop" aria-describedby="term-def-design-complete" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="design-complete" type="button">design complete</button>. It became unreasonably inefficient, tedious and expensive in both time and token spend. I knew there had to be a better way. I began to reverse-engineer how I think as a designer and how agents reason, and came up with a shared legible language that's simple, easy and intuitive for both designers and agents to understand.</p>
+<h2>When should I make a design harness?</h2>
+<p>Traditionally, design systems were architected at the beginning of the design process and outputs were created after. With design harnesses, we are doing the exact opposite. We start with a 'North Star' artifact that embodies the spirit of your design intent and serves as a standard. At the companies I've worked at, there were always a handful of features that represented the gold standard of design and development that were referenced in the design process.</p>
+<p>You want to create a design harness to create design leverage. Instead of investing your time, energy and tokens on an output, you can invest time into the machine that builds the outputs. Over time, you're able to design deeper, better and faster. In the end, you get more cohesive outputs.</p>
+<h2>Putting my design harness to work</h2>
+<p>I began to build my own design harness and found that when I spent more time fine-tuning the harness, my output quality would compound. I also began to see early signs of nascent, genuine divergent creativity, sorely lacking from the average agent response.</p>
+<p>For the first time, I was <em>happy</em> with the design outputs from agents. Getting to design complete still took substantial work, but nothing excessive or unreasonable. Here are a few live examples of work I've built with design harnesses:</p>
+<h2>Architecture</h2>
+<p>A harness is deceptively simple. It consists of <button aria-controls="term-pop" aria-describedby="term-def-foundations" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="foundations" type="button">Foundations</button>, <button aria-controls="term-pop" aria-describedby="term-def-intelligence" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="intelligence" type="button">Intelligence</button>, <button aria-controls="term-pop" aria-describedby="term-def-components" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="components" type="button">Components</button> and <button aria-controls="term-pop" aria-describedby="term-def-moves" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="moves" type="button">Moves</button>. Foundations are the design system values. Intelligence is a layer of context for agents. Components are components, patterns and screens. Moves are defined design actions for agents.</p>
+<h2>Challenges</h2>
+<p>Design harnesses present a number of unsolved challenges. The first is evaluation. Design evaluation is partly objective and partly subjective, which makes assessing whether a design is "good" or "bad" tricky. For example, I consider my design outputs to be good but you may not (and for good reason).</p>
+<p>The second issue is speed. I have noticed that the tradeoff I've made by having a design harness is that my agents work slower (which I expected given the context I've shared). I've treated this as a feature and not a bug. I've personally enjoyed having more time to think instead of constantly cranking the agent slot machine. But I can see how for many people this is a non-starter.</p>
+<p>The third is effectiveness, especially across different modalities and platforms. I have found gaps in implementation when moving into sound and 3D, not due to any fault of the agent, but my own for not designing the harness to be generalist enough.</p>
+<h2>The future of design harnesses</h2>
+<p>Design harnesses will come to play a critical role in the relationship between design and agents. Objective measures for design harnesses will include <button aria-controls="term-pop" aria-describedby="term-def-win-rate" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="win-rate" type="button">win rates</button>, <button aria-controls="term-pop" aria-describedby="term-def-evals" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="evals" type="button">evals</button> and <button aria-controls="term-pop" aria-describedby="term-def-token-efficiency" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="token-efficiency" type="button">token efficiency</button>. Specialized design harnesses for specific modalities like sound, 3D and shaders will emerge. Organizations will roll out general design harnesses for everyone, while individuals may fine-tune their own. Harness sophistication will grow into a family of design harnesses that could be hierarchical. <button aria-controls="term-pop" aria-describedby="term-def-design-router" aria-expanded="false" aria-haspopup="dialog" class="term" data-term="design-router" type="button">Design routers</button> will emerge to pick the right design harness for the right task. Protocols to normalize design data across design tools will emerge.</p>
+<p>We are at Day 0 for design harnesses, and remain incredibly excited and optimistic for the future of design and intelligence.</p>
+<p>If you would like a design harness, you can download mine or book some time with me and I can help you make your own.</p>
+      </article>
+    </main>
+    <aside class="col col-media" aria-hidden="true"></aside>
+  </div>
+  <footer class="foot">
+      <div class="foot-row">
+        <div class="foot-side">
+          <p class="bio">Ahmed Saleh <span lang="ar" dir="rtl">أحمد صالح</span> is a designer-founder in pursuit of the infinite.</p>
+          <canvas class="foot-dots" aria-hidden="true"></canvas>
+        </div>
+        <p class="basmala" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</p>
+        <div class="foot-side foot-end">
+          <canvas class="foot-dots" aria-hidden="true"></canvas>
+          <ul class="foot-links" id="foot-links" aria-label="More" hidden></ul>
+          <!-- the four marks are the owner's PNG masks (assets/footer/*.png), not in this repo; a missing mask paints nothing -->
+          <ul class="marks" id="marks" aria-label="Marks">
+            <li><span class="mark" role="img" aria-label="Mark 1" style="--w: 22.4px; --src: url(assets/footer/27-45.png)"></span></li>
+            <li><span class="mark" role="img" aria-label="Mark 2" style="--w: 18.6px; --src: url(assets/footer/27-48.png); --soft: 0.42px"></span></li>
+            <li><span class="mark" role="img" aria-label="Mark 3" style="--w: 20px; --src: url(assets/footer/27-49.png)"></span></li>
+            <li><span class="mark" role="img" aria-label="Mark 4" style="--w: 18px; --src: url(assets/footer/27-50.png)"></span></li>
+          </ul>
+        </div>
+      </div>
+      <svg class="wordmark" role="img" aria-label="salehdigital" tabindex="0"><text>salehdigital</text></svg>
+    </footer>
+</div>
+<dialog id="nav-sheet" class="nav-sheet" aria-label="Menu"><div class="nav-sheet-grab" aria-hidden="true"><span></span></div><nav aria-label="Sections"><ul class="nav-sheet-list"></ul></nav></dialog>
+<div id="term-defs" hidden><span id="term-def-design-harness">An opinionated schema for an agent-native design system. It gives an agent an "eye" for design, the way a coding harness gives it "hands".</span><span id="term-def-agent-native">Written for agents to read and act on as well as for people: explicit, structured and complete enough that nothing relies on a designer filling the gaps.</span><span id="term-def-coding-harness">The software that translates a model into a system that can affect its environment (Rubric Labs). It lets an agent act: read files, run code, call tools.</span><span id="term-def-design-complete">Finished to the standard you would ship: every state, edge and detail resolved, not just a convincing first pass.</span></div>
+<script src="site.js"></script>
+<script type="module" src="js/boot.js"></script>
+</body>
+</html>
