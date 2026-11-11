@@ -125,3 +125,100 @@ The live script also pauses the jitter while the tab is hidden or unfocused and 
 ## Paper
 
 There is no paper image. The paper is the flat `--paper` colour (`#fff` in light) plus the grain above. Do not add a background texture image.
+
+## Source (verbatim)
+
+Source: `site/js/grain.js`, whole file
+
+```js
+// The paper and screen grain, out of WebGL. One 256 px noise tile, made once on
+// a 2D canvas with the same recipe the old shader used (dark specks on paper, a
+// few light ones that only show inside ink), sits on a fixed layer above the
+// page, one tile pixel to one device pixel. About 12 times a second the layer
+// jumps to a new random whole-device-pixel offset: a compositor-only move, so
+// there is no repaint and no shader. Its strength follows --fnd-texture in CSS
+// (css/site.css #grain). Still while the window is hidden or unfocused, or for
+// reduced motion; absent with ?lite.
+import { reducedMotion, LITE } from './state.js';
+import { onTheme } from './theme.js';
+
+const TILE = 256;            // device px
+const FPS = 12;
+export const GRAIN_K = 0.45; // alpha baked into the tile; CSS opacity = amount / GRAIN_K
+
+// The specks are the theme's ink, the few bright ones its paper: dark specks on
+// white, light specks on dark paper. Rebuilt when the theme changes.
+function makeTile(ink = [0, 0, 0], paper = [1, 1, 1]) {
+  const I = ink.map(v => Math.round(v * 255)), P = paper.map(v => Math.round(v * 255));
+  const c = document.createElement('canvas'); c.width = c.height = TILE;
+  const x = c.getContext('2d');
+  const img = x.createImageData(TILE, TILE), d = img.data;
+  const half = TILE / 2, coarse = new Float32Array(half * half);
+  for (let i = 0; i < coarse.length; i++) coarse[i] = Math.random();
+  for (let y = 0; y < TILE; y++) for (let xx = 0; xx < TILE; xx++) {
+    const g = Math.random(), g2 = coarse[(y >> 1) * half + (xx >> 1)];
+    const v = g * 0.8 + g2 * 0.2;
+    const light = g >= 0.93;
+    const a = light ? 2.2 * GRAIN_K : GRAIN_K * Math.pow(v, 1.7);
+    const i = (y * TILE + xx) * 4;
+    const c = light ? P : I;
+    d[i] = c[0]; d[i + 1] = c[1]; d[i + 2] = c[2];
+    d[i + 3] = Math.round(Math.min(1, a) * 255);
+  }
+  x.putImageData(img, 0, 0);
+  return c;
+}
+
+export function startGrain() {
+  if (LITE) return null;
+  const el = document.createElement('div');
+  el.id = 'grain'; el.setAttribute('aria-hidden', 'true');
+  document.body.append(el);
+  let url = '';
+  onTheme((c) => makeTile(c.ink, c.paper).toBlob((b) => {
+    if (!b) return;
+    const prev = url; url = URL.createObjectURL(b);
+    el.style.backgroundImage = `url(${url})`;
+    if (prev) URL.revokeObjectURL(prev);
+  }));
+
+  let dpr = 1, timer = 0;
+  function size() {
+    dpr = window.devicePixelRatio || 1;
+    const t = TILE / dpr;
+    el.style.backgroundSize = `${t}px ${t}px`;
+    el.style.width = `calc(100vw + ${t}px)`; el.style.height = `calc(100vh + ${t}px)`;
+  }
+  function jump() {
+    const ox = Math.floor(Math.random() * TILE) / dpr, oy = Math.floor(Math.random() * TILE) / dpr;
+    el.style.transform = `translate3d(${-ox}px, ${-oy}px, 0)`;
+  }
+  function sync() {
+    const run = !document.hidden && document.hasFocus() && !reducedMotion.matches;
+    if (run && !timer) timer = setInterval(jump, 1000 / FPS);
+    if (!run && timer) { clearInterval(timer); timer = 0; }
+  }
+  size(); jump(); sync();
+  window.addEventListener('resize', size);
+  ['focus', 'blur'].forEach(t => window.addEventListener(t, sync));
+  document.addEventListener('visibilitychange', sync);
+  reducedMotion.addEventListener?.('change', sync);
+  return el;
+}
+```
+
+
+Source: `site/css/site.css`, lines 33 to 43
+
+```css
+/* the one canvas: above everything, never in the way */
+#gl { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; }
+/* the grain (js/grain.js): a noise tile at one device pixel per texel, over
+   everything; 0.45 is the alpha baked into the tile (GRAIN_K) */
+#grain {
+  position: fixed; left: 0; top: 0; z-index: 11; pointer-events: none;
+  background-repeat: repeat; image-rendering: pixelated; will-change: transform;
+  opacity: calc((0.01 + 0.05 * var(--fnd-texture)) * var(--grain-k) / 0.45);
+}
+@media print { #gl, #grain { display: none; } }
+```

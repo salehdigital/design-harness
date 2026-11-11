@@ -80,6 +80,17 @@ saleh-digital/
     └── packages/ (⚠️ includes shinka.md, kult-luxury.md, amicons.md with license notes)
 ```
 
+### Also not included
+
+- **Footer marks:** `site/assets/footer/27-45.png`, `27-48.png`, `27-49.png` and `27-50.png` in the owner's site repo. Two of them are national symbols (the emblem of Oman, a maple leaf), not original artwork. They are described in `components/patterns/footer.md`. A rebuild loads them from an owner-supplied `assets/footer/` folder, or leaves the slots empty.
+- **Client work media** in the work grid: the component is described generically in `components/patterns/work-grid.md`.
+- **Audio:** none exists. All sound is synthesised (`foundations/sound/sound.md`).
+- **Icon paths:** any SVG path data in the copied source is replaced by `(icon path omitted)`.
+
+## Parity
+
+`PARITY.md` maps every page, component, interaction, animation, sound and theme on the live site to the record that specifies it.
+
 ## Content License
 
 The design harness content (Markdown files) is licensed under **CC BY 4.0**.
