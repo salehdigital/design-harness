@@ -2,73 +2,43 @@
 title: Dark
 slug: dark
 status: published
+description: "Night: near-black paper and warm off-white ink, used when the system prefers dark."
+chips:
+  - Theme
+  - Dark
 created: 2026-11-09T19:23:22Z
-updated: 2026-11-09T19:23:22Z
+updated: 2026-11-11T15:59:05Z
 ---
 
-The dark theme. Near-black background with warm off-white text.
+Palette name: **Night**. `data-theme="dark"`, no `data-accent`. This is the theme on first visit when `prefers-color-scheme: dark` matches and nothing is stored.
 
-## Colors
-
-**Surface:**
-```css
---paper: #0b0b0c;  /* near-black */
---ink: #ece8e1;    /* warm off-white */
---dot: #2b2a28;
-```
-
-**Accent:**
-```css
---accent: var(--ink);  /* accent = text color */
-```
-
-**Feedback:**
-```css
---ok: #3ecf7e;  /* brighter green */
---glow: #ffc81a;
-```
-
-**Warm glow:**
-```css
---warm: #ffb81a;
---warm-halo: #ffc400;
-```
-
-**Shadow:**
-```css
---shade: #000000;
---shadow: #000000;
---shadow-k: 2.4;  /* stronger shadows */
-```
-
-**Opacity:**
-```css
---op-meta: 0.60;
---op-faint: 0.50;
---grain-k: 1.5;  /* more visible grain */
-```
-
-**Blend mode:**
-```css
---blend-ink: screen;
-```
-
-## Usage
-
-- Very dark background (~11,11,12) with warm text
-- Stronger shadows (2.4×) for depth
-- More visible grain texture (1.5×)
-- Accent = ink (no separate accent color)
-- Screen blend mode for ink overlays
-
-## Theme Meta
-
-```html
-<meta name="theme-color" content="#0b0b0c">
-```
-
-## Color Scheme
+It overrides the [light](light.md) base with:
 
 ```css
-color-scheme: dark;
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0b0b0c;
+  --ink: #ece8e1;
+  --dot: #2b2a28;
+  --glow: #FFC81A;
+  --ok: #3ecf7e;
+  --accent: var(--ink);
+  --shade: #000;
+  --shadow: #000;
+  --shadow-k: 2.4;
+  --warm: #ffb81a;
+  --warm-halo: #ffc400;
+  --op-meta: 0.6;
+  --op-faint: 0.5;
+  --grain-k: 1.5;
+  --blend-ink: screen;
+}
 ```
+
+- theme-color meta: `#0b0b0c`.
+- The accent stays the ink. The success check is a brighter green, `#3ecf7e`.
+- Grain is 1.5× and UI shadows 2.4× (`--shadow-k`), so both still read on dark paper.
+- `--op-meta` .6 and `--op-faint` .5 (light uses .56 and .39) keep the quiet type legible.
+- `--blend-ink: screen`.
+
+See [Themes](../themes.md).

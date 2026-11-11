@@ -1,73 +1,26 @@
 ---
-title: Marathon Accents
+title: Marathon accents
 slug: marathon-accents
 status: published
-description: Accent color variants for Marathon themes.
+description: "The five accents (lime, cyan, red, amber, green) and the exact token each one overrides, per Marathon theme."
 chips:
   - Theme
-  - Colors
+  - Marathon
+  - Colour
 created: 2026-11-09T21:04:27Z
-updated: 2026-11-09T21:04:27Z
+updated: 2026-11-11T15:59:05Z
 ---
 
-Five vivid accent color options for Marathon Dark and Marathon Light themes. Selected via `data-accent` attribute.
+`ACCENTS = ['lime', 'cyan', 'red', 'amber', 'green']`. The default is lime. An accent exists only with a Marathon theme: `data-accent` is removed for light and dark.
 
-## Accent Colors
+| Accent | marathon-dark (name) | marathon-dark overrides | marathon-light (name) | marathon-light overrides |
+|---|---|---|---|---|
+| lime | Acid | base: `--accent #c2fe0b`, `--signal #01ffff` | Sulphur | base: `--accent #c2fe0b`, `--accent-mark #587c00`, `--warm #8fbf00`, `--signal #ff0d1a` |
+| cyan | Static | `--accent #01ffff; --signal #c2fe0b` | Glacier | `--accent #01ffff; --accent-mark #007f88; --warm #00b3bf` |
+| red | Siren | `--accent #ff0d1a; --accent-text #ff4d55; --accent-mark #ff4d55; --ok #59b41d; --on-accent #fff` | Flare | `--accent #ff0d1a; --accent-wash #f88088; --accent-mark #e00012; --signal #fd6c1d; --warm #ff0d1a` |
+| amber | Ember | `--accent #ffb000` | Honey | `--accent #ffb000; --accent-wash #ffd47a; --accent-mark #9a6200; --warm #e09a00` |
+| green | Reactor | `--accent #59b41d` | Moss | `--accent #59b41d; --accent-wash #96cd74; --accent-mark #38801a; --warm #59b41d` |
 
-**Lime** (default):
-```css
---accent: #97ee2c;
---accent-mark: #b4ff4d;
---accent-wash: rgba(151, 238, 44, 0.12);
-```
+In marathon-dark, `--accent-text`, `--accent-mark`, `--accent-wash`, `--glow`, `--ok` (except red), `--warm`, `--warm-halo` and `--foot` all follow `--accent`, so a one-line override recolours the footer, glow, highlights and checks together.
 
-**Cyan**:
-```css
---accent: #33d8ff;
---accent-mark: #5ce5ff;
---accent-wash: rgba(51, 216, 255, 0.12);
-```
-
-**Red**:
-```css
---accent: #ff3350;
---accent-mark: #ff5c75;
---accent-wash: rgba(255, 51, 80, 0.12);
-```
-
-**Amber**:
-```css
---accent: #ffbb14;
---accent-mark: #ffd14d;
---accent-wash: rgba(255, 187, 20, 0.12);
-```
-
-**Green**:
-```css
---accent: #00cc88;
---accent-mark: #1aff a5;
---accent-wash: rgba(0, 204, 136, 0.12);
-```
-
-## Usage
-
-Set accent via attribute:
-```html
-<html data-theme="marathon-dark" data-accent="cyan">
-```
-
-## Applied To
-
-- Active nav items
-- Links in body text
-- Focus rings
-- Active state highlights
-- Marathon Light: accent wash backgrounds on active nav items
-
-## Selection
-
-User chooses accent in settings via swatch picker. Preference persists in localStorage.
-
-## Related
-
-See `marathon-dark.md` and `marathon-light.md` for full theme specifications.
+Storage: `localStorage['sd.theme'] = {"theme":"marathon-dark","accent":"cyan"}`. A preview URL is `?theme=marathon-light&accent=red`.

@@ -2,81 +2,53 @@
 title: Light
 slug: light
 status: published
+description: "Paper: the default theme. White paper, black ink; also the base every other theme overrides."
 chips:
-  - Default
+  - Theme
+  - Light
 created: 2026-11-09T19:23:22Z
-updated: 2026-11-09T19:23:22Z
+updated: 2026-11-11T15:59:05Z
 ---
 
-The default light theme. Clean, high-contrast, neutral palette.
+Palette name: **Paper**. `data-theme="light"`, no `data-accent`. This is the theme when nothing is stored and the system is not dark.
 
-## Colors
-
-**Surface:**
-```css
---paper: #ffffff;
---ink: #000000;
---dot: #e0e0e0;
-```
-
-**Accent:**
-```css
---accent: #000000;
---accent-text: var(--ink);
---accent-mark: var(--ink);
---accent-wash: transparent;
---on-accent: var(--paper);
-```
-
-**Feedback:**
-```css
---ok: #1e9e57;
---signal: var(--ink);
---ring: var(--ink);
-```
-
-**Warm glow:**
-```css
---glow: #ffc81a;
---warm: #d69600;
---warm-halo: #ffc400;
-```
-
-**Shadow:**
-```css
---shade: #dad8d6;
---shadow: #000000;
---shadow-k: 1;
-```
-
-**Selection:**
-```css
---select-bg: var(--ink);
---select-fg: var(--paper);
-```
-
-**Opacity:**
-```css
---op-meta: 0.56;
---op-faint: 0.39;
---grain-k: 1;
-```
-
-## Usage
-
-- Pure white background, pure black text
-- Active nav items turn black (same as ink)
-- Minimal color palette emphasizes typography and texture
-- Shadows at natural intensity (shadow-k: 1)
-
-## Theme Meta
-
-```html
-<meta name="theme-color" content="#ffffff">
-```
-
-## Color Scheme
+The base block below applies to `:root` and to every `[data-theme]`. The other themes override only what they change, and everything else falls back to these values.
 
 ```css
-color-scheme: light;
+:root, [data-theme] {
+  color-scheme: light;
+  --paper: #fff;
+  --ink: #000;
+  --dot: #e0e0e0;
+  --glow: #FFC81A;
+  --ok: #1e9e57;
+  --accent: #000;
+  --accent-text: var(--ink);
+  --accent-mark: var(--ink);
+  --accent-wash: transparent;
+  --on-accent: var(--paper);
+  --ring: var(--ink);
+  --signal: var(--ink);
+  --tint: var(--ink);
+  --swell: var(--ink);
+  --shade: #dad8d6;
+  --shadow: #000;
+  --shadow-k: 1;
+  --warm: #d69600;
+  --warm-halo: #ffc400;
+  --select-bg: var(--ink);
+  --select-fg: var(--paper);
+  --op-meta: 0.56;
+  --op-faint: 0.39;
+  --grain-k: 1;
+  --foot: var(--ink);
+  --muted: color-mix(in srgb, var(--ink) calc(var(--op-meta) * 100%), var(--paper));
 ```
+
+- theme-color meta: `#ffffff`.
+- The accent is the ink (`--accent: #000`), so Paper has no colour accent. `--glow` `#FFC81A` is used only by the new-item orbs and secret traces.
+- The grain strength `--grain-k` is 1. The footer ink `--foot` is the ink.
+- Shadows on the Coffee table fall toward `--shade` `#dad8d6`.
+- Selection: ink background, paper text.
+
+See [Themes](../themes.md) for switching and persistence.
