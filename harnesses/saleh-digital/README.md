@@ -45,11 +45,12 @@ The owner supplies these assets separately for the live site.
 See the [main README](../../README.md) for installation and CLI usage.
 
 **To recreate saleh.digital:**
-1. Read `foundations/` for design tokens and visual system
-2. Read `components/` for UI building blocks and patterns
-3. Read `intelligence/` for agent context, policies, and vocabulary
-4. Use fallback fonts/icons or supply your own licensed assets
-5. Reference the rebuild example in `examples/saleh-digital-rebuild/`
+1. Start from `templates/article.md` (the home page is the newest article, see `templates/home.md`) and `templates/record.md` for Lectures and Speaking pages. They list every record to read, in build order.
+2. The frame: `foundations/layout-grid.md`. Tokens: `foundations/colors.md`, `foundations/spacing/spacing.md`, `foundations/typography/type.md`, `foundations/motion/motion.md`.
+3. The look that is easy to miss: `foundations/materials/texture.md` (ink filters and grain).
+4. The parts: `components/patterns/navigation.md`, `components/patterns/footer.md`, `components/patterns/harness-flow.md`, `components/components/term.md`.
+5. Supply your own licensed Shinka, Kult Luxury and Amicons, or use the documented fallbacks.
+6. Compare with `examples/saleh-digital-rebuild/`, which was built from these records alone and screenshotted against the live site.
 
 ## File Structure
 
