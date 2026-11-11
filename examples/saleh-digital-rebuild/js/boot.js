@@ -29,29 +29,14 @@ document.querySelectorAll('.item, .meta-ico, .warm').forEach((a) => {
   a.addEventListener('pointerdown', (e) => { if (e.pointerType === 'touch') bus.emit('hover', { el: a, source: 'touch' }); });
 });
 
-// the wordmark plays: a note per letter crossed (foundations/motion/hidden-extras.md › Playing the wordmark)
+// the wordmark: the GL layer, its fit, the footer pass, and the hold and letter hooks, all the site's own code
+// (js/wordmark.js and js/gl.js, generated from foundations/motion/webgl*.md)
+import { bootGL, glHandle } from './wordmark.js';
 const wm = document.querySelector('.wordmark');
-if (wm) {
-  const WORD = 'salehdigital', mctx = document.createElement('canvas').getContext('2d');
-  let last = -1, lx = 0, lt = 0;
-  const centres = () => {
-    const t = wm.querySelector('text'), r = wm.getBoundingClientRect();
-    const fs = parseFloat(t.getAttribute('font-size')), x0 = parseFloat(t.getAttribute('x'));
-    mctx.font = `400 ${fs}px "Kult Luxury", "Times New Roman", serif`;
-    return [...WORD].map((ch, i) => r.left + x0 + mctx.measureText(WORD.slice(0, i)).width + mctx.measureText(ch).width / 2);
-  };
-  wm.addEventListener('pointermove', (e) => {
-    const cs = centres(); let best = 0, bd = Infinity;
-    cs.forEach((c, i) => { const d = Math.abs(c - e.clientX); if (d < bd) { bd = d; best = i; } });
-    const t = performance.now(), speed = Math.min(1, Math.abs(e.clientX - lx) / Math.max(1, t - lt) / 2); lx = e.clientX; lt = t;
-    if (best === last) return; last = best;
-    bus.emit('wordmark:letter', { index: best, total: WORD.length, ch: WORD[best], speed, source: e.pointerType });
-  });
-  wm.addEventListener('pointerleave', () => { last = -1; });
-}
+const glReady = bootGL();
 
 // a console handle for checking it all by hand
-window.salehdigital = { bus, audio, setTheme, PALETTE, readColors, streamIn };
+window.salehdigital = { bus, audio, setTheme, PALETTE, readColors, streamIn, get gl() { return glHandle(); } };
 
 // ?selftest: drive the real event paths headlessly and print what fired (used by shoot.sh)
 if (new URLSearchParams(location.search).has('selftest')) {
@@ -73,4 +58,35 @@ if (new URLSearchParams(location.search).has('selftest')) {
     pre.textContent = JSON.stringify({ ...log, audio: audio.status() });
     document.body.append(pre);
   }, 2500);
+}
+
+// ?selftest=gl: does the wordmark really render through WebGL? Reads the #gl canvas back and counts
+// non-transparent pixels inside the wordmark's box. (Test only: the drawing buffer is kept so it can be read.)
+if (new URLSearchParams(location.search).get('selftest') === 'gl') {
+  const orig = HTMLCanvasElement.prototype.getContext;
+  HTMLCanvasElement.prototype.getContext = function (type, attrs) {
+    return orig.call(this, type, this.id === 'gl' && /webgl/.test(type) ? { ...attrs, preserveDrawingBuffer: true } : attrs);
+  };
+  glReady.then((gl) => { scrollTo(0, document.documentElement.scrollHeight); setTimeout(() => {
+    const out = { gl: !!gl, htmlGl: document.documentElement.classList.contains('gl'), glFoot: document.documentElement.classList.contains('gl-foot') };
+    const cv = document.getElementById('gl');
+    const ctx = cv.getContext('webgl2');
+    out.webgl2 = !!ctx; out.renderer = ctx && ctx.getParameter(ctx.RENDERER);
+    const W = cv.width, H = cv.height, k = W / cv.clientWidth;
+    const c2 = document.createElement('canvas'); c2.width = W; c2.height = H;
+    const x = c2.getContext('2d'); x.drawImage(cv, 0, 0);
+    const px = x.getImageData(0, 0, W, H).data;
+    const count = (r) => { let n = 0; for (let y = Math.max(0, r.y0); y < Math.min(H, r.y1); y++) for (let i = Math.max(0, r.x0); i < Math.min(W, r.x1); i++) if (px[(y * W + i) * 4 + 3] > 8) n++; return n; };
+    const wr = wm.getBoundingClientRect();
+    const box = { x0: Math.floor(wr.left * k), x1: Math.ceil(wr.right * k), y0: Math.floor(wr.top * k), y1: Math.ceil(wr.bottom * k) };
+    out.canvas = [W, H]; out.wordmarkBox = box;
+    out.wordmarkPixels = count(box); out.wordmarkArea = (box.x1 - box.x0) * Math.max(0, Math.min(H, box.y1) - Math.max(0, box.y0));
+    const fr = document.querySelector('.foot-row').getBoundingClientRect();
+    out.footerPixels = count({ x0: Math.floor(fr.left * k), x1: Math.ceil(fr.right * k), y0: Math.floor(fr.top * k), y1: Math.ceil(fr.bottom * k) });
+    out.allPixels = count({ x0: 0, x1: W, y0: 0, y1: H });
+    out.wordmarkFont = getComputedStyle(wm.querySelector('text')).fontFamily;
+    out.kultLoaded = document.fonts.check('100px "Kult Luxury"');
+    out.stats = gl?.stats();
+    const pre = document.createElement('pre'); pre.id = 'selftest-gl'; pre.textContent = JSON.stringify(out); document.body.append(pre);
+  }, 2500); });
 }

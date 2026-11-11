@@ -9,42 +9,51 @@ import { audio, PALETTES } from './audio.js';
 import { APPS, MCP } from './mcp.js';
 import { streamIn } from './stream.js';
 
+// Theme, Sound and MCP are each their own page in the main menu (Ahmed, Nov 11); Settings is gone.
+// SETTINGS stays as the group the three belong to (for code that asks "is this a settings page?").
 const items = [
   { slug: 'theme', title: 'Theme' },
   { slug: 'sound', title: 'Sound' },
-  { slug: 'mcp', title: 'MCP' }, // MCP lives in Settings now (Ahmed, Nov 9); #/mcp still opens it
+  { slug: 'mcp', title: 'MCP' },
 ];
 export const SETTINGS = { slug: 'settings', title: 'Settings', id: 'settings', kind: 'section', app: true, items: [] };
 SETTINGS.items = items.map(it => ({ ...it, id: `settings/${it.slug}`, kind: 'item', section: SETTINGS, paras: [], body: [], discuss: 0 }));
+// one single-page section per item, for the menu: #/theme, #/sound, #/mcp
+export const SETTING_PAGES = SETTINGS.items.map(it => {
+  const sec = { slug: it.slug, title: it.title, id: `page-${it.slug}`, kind: 'section', app: true, setting: true, items: [] };
+  sec.items = [{ ...it, section: sec }];
+  return sec;
+});
 // MCP: its own page in the menu (it used to be a page of Settings)
 export const MCP_PAGE = { slug: 'mcp', title: 'MCP', id: 'mcp', kind: 'section', app: true, items: [] };
 MCP_PAGE.items = [{ slug: 'connect', title: 'Connect via MCP', id: 'mcp/connect', kind: 'item', section: MCP_PAGE, paras: [], body: [], discuss: 0 }];
 
-// Contact: its own page in the menu (it was Book a call, then Connect; Ahmed, Nov 9). #/connect still opens it. Its sub-menu is the
+// The ways to reach Ahmed: Welcome's sub-menu (Ahmed, Nov 11; they were the Contact page, now gone). #/contact and #/connect land on Welcome. Its sub-menu is the
 // ways to reach Ahmed, each going straight out. An address left '' shows the row but
 // leads back to Connect until it is set here.
 export const CONNECT_LINKS = [
-  { slug: 'email', title: 'Email', href: '' },            // mailto:…
+  { slug: 'email', title: 'Email', href: 'mailto:…' },
   { slug: 'meeting', title: 'Book a meeting', href: '' }, // empty: the CMS booking link (BOOKING_URL)
-  { slug: 'x', title: 'X/Twitter', href: '' },            // https://x.com/…
-  { slug: 'linkedin', title: 'LinkedIn', href: '' },      // https://www.linkedin.com/in/…
-  { slug: 'company', title: 'Company website', href: '' },
+  { slug: 'x', title: 'X/Twitter', href: 'https://x.com/saleh_digital' },
+  { slug: 'linkedin', title: 'LinkedIn', href: 'https://www.linkedin.com/in/saleh-ahmed/' },
 ];
 export const CONNECT = { slug: 'contact', title: 'Contact', id: 'connect', kind: 'section', app: true, links: true, items: [] };
 CONNECT.items = [{ slug: 'all', title: 'Contact', id: 'connect/all', kind: 'item', section: CONNECT, paras: [], body: [], discuss: 0 }];
 export const connectLinks = (bookingUrl = '') => CONNECT_LINKS.map(l => {
   const href = l.href || (l.slug === 'meeting' ? bookingUrl : l.slug === 'email' && CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : '');
-  return { ...l, href: href || '#/contact', out: !!href && !href.startsWith('mailto:'), id: `connect/${l.slug}` };
+  return { ...l, href: href || '#/welcome', out: !!href && !href.startsWith('mailto:'), id: `connect/${l.slug}` };
 });
 
 // '#/settings' and '#/settings/<page>' (the first page when the page is unknown)
 export function settingsRoute(hash, sectionIndex) {
   const parts = (hash || '').replace(/^#\/?/, '').split('/').filter(Boolean);
-  if (parts[0] === 'contact' || parts[0] === 'connect') return { section: CONNECT, item: CONNECT.items[0], sub: null, app: true, sectionIndex: sectionIndex + 2, itemIndex: 0, hash: '#/contact' };
-  if (parts[0] === 'mcp') parts.splice(0, 1, 'settings', 'mcp');
-  if (parts[0] !== 'settings') return null;
-  const item = SETTINGS.items.find(x => x.slug === parts[1]) || SETTINGS.items[0];
-  return { section: SETTINGS, item, sub: null, app: true, sectionIndex, itemIndex: SETTINGS.items.indexOf(item), hash: `#/settings/${item.slug}` };
+  if (parts[0] === 'contact' || parts[0] === 'connect') return null; // the Contact page is gone (Ahmed, Nov 11): its links are on Welcome; the router sends old links there
+  // #/settings and #/settings/<page> (old links) open the page itself; Settings has no page of its own any more
+  const slug = parts[0] === 'settings' ? (parts[1] || 'theme') : parts[0];
+  const i = SETTING_PAGES.findIndex(p => p.slug === slug);
+  if (i < 0) return null;
+  const sec = SETTING_PAGES[i];
+  return { section: sec, item: sec.items[0], sub: null, app: true, sectionIndex: sectionIndex + 3 + i, itemIndex: 0, hash: `#/${sec.slug}` };
 }
 
 // ---------- small builders ----------
@@ -105,7 +114,7 @@ function specimen(frame, name, aside, extra = {}) {
 }
 
 // ---------- Theme: each theme a live miniature of the site in its own tokens ----------
-const NAV = ['Articles', 'Speaking', 'Lectures', 'Harness', 'Past works', 'Experiments', 'Contact', 'Settings']; // the menu as it is (sections, Nov 9), in miniature
+const NAV = ['Welcome', 'Articles', 'Lectures', 'Speaking', 'Experiments', 'Library', 'Coffee table', 'Theme']; // the menu as it is (sections, Nov 9), in miniature
 const SUB = ['Theme', 'Sound'];
 const LINE = 'Welcome to my online abode. What you see is a living website that generates in real-time based off your attention, interaction and time spent on the site.';
 const mctx = document.createElement('canvas').getContext('2d');
@@ -147,7 +156,7 @@ function sweep(apply, from) {
 }
 function choose(theme, accent, from) {
   const cur = currentTheme();
-  if (pickTheme().source !== 'system' && cur.theme === theme && cur.accent === accent) return;
+  if (pickTheme().source !== 'default' && cur.theme === theme && cur.accent === accent) return;
   sweep(() => setTheme(theme, accent), from);
 }
 
@@ -278,9 +287,9 @@ function soundPage() {
   return [grid];
 }
 
-// Connect: one line; the ways in are the sub-menu beside it
+// Contact: no copy (Ahmed, Nov 11); the ways in are the sub-menu beside it
 function connectPage(kit) {
-  return [h('p', { class: 'set-lede' }, 'Email for anything. A meeting for a proper conversation. The rest to follow along.')];
+  return [];
 }
 
 // MCP: a short conversation. Ahmed says what the server is for and asks which

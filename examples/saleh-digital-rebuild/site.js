@@ -139,7 +139,8 @@ if (btn && sheet) {
   sheet.addEventListener('click', e => { if (e.target === sheet) sheet.close(); });
 }
 
-function layout() { if (wm) fitWordmark(wm); document.querySelectorAll('.foot-dots').forEach(drawDots); }
+function layout() { if (wm && !window.__sdGLFit) fitWordmark(wm); // js/wordmark.js (the site's own fitWordmark) takes over once the GL layer boots
+  document.querySelectorAll('.foot-dots').forEach(drawDots); }
 document.querySelectorAll('.hf-fig').forEach(mountFlow);
 layout();
 document.fonts?.ready?.then(layout);

@@ -188,3 +188,7 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 | Theme | First-paint inline script + theme-color meta | [foundations/themes.md](foundations/themes.md) |
 | Theme | theme:change event to GL / grain / grids | [foundations/themes.md](foundations/themes.md) |
 | Theme | Switcher UI | [templates/settings.md](templates/settings.md) |
+
+## Rebuild check for the WebGL rows
+
+`examples/saleh-digital-rebuild` runs `gl.js`, `glsl.js`, `raster.js` and `orb.js` exactly as copied out of the WebGL records, together with the verbatim wordmark-fit, footer-bake and letter blocks from webgl-wordmark.md. `tools/gl-selftest.sh` checks three pages (home, record and settings) in headless Chrome with SwiftShader. On each page it reads back non-empty `#gl` pixels in the wordmark box and in the footer strip. With WebGL disabled it reports `gl: false`, and the SVG wordmark stays in place. Results are in `examples/saleh-digital-rebuild/screenshots/selftest-gl-*.json`. The rebuild leaves out the footer marks (no masks), the orbs, and the gallery-grid passes.

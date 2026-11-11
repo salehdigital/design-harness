@@ -37,7 +37,10 @@
 @font-face { font-family: "Inter Display"; src: url(fonts/InterDisplay-Medium.woff2) format("woff2"); font-weight: 500; font-style: normal; font-display: swap; size-adjust: 100.06%; ascent-override: 90%; descent-override: 22%; line-gap-override: 0%; }
 @font-face { font-family: "Shinka"; src: url(fonts/Shinka-Regular.otf) format("opentype"); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 100%; ascent-override: 91%; descent-override: 25%; line-gap-override: 0%; }
 @font-face { font-family: "Shinka"; src: url(fonts/Shinka-RegularItalic.otf) format("opentype"); font-weight: 400; font-style: italic; font-display: swap; size-adjust: 100%; ascent-override: 91%; descent-override: 25%; line-gap-override: 0%; }
-@font-face { font-family: "Kult Luxury"; src: url(fonts/Kult-Luxury.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: optional; }
+/* The wordmark face. Kult Luxury is commercial: put your licensed file at fonts/Kult-Luxury.woff2. Without it the
+   browser takes the next source, Instrument Serif (SIL OFL, from Fontsource on jsDelivr), so the DOM, the canvas
+   measure in fitWordmark and the GL field all use the same face. block, as the site has used since 2026-11-11. */
+@font-face { font-family: "Kult Luxury"; src: url(fonts/Kult-Luxury.woff2) format("woff2"), url(https://cdn.jsdelivr.net/fontsource/fonts/instrument-serif@latest/latin-400-normal.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
 @font-face { font-family: "Kufigraph"; src: url(fonts/Kufigraph-Light.otf) format("opentype"); font-weight: 300; font-style: normal; font-display: optional; }
 
 /* ---- base + frame: foundations/layout-grid.md ---- */
@@ -477,3 +480,16 @@ html.is-specimens .cols { grid-template-columns: var(--col-nav, 89px) var(--col-
 @media (max-width: 480px) { .chat-you p { max-width: 90%; } .chat-go { flex-direction: column; align-items: stretch; } .chat-go .mcp-go { justify-content: center; } .chat-go .set-note { flex: none; } }
 @media (max-width: 899px) { .set-field code { font-size: 12px; } .set-field .mcp-label { display: none; } }
 
+
+/* ---- round 3: the GL layer (foundations/motion/webgl-wordmark.md › The CSS, verbatim from css/site.css) ---- */
+#gl { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; }
+@media print { #gl, #grain { display: none; } }
+.rz, .rz * { color: transparent !important; text-decoration-color: transparent !important; }
+.gl.gl-foot .foot-link { color: transparent; }
+.gl.gl-foot .foot-dots { visibility: hidden; } /* drawn in the GL footer pass, so they scroll with it */
+.gl.gl-foot .bio, .gl.gl-foot .basmala { color: transparent; } /* the GL footer draws them, with the wordmark's ink */
+.gl.gl-foot .mark { background-color: transparent; }
+.wordmark { display: block; width: 100%; height: 97px; overflow: hidden; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; outline: none; }
+.wordmark:focus-visible { box-shadow: inset 0 -1px 0 var(--ring); }
+.wordmark text { font-family: "Kult Luxury"; letter-spacing: 0; fill: var(--foot); filter: url(#ink-ui); }
+.gl .wordmark text { fill: transparent; filter: none; }

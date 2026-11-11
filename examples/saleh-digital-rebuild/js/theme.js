@@ -5,8 +5,8 @@
 // them live and tells everyone that draws in colour.
 //
 // Choosing: ?theme=…&accent=… (a preview, not stored) > the stored choice
-// (localStorage 'sd.theme', set from the debug panel) > the system's
-// prefers-color-scheme (light or dark).
+// (localStorage 'sd.theme', set from the debug panel) > Ember (marathon-dark,
+// amber), the default for everyone (Ahmed, Nov 11).
 //
 // Listening: window 'theme:change' (detail = the colours below), or onTheme(fn),
 // which also calls fn once now. Colours come as sRGB triples 0..1, read from the
@@ -37,20 +37,19 @@ export const PALETTE = [
 ];
 const KEY = 'sd.theme';
 const root = document.documentElement;
-const sys = matchMedia('(prefers-color-scheme: dark)');
 const valid = (t) => THEMES.some(x => x.id === t);
 const hasAccent = (t) => !!THEMES.find(x => x.id === t)?.accents;
 
 // (orange became amber, Nov 9: a stored orange carries over)
 function stored() { try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s?.accent === 'orange') s.accent = 'amber'; return s; } catch (e) { return null; } }
 
-// what applies now: { theme, accent, source: 'url' | 'stored' | 'system' }
+// what applies now: { theme, accent, source: 'url' | 'stored' | 'default' }
 export function pick() {
   const q = new URLSearchParams(location.search);
   if (valid(q.get('theme'))) return { theme: q.get('theme'), accent: ACCENTS.includes(q.get('accent')) ? q.get('accent') : 'lime', source: 'url' };
   const s = stored();
   if (s && valid(s.theme)) return { theme: s.theme, accent: ACCENTS.includes(s.accent) ? s.accent : 'lime', source: 'stored' };
-  return { theme: sys.matches ? 'dark' : 'light', accent: 'lime', source: 'system' };
+  return { theme: 'marathon-dark', accent: 'amber', source: 'default' }; // Ember for everyone until they pick (Ahmed, Nov 11; was the system's light or dark)
 }
 
 // any CSS colour string to [r, g, b] 0..1 (and alpha), through a 1px canvas
@@ -114,7 +113,7 @@ export function onTheme(fn) {
 }
 
 // follow the system while nothing is chosen
-sys.addEventListener?.('change', () => { if (pick().source === 'system') { applyAttrs(pick()); announce(); } });
+// (the default no longer follows the system's light or dark, so nothing listens for it changing)
 // another tab chose a theme
 window.addEventListener('storage', (e) => { if (e.key === KEY && pick().source !== 'url') { applyAttrs(pick()); announce(); } });
 
