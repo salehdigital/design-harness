@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is a design harness – Saleh Digital Rebuild</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg style="position: absolute; width: 0; height: 0" aria-hidden="true">
+    <filter id="ink-ui">
+      <feTurbulence baseFrequency="0.6" numOctaves="2" seed="2" />
+      <feDisplacementMap in="SourceGraphic" scale="1.2" />
+      <feGaussianBlur stdDeviation="0.3" />
+    </filter>
+    <filter id="ink-body">
+      <feTurbulence baseFrequency="0.45" numOctaves="3" seed="1" />
+      <feDisplacementMap in="SourceGraphic" scale="1.6" />
+      <feGaussianBlur stdDeviation="0.4" />
+    </filter>
+  </svg>
+
+  <div class="reading-grid">
+    <nav class="col-nav">
+      <ul class="nav-list">
+        <li><a href="index.html" class="item">Home</a></li>
+        <li><a href="#" class="item is-active">Articles</a></li>
+        <li><a href="#" class="item">Library</a></li>
+        <li><a href="#" class="item">Experiments</a></li>
+        <li><a href="#" class="item">Settings</a></li>
+      </ul>
+    </nav>
+
+    <aside class="spine">
+      <span class="text">8 min · Nov 4, 2026 · Article</span>
+    </aside>
+
+    <main class="article-body">
+      <h1>What is a design harness</h1>
+      
+      <p>Design harnesses are specifications written in Markdown that tell AI agents how to recreate a design system. They bridge human intent and machine execution by documenting every design decision--tokens, components, interactions, and principles--in plain language.</p>
+      
+      <h2>Structure</h2>
+      <p>A harness is organized into three sections:</p>
+      
+      <p><strong>Foundations</strong> document the visual language: typography, colors, spacing, motion, materials, themes. These are the atoms of the design system.</p>
+      
+      <p><strong>Components</strong> specify UI elements: chips, buttons, switches, navigation items, covers. Each component has anatomy, states, styling, and usage rules.</p>
+      
+      <p><strong>Intelligence</strong> captures the project's memory: agents (Ada, Dev, Wren, Web), skills (procedures), tools (benches), vocabulary (project-specific terms), and policy (principles like "Detail Over Decoration").</p>
+      
+      <h2>Why harnesses work</h2>
+      <p>Traditional design systems are reference documents. Agents <span class="warm">read</span> them but still guess at implementation details. Harnesses are executable specifications. They include exact values, code snippets, and decision rationale.</p>
+      
+      <p>A harness says: "Chips have 4px padding, 16px height, 8px border-radius, and use var(--dot) at 12% alpha for borders." Not: "Chips are small rounded labels."</p>
+      
+      <h2>Tokens and sliders</h2>
+      <p>Foundation sliders let users tune the feel of the interface without breaking the design. Energy (0--1) adjusts motion speed. Texture (0--1) controls grain and ink filter intensity. Density (0--1) scales spacing.</p>
+      
+      <p>These sliders modulate token values. For example, --gap calculates as: <code>calc(24px + (.3 - var(--fnd-density)) * 20px)</code>. At density 0, gap is 44px (spacious). At density 1, gap is 10px (compact).</p>
+      
+      <h2>Writing a harness</h2>
+      <p>Start by documenting what exists. Measure the live site: hex colors, pixel sizes, font weights, easing curves. Capture the source CSS and component code. Write it down in Markdown with frontmatter (title, slug, status, chips).</p>
+      
+      <p>Test the harness by asking an agent to rebuild the site using only the harness. If the agent guesses, the harness is incomplete. If the agent asks for clarification, the harness is ambiguous. The goal: an agent can recreate the design closely without peeking at the source.</p>
+
+      <div class="post-actions">
+        <button class="meta-ico" aria-label="Discuss">
+          <span class="ico" data-icon="discuss">💬</span>
+          <span class="count">12</span>
+        </button>
+        <button class="meta-ico" aria-label="Copy link">
+          <span class="ico" data-icon="copy">🔗</span>
+        </button>
+        <button class="meta-ico" aria-label="Toggle sound">
+          <span class="ico" data-icon="sound-on">🔊</span>
+        </button>
+      </div>
+    </main>
+
+    <div class="col-margin">
+      <!-- Empty -->
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="foot-grid">
+      <div class="foot-row">
+        <div></div>
+        <div class="bio">Ahmed Saleh أحمد صالح is a designer-founder in pursuit of the infinite.</div>
+        <div class="foot-dots">
+          <!-- Dot matrix placeholder -->
+        </div>
+        <div class="marks">
+          <div class="basmala">بسم الله الرحمن الرحيم</div>
+        </div>
+      </div>
+      <div class="wordmark">salehdigital</div>
+    </div>
+  </footer>
+</body>
+</html>
