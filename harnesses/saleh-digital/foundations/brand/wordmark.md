@@ -10,52 +10,25 @@ created: 2026-11-09T21:04:27Z
 updated: 2026-11-09T21:04:27Z
 ---
 
-The "salehdigital" wordmark rendered as SDF dot matrix in the footer. Single lowercase word, no spaces, no icon.
+`salehdigital`, all lowercase, one word, set in **Kult Luxury** and fitted to the full width of the window at the very bottom of every page. There is no logo, icon or wordmark anywhere else (the top of the page is just the menu).
 
-## Wordmark Text
+> **Licensing.** Kult Luxury is a commercial typeface. It is not in this repository or the npm packages. Buy your own license, or set the word in a fallback serif. Never commit or base64 the font.
 
-`salehdigital` (all lowercase, no separators)
+## Geometry
 
-## Rendering
+- Ink of the word spans `clientWidth - 12px` (6px in from each side).
+- Top padding 6px on desktop, 8px below 900px.
+- The svg is cropped `max(3px, ascent * 0.088)` under the baseline, so descenders (the g) run off the bottom of the page.
+- Fill is `var(--foot)`; the text gets `filter: url(#ink-ui)`.
 
-Signed-distance field (SDF) dot matrix rendering on `<canvas>`:
-- Dot size: 2px
-- Dot gap: 4px
-- Threshold: 0.5
-- Smoothing: 0.1
-- Font: Kult Luxury (commercial, see `intelligence/packages/kult-luxury.md`) or fallback monospace
+The exact fitting function and markup are in `components/patterns/footer.md` ("The wordmark fit"). At 1440 wide this gives a word roughly 250px tall; at 390 wide roughly 70px.
 
-## Footer Placement
+## Live rendering
 
-Full-width row at bottom of footer, spanning all 4 grid columns. Centered or left-aligned depending on viewport width.
+On the live site a WebGL pass (three.js) draws the wordmark into the page canvas `#gl` in the same rectangle, hides the DOM text (`.gl .wordmark text { fill: transparent; }`), and adds a hover where letters resolve one by one; holding it swaps to the Arabic name. A static rebuild uses the DOM svg, which has the same geometry.
 
-## Styling
+## Rules
 
-```css
-.wordmark-canvas {
-  width: 100%;
-  max-width: 600px;
-  height: 64px;
-  opacity: var(--op-meta);
-  transition: opacity 0.2s var(--ease-land);
-}
-
-.wordmark-canvas:hover {
-  opacity: 1;
-}
-```
-
-## Interaction
-
-Hover increases opacity. Click navigates to home or triggers easter egg (optional).
-
-## Fallback
-
-If canvas/SDF fails, show plain text:
-```html
-<span class="wordmark-text">salehdigital</span>
-```
-
-## Related
-
-See `vocabulary/glyph-matrix.md` for SDF rendering technique and `tools/wordmark-shader-bench.md` for optimization.
+- Never shrink the wordmark into a centred logo or put it in the header.
+- Never letter-space it; `letter-spacing: 0`.
+- Lowercase only.

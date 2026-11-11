@@ -10,62 +10,12 @@ created: 2026-11-09T21:04:27Z
 updated: 2026-11-09T21:04:27Z
 ---
 
-Site-wide footer with bio, dot matrix canvases, basmala, and wordmark. Appears at bottom of all pages.
+The footer screen is the bottom of every page: the bio line and the full-width wordmark. Its full spec (markup, CSS, the wordmark fit and the dot strips) is in `components/patterns/footer.md`; this record covers how it sits on the screen.
 
-## Anatomy
+- **Desktop, short page** (a record page such as a lecture): the post ends high on the page, then empty paper, then the footer line and the wordmark pinned to the bottom of the window. At 1440 x 900 the bio line sits at about y 640 and the wordmark fills the last ~250px.
+- **Desktop, long article:** the footer is below the last block of the post, after the 48px bottom padding of `.cols`. At the top of the page it is not visible at all.
+- **Phone:** the same order; the bio wraps to two lines, the basmala under it, then the wordmark across the full width.
 
-See `patterns/footer.md` for full anatomy and styling.
+The live site keeps this behaviour by making `.site` a `min-height: 100svh` flex column with `.cols { flex: 1 }`. A pending change on the site (not yet live) also gives `.foot` a `min-height: 212px` so the line does not jump while the WebGL footer loads; the wordmark geometry is unchanged.
 
-## Grid Layout
-
-```css
-.foot-grid {
-  display: grid;
-  grid-template-columns: var(--col-nav) var(--col-sub) minmax(0, 540px) minmax(0, 1fr);
-  column-gap: var(--gap);
-  padding: calc(var(--para) * 3) 0;
-  border-top: 1px solid color-mix(in srgb, var(--dot) 16%, transparent);
-}
-```
-
-## Rows
-
-**.foot-row** (first row):
-- Col 1 (nav): empty
-- Col 2 (sub): `.bio` text
-- Col 3 (content): `.foot-dots` canvas
-- Col 4 (margin): `.basmala` + `.marks`
-
-**.foot-wordmark** (second row, full width):
-- Spans all 4 columns
-- Dot matrix canvas with "salehdigital" text
-- SDF-rendered
-
-## Responsive
-
-Mobile (<900px):
-```css
-.foot-grid {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--para) * 2);
-  padding: var(--para);
-}
-
-.foot-row {
-  flex-direction: column;
-  gap: var(--para);
-}
-
-.foot-wordmark {
-  width: 100%;
-}
-```
-
-## Usage
-
-- Consistent across all pages
-- SDF dot matrix aesthetic
-- Arabic calligraphy (basmala)
-- Bio in owner's voice
-- Wordmark as final signature
+Theme: the footer uses `--foot` (ink in Paper and Night; the accent in Marathon).
