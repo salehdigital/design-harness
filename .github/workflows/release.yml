@@ -1,0 +1,54 @@
+name: Release
+
+# IMPORTANT: This workflow is gated and will not run automatically.
+# Before enabling:
+# 1. Create npm organization: salehdigital
+# 2. Enable 2FA on npm account
+# 3. Manually publish each package once: npm publish --access public
+# 4. Configure npm trusted publishing (OIDC) for each package at npmjs.com
+# 5. Remove the workflow_dispatch condition below or set a repo variable
+
+on:
+  workflow_dispatch:  # Manual trigger only until first publish is complete
+  # push:
+  #   branches:
+  #     - main
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Uncomment and set this variable in GitHub repo settings to enable auto-release:
+    # if: vars.NPM_PUBLISH_ENABLED == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      
+      - name: Install latest npm
+        run: npm install -g npm@latest
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build
+        run: pnpm build
+      
+      - name: Create Release Pull Request or Publish
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          commit: 'chore: release packages'
+          title: 'chore: release packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
