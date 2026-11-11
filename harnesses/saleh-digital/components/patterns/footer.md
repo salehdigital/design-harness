@@ -134,7 +134,7 @@ Animated, `time` is seconds since load times `0.4 + 1.2 * --fnd-energy`; under r
 ## What the live footer looks like today
 
 - **Basmala face.** The CSS names Kufigraph Light with `font-display: optional`, and the WebGL footer snapshots the text with whatever face is ready. In practice visitors see the system Arabic fallback (a Naskh-style face), not the square Kufic of Kufigraph. To match the live look, do not load Kufigraph. Kufigraph's license is not covered by this repo either.
-- **Phone wordmark.** At 390 wide the live footer reads "salehdigi" and runs off the right edge, with or without WebGL (`?lite` shows the same thing). The cause: Kult Luxury is `font-display: optional`. The canvas measure in `fitWordmark` runs after `document.fonts.load` and uses Kult's metrics, but the DOM `<text>` has already fallen back to a wider serif. See [webgl](../../foundations/motion/webgl.md) › Mobile overflow. The fitted geometry above (the whole word, 6px from each edge) is the intended one.
+- **Phone wordmark.** Until the 2026-11-11 sync, at 390 wide the live footer read "salehdigi" (Kult Luxury was `font-display: optional`, so the DOM fell back to a wider serif while the canvas measured Kult). Kult is now `font-display: block` and the whole word fits at 390 (font-size 29.702). See [webgl](../../foundations/motion/webgl.md) › Mobile overflow.
 
 ## Rules
 

@@ -7,7 +7,7 @@ description: Each column is exactly as wide as its longest title, so the gaps be
 chips:
   - Column gap 24
   - Paragraph 16
-  - Post 540 wide
+  - Post 640 wide
 created: 2026-11-09T14:21:21Z
 updated: 2026-11-09T17:23:21Z
 ---

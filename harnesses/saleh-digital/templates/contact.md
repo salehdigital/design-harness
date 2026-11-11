@@ -2,13 +2,15 @@
 title: Contact
 slug: contact
 status: published
-description: "Contact: one line of the serif body; the sub-nav lists the ways to reach Ahmed (Email, Book a meeting, X/Twitter, LinkedIn, Company website), each going straight out."
+description: "Retired 2026-11-11 (its links moved to Welcome). Was: one line of the serif body; the sub-nav lists the ways to reach Ahmed (Email, Book a meeting, X/Twitter, LinkedIn, Company website), each going straight out."
 chips:
   - Template
   - Contact
 created: 2026-11-11T16:10:00Z
 updated: 2026-11-11T16:10:14Z
 ---
+
+**Retired on 2026-11-11.** The Contact page is gone from the live site: `#/contact` and `#/connect` now land on [Welcome](welcome.md), whose sub-nav carries the same links (Email, Book a meeting, X/Twitter, LinkedIn; the Company website row was dropped). The rest of this record describes the page as it was on the morning of 2026-11-11, kept for reference.
 
 Route: `#/contact` (`#/connect` also works). It is an app page (`CONNECT` in `js/settings.js`), drawn in the same three columns.
 
@@ -28,7 +30,7 @@ The menu at every page (live, 2026-11-11): **Articles, Lectures, Speaking, Exper
 </article>
 ```
 
-Source: `site/js/settings.js`, lines 22 to 37
+Source: `site/js/settings.js` as it was before the 2026-11-11 sync (now see [welcome](welcome.md)), lines 22 to 37
 
 ```js
 // Contact: its own page in the menu (it was Book a call, then Connect; Ahmed, Nov 9). #/connect still opens it. Its sub-menu is the

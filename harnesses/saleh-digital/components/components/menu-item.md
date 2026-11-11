@@ -23,7 +23,7 @@ Nav and sub-nav labels are `a.item` in Inter Display 16/16, tracking -0.64px, `w
 
 Group labels in the sub-nav (`.sub-group`) are not links: `--op-meta`, the same ink filter, and a paragraph step of air before each group but the first.
 
-Source: `site/css/site.css`, lines 57 to 80
+Source: `site/css/site.css`, lines 55 to 78
 
 ```css
 /* ---------- items: active sharp, the rest recede ---------- */

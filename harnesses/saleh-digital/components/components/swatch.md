@@ -15,7 +15,7 @@ Two swatches exist:
 1. **`i.rec-swatch`**, inside a record chip written `#RRGGBB Name` ([chip](chip.md)): a small filled square in that colour before the name.
 2. **`.chip`**, the Marathon accent dots (the CSS is in site.css under the Settings specimens): a 14px circle filled with `--accent`, a 1px inset ink ring at 10%, and a hit area 6px larger. Hover scales it to 1.15. When checked it has a 1px outline in `--ring-page`, offset 2px. Focus-visible gives a dashed outline. The current Theme page has one card per palette and does not show these chips; the CSS is still there.
 
-Source: `site/css/site.css`, lines 833 to 840
+Source: `site/css/site.css`, lines 836 to 843
 
 ```css
 /* Marathon: its five accents as chips under the card; hovering one recolours that card */

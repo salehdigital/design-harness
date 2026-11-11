@@ -208,7 +208,7 @@ export function startGrain() {
 ```
 
 
-Source: `site/css/site.css`, lines 33 to 43
+Source: `site/css/site.css`, lines 31 to 41
 
 ```css
 /* the one canvas: above everything, never in the way */

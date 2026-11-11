@@ -22,12 +22,14 @@ Three faces, each with one job. Shinka is the reading face, Inter Display is eve
 
 ```css
 :root {
-  --ui:    "Inter Display", "Helvetica Neue", Arial, sans-serif;
+  --ui:    "Inter Display", "Helvetica Neue", "SF Arabic", "Geeza Pro", Arial, sans-serif;
   --serif: "Shinka", Georgia, serif;
-  --mono:  "ABC Favorit Mono Trial", "SF Mono", ui-monospace, Menlo, monospace;
+  --mono:  "SF Mono", ui-monospace, Menlo, monospace;
   --track: -.64px;
 }
 ```
+
+As of the site on 2026-11-11, `--mono` no longer names ABC Favorit Mono Trial, and `--ui` adds the system Arabic faces before Arial. The gallery grids still name the trial face directly in their own canvas fonts (see [spine](../../components/components/spine.md) and [glyph matrix](../../components/patterns/glyph-matrix.md)).
 
 ## Faces (`css/site.css`), with owner-supplied files
 
@@ -38,9 +40,12 @@ Three faces, each with one job. Shinka is the reading face, Inter Display is eve
 /* commercial: supply your own licensed files at these paths */
 @font-face { font-family: "Shinka"; src: url(../fonts/Shinka-Regular.otf) format("opentype"); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 100%; ascent-override: 91%; descent-override: 25%; line-gap-override: 0%; }
 @font-face { font-family: "Shinka"; src: url(../fonts/Shinka-RegularItalic.otf) format("opentype"); font-weight: 400; font-style: italic; font-display: swap; size-adjust: 100%; ascent-override: 91%; descent-override: 25%; line-gap-override: 0%; }
-@font-face { font-family: "Kult Luxury"; src: url(../fonts/Kult-Luxury.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: optional; }
-@font-face { font-family: "Kufigraph"; src: url(../fonts/Kufigraph-Light.otf) format("opentype"); font-weight: 300; font-style: normal; font-display: optional; }
+@font-face { font-family: "Kult Luxury"; src: url(../fonts/Kult-Luxury.woff2) format("woff2"), url(../fonts/Kult-Luxury.otf) format("opentype"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Kufigraph"; src: url(../fonts/Kufigraph-Light.otf) format("opentype"); font-weight: 300; font-style: normal; font-display: block; }
+@font-face { font-family: "Kufigraph"; src: url(../fonts/Kufigraph-Regular.otf) format("opentype"); font-weight: 400; font-style: normal; font-display: block; }
 ```
+
+Since 2026-11-11 Kult Luxury and Kufigraph are `font-display: block` (they were `optional`), and the ABC Favorit Mono Trial face is no longer declared in `css/site.css`.
 
 Shinka has a single weight. Bold is drawn, not loaded: `.col-body strong { font-weight: 400; -webkit-text-stroke: .5px currentColor; }`.
 
@@ -84,3 +89,22 @@ There is no post title on the page: the `h1` is `.sr-only`, and the current page
 - Never set body copy in Inter Display or headings in Shinka.
 - No bold weights in the UI. Weight 500 appears in one place, the Harness card of the flow diagram.
 - All type gets the ink filter (see materials/texture.md); without it the page looks digital and flat.
+
+## Reading size (since 2026-11-11)
+
+Posts set the body at the long-read standard: **18px on a 1.6 line (28.8px)**, tracking eased from −0.64px to **−0.2px**, paragraph gap `--para + 6px`, about 74 characters to the **640px** line (540px before that day). Phones: 17/27.2. Headings keep their sizes. Galleries keep 16/16 Inter Display. A post's opening heading sits on the nav's line (−3.35px top margin at ≥ 900px).
+
+Source: `site/css/site.css`, lines 910 to 919
+
+```css
+/* reading size (Ahmed, Nov 11): posts at the common long-read standard, 18px on a 1.6 line (28.8px),
+   about 74 characters to the 640px line (Ahmed widened it from 540, Nov 11); tracking eased from -0.64 (tuned for 16/20.8) to -0.2, since
+   tight tracking tires the eye at length. Paragraph gap follows the line: about 1.1 lines.
+   Phones: 17/27.2. Headings keep their sizes; the list markers and quotes follow the body. */
+.col-body article { font-size: 18px; line-height: 1.6; letter-spacing: -0.2px; gap: calc(var(--para) + 6px); }
+.col-body article > :is(h2, h3) + * { margin-top: calc(var(--para) * -0.35); }
+.col-body article li::marker { font-size: 15px; }
+.col-body article blockquote { gap: calc(var(--para) * 0.6); }
+@media (max-width: 899px) { .col-body article { font-size: 17px; line-height: 1.6; } }
+html.is-gallery .col-body article { font: 400 16px/16px var(--ui); letter-spacing: var(--track); }
+```

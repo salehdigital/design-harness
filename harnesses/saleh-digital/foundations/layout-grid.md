@@ -2,11 +2,11 @@
 title: Layout Grid
 slug: layout-grid
 status: published
-description: One page frame for every room. Four grid columns on desktop (menu, section list, the 540px post, media), one stacked column below 900px.
+description: One page frame for every room. Four grid columns on desktop (menu, section list, the 640px post, media), one stacked column below 900px.
 chips:
   - Desktop 4 columns
   - Breakpoint 900
-  - Post 540
+  - Post 640
   - Padding 24 / 24 / 48
 created: 2026-11-11T15:03:00Z
 updated: 2026-11-11T18:00:00Z
@@ -53,7 +53,7 @@ p { margin: 0; }
 .cols {
   flex: 1;
   display: grid;
-  grid-template-columns: var(--col-nav, 89px) var(--col-sub, 248px) minmax(0, 540px) minmax(0, 1fr);
+  grid-template-columns: var(--col-nav, 89px) var(--col-sub, 248px) minmax(0, 640px) minmax(0, 1fr);   /* 540px until 2026-11-11 */
   column-gap: var(--gap);          /* 24px at the default density */
   align-items: start;
   padding: 24px 24px 48px;
@@ -74,7 +74,7 @@ If you do not run the measuring script, hardcode `--col-nav: 80px; --col-sub: 25
 
 ### Wide embeds
 
-Diagrams and the Before/After flow break out of the 540px column to the right:
+Diagrams and the Before/After flow break out of the 640px column to the right:
 
 ```css
 @media (min-width: 900px) {

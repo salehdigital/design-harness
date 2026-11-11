@@ -17,7 +17,7 @@ Lectures and Speaking pages are records, not essays. Example: `#/lectures/lead-u
 
 - Menu with **Lectures** active.
 - Column 2: the room's pages, "Philosophy of design" (faded) and "Lead UX and Product Design Instructor" (active). The long title stays on one line because the column is 253px wide.
-- Column 3: the record title in Inter Display 16/20 at full ink, then the facts line in 14/20 muted grey, wrapping inside the 540px column.
+- Column 3: the record title in Inter Display 16/20 at full ink, then the facts line in 14/20 muted grey, wrapping inside the 640px column.
 - Empty paper, then the footer line and the full-width wordmark at the bottom of the window.
 
 ## Markup

@@ -2,7 +2,7 @@
 title: Dark
 slug: dark
 status: published
-description: "Night: near-black paper and warm off-white ink, used when the system prefers dark."
+description: "Night: near-black paper and warm off-white ink, picked in Settings or with ?theme=dark."
 chips:
   - Theme
   - Dark
@@ -10,7 +10,7 @@ created: 2026-11-09T19:23:22Z
 updated: 2026-11-11T15:59:05Z
 ---
 
-Palette name: **Night**. `data-theme="dark"`, no `data-accent`. This is the theme on first visit when `prefers-color-scheme: dark` matches and nothing is stored.
+Palette name: **Night**. `data-theme="dark"`, no `data-accent`. It is chosen in Settings › Theme or with `?theme=dark`; first visits get Ember (marathon-dark, amber), whatever the system prefers.
 
 It overrides the [light](light.md) base with:
 

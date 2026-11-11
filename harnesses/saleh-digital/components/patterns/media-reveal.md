@@ -244,7 +244,7 @@ export function resetMedia() {
 ```
 
 
-Source: `site/css/site.css`, lines 398 to 444
+Source: `site/css/site.css`, lines 400 to 446
 
 ```css
 /* ---------- images, revealed on attention (js/media.js) ----------

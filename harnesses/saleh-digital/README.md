@@ -91,6 +91,10 @@ saleh-digital/
 
 `PARITY.md` maps every page, component, interaction, animation, sound and theme on the live site to the record that specifies it.
 
+The WebGL layer (the live wordmark, the footer pass, morphs and orbs) is reproducible from four records: [webgl](foundations/motion/webgl.md), [webgl-renderer](foundations/motion/webgl-renderer.md) (`js/gl.js` whole), [webgl-shaders](foundations/motion/webgl-shaders.md) (`js/glsl.js` whole, every uniform) and [webgl-wordmark](foundations/motion/webgl-wordmark.md). `examples/saleh-digital-rebuild` renders it from those records alone.
+
+The records were re-checked against the site repo and the live site after the site's 2026-11-11 sync: Welcome is the front door, Theme, Sound and MCP are menu pages, Ember is the default theme, posts read at 18/28.8 in a 640px column with their contents in the sub-nav.
+
 ## Content License
 
 The design harness content (Markdown files) is licensed under **CC BY 4.0**.

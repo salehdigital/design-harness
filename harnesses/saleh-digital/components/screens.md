@@ -13,7 +13,7 @@ Full-page layouts for major views in Saleh Digital.
 
 ## Screen Types
 
-**Reading**: Article/post reading view with 4-column grid (nav, spine, content, margin). Optimized for long-form reading with 540px content width.
+**Reading**: Article/post reading view with 4-column grid (nav, spine, content, margin). Optimized for long-form reading with 640px content width.
 
 **Footer**: Site-wide footer component that appears at bottom of all pages. Features bio, SDF dot matrix canvases, Arabic basmala, and wordmark.
 
@@ -24,7 +24,7 @@ All screens share the base 4-column grid system:
 ```css
 .cols {
   display: grid;
-  grid-template-columns: var(--col-nav, 89px) var(--col-sub, 248px) minmax(0, 540px) minmax(0, 1fr);
+  grid-template-columns: var(--col-nav, 89px) var(--col-sub, 248px) minmax(0, 640px) minmax(0, 1fr);
   column-gap: var(--gap);
 }
 ```
@@ -33,7 +33,7 @@ All screens share the base 4-column grid system:
 
 1. **Nav (89px)**: Primary navigation menu
 2. **Sub (248px)**: Secondary navigation, metadata, or spine
-3. **Content (max 540px)**: Main content area
+3. **Content (max 640px)**: Main content area
 4. **Margin (1fr)**: Breathing room, auxiliary content
 
 ## Responsive Collapse

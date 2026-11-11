@@ -485,7 +485,7 @@ export function disposeGL(THREE, renderer, scene, canvas) {
 ```
 
 
-Source: `site/css/site.css`, lines 581 to 667
+Source: `site/css/site.css`, lines 583 to 669
 
 ```css
 /* ---------- the gallery grids (js/grids/*): a canvas under the page, the DOM over it for focus and clicks ---------- */

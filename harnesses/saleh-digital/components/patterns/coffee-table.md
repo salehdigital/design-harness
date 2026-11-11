@@ -776,7 +776,7 @@ export async function mount({ col, recs, fillDetails, signal }) {
 ```
 
 
-Source: `site/css/site.css`, lines 701 to 737
+Source: `site/css/site.css`, lines 703 to 739
 
 ```css
 /* Coffee table, "The table": the books as objects on the page, seen from above. A lifted book's details sit beside it as text. */

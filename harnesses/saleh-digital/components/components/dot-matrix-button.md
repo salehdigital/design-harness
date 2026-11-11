@@ -48,7 +48,7 @@ export function dotIcon(kind) {
 ```
 
 
-Source: `site/css/site.css`, lines 567 to 580
+Source: `site/css/site.css`, lines 569 to 582
 
 ```css
 /* dot-matrix buttons: each dot scaled by its SDF distance to the glyph; hover blooms the halo out from the centre */
@@ -67,7 +67,7 @@ Source: `site/css/site.css`, lines 567 to 580
 ```
 
 
-Source: `site/css/site.css`, lines 745 to 750
+Source: `site/css/site.css`, lines 748 to 753
 
 ```css
 /* the dot-matrix icons are alive: a slow wave breathes out from the centre through the field, each dot a little off-beat, and the halo shimmers. Hover quickens it. */

@@ -2,7 +2,7 @@
 title: Themes
 slug: themes
 status: published
-description: "Four themes and twelve named palettes, picked in Settings, stored in sd.theme, following the system by default."
+description: "Four themes and twelve named palettes, picked in Settings, stored in sd.theme, Ember (marathon-dark, amber) by default for everyone."
 chips:
   - Foundation
   - Theme
@@ -40,9 +40,9 @@ Records: [light](light.md), [dark](dark.md), [marathon-dark](marathon-dark.md), 
 
 1. `?theme=…&accent=…` in the URL. This is a preview only and is never stored.
 2. The stored choice: `localStorage['sd.theme']` = JSON `{"theme": "...", "accent": "..."}`. A stored accent `orange` is read as `amber`.
-3. The system: `prefers-color-scheme: dark` gives `dark`; anything else gives `light`.
+3. The default: **Ember**, `marathon-dark` with accent `amber`, for everyone (Ahmed, Nov 11). It no longer follows `prefers-color-scheme`.
 
-The default accent is `lime`. `data-accent` is set only for the Marathon themes and is removed for light and dark.
+A valid stored theme with no or an unknown accent gets `lime`. `data-accent` is set only for the Marathon themes and is removed for light and dark.
 
 ## Before first paint
 
@@ -50,21 +50,19 @@ An inline script, placed directly after `<meta name="theme-color">` in `<head>`,
 
 ```html
 <meta name="theme-color" content="#ffffff">
-<script>
-/* the theme before first paint (js/theme.js has the same rules): ?theme=&accent= > stored > system */
+<script>/* the theme before first paint (js/theme.js has the same rules): ?theme=&accent= > stored > Ember (marathon-dark, amber) */
 (function(){var d=document.documentElement,q=new URLSearchParams(location.search),T=['light','dark','marathon-dark','marathon-light'],A=['lime','cyan','red','amber','green'],t=q.get('theme'),a=q.get('accent'),s=null;
-if(T.indexOf(t)<0){try{s=JSON.parse(localStorage.getItem('sd.theme')||'null')}catch(e){}t=s&&T.indexOf(s.theme)>=0?s.theme:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');a=s&&(s.accent==='orange'?'amber':s.accent)}
+if(T.indexOf(t)<0){try{s=JSON.parse(localStorage.getItem('sd.theme')||'null')}catch(e){}t=s&&T.indexOf(s.theme)>=0?s.theme:'marathon-dark';a=s&&T.indexOf(s.theme)>=0?(s.accent==='orange'?'amber':s.accent):'amber'}
 d.setAttribute('data-theme',t);if(t.indexOf('marathon')===0)d.setAttribute('data-accent',A.indexOf(a)>=0?a:'lime');
-var P={light:'#ffffff',dark:'#0b0b0c','marathon-dark':'#1c2338','marathon-light':'#f1f3f7'};document.currentScript.previousElementSibling.setAttribute('content',P[t]);})();
-</script>
+var P={light:'#ffffff',dark:'#0b0b0c','marathon-dark':'#0b0b0c','marathon-light':'#f1f3f7'};document.currentScript.previousElementSibling.setAttribute('content',P[t]);})();</script>
 ```
 
-Note: the inline map gives marathon-dark `#1c2338`, but the token paper for marathon-dark is `#0b0b0c`. `js/theme.js` `announce()` then rewrites the meta to the real `--paper` hex once the module runs. Copy both as they are.
+The inline map gives each theme's paper for the meta (`marathon-dark` `#0b0b0c`, the token value). `js/theme.js` `announce()` then rewrites the meta to the computed `--paper` hex once the module runs.
 
 ## Changing it live (`js/theme.js`)
 
-- `setTheme(theme, accent, { store = true })` sets the attributes, stores `{theme, accent}`, and announces. Passing `null` as the theme removes the stored choice and follows the system again.
-- While the source is `system`, a change to `prefers-color-scheme` re-applies the theme.
+- `setTheme(theme, accent, { store = true })` sets the attributes, stores `{theme, accent}`, and announces. Passing `null` as the theme removes the stored choice and goes back to the default (Ember).
+- Nothing listens to `prefers-color-scheme` any more: the default does not follow the system.
 - A `storage` event on `sd.theme` (another tab) re-applies it, so tabs stay in sync.
 - `announce()` sets `meta[name=theme-color]` to the computed `--paper` hex and dispatches `window` `theme:change` with `readColors()`: the tokens paper, ink, dot, glow, ok, accent, accent-mark, accent-wash, signal, tint, swell, shade, shadow and foot as sRGB triples from 0 to 1, plus `grainK`. The WebGL layers (wordmark, orbs, grids), the grain, and the Settings sound scores re-tint from this event without a reload.
 
@@ -77,8 +75,8 @@ Source: `site/js/theme.js`, whole file
 // them live and tells everyone that draws in colour.
 //
 // Choosing: ?theme=…&accent=… (a preview, not stored) > the stored choice
-// (localStorage 'sd.theme', set from the debug panel) > the system's
-// prefers-color-scheme (light or dark).
+// (localStorage 'sd.theme', set from the debug panel) > Ember (marathon-dark,
+// amber), the default for everyone (Ahmed, Nov 11).
 //
 // Listening: window 'theme:change' (detail = the colours below), or onTheme(fn),
 // which also calls fn once now. Colours come as sRGB triples 0..1, read from the
@@ -109,20 +107,19 @@ export const PALETTE = [
 ];
 const KEY = 'sd.theme';
 const root = document.documentElement;
-const sys = matchMedia('(prefers-color-scheme: dark)');
 const valid = (t) => THEMES.some(x => x.id === t);
 const hasAccent = (t) => !!THEMES.find(x => x.id === t)?.accents;
 
 // (orange became amber, Nov 9: a stored orange carries over)
 function stored() { try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s?.accent === 'orange') s.accent = 'amber'; return s; } catch (e) { return null; } }
 
-// what applies now: { theme, accent, source: 'url' | 'stored' | 'system' }
+// what applies now: { theme, accent, source: 'url' | 'stored' | 'default' }
 export function pick() {
   const q = new URLSearchParams(location.search);
   if (valid(q.get('theme'))) return { theme: q.get('theme'), accent: ACCENTS.includes(q.get('accent')) ? q.get('accent') : 'lime', source: 'url' };
   const s = stored();
   if (s && valid(s.theme)) return { theme: s.theme, accent: ACCENTS.includes(s.accent) ? s.accent : 'lime', source: 'stored' };
-  return { theme: sys.matches ? 'dark' : 'light', accent: 'lime', source: 'system' };
+  return { theme: 'marathon-dark', accent: 'amber', source: 'default' }; // Ember for everyone until they pick (Ahmed, Nov 11; was the system's light or dark)
 }
 
 // any CSS colour string to [r, g, b] 0..1 (and alpha), through a 1px canvas
@@ -186,7 +183,7 @@ export function onTheme(fn) {
 }
 
 // follow the system while nothing is chosen
-sys.addEventListener?.('change', () => { if (pick().source === 'system') { applyAttrs(pick()); announce(); } });
+// (the default no longer follows the system's light or dark, so nothing listens for it changing)
 // another tab chose a theme
 window.addEventListener('storage', (e) => { if (e.key === KEY && pick().source !== 'url') { applyAttrs(pick()); announce(); } });
 
@@ -201,7 +198,7 @@ document.querySelectorAll('meta[name="theme-color"]').forEach(m => m.setAttribut
 
 Picking a card in Settings › Theme runs `setTheme` inside `document.startViewTransition` (when it exists and the page is visible), so the whole page crossfades. There is no mask and no blur. `--vt-ms` is `calc(260ms - 80ms * var(--fnd-energy))`, which is 220ms at the default energy of 0.5. Under reduced motion it becomes 120ms linear. Without View Transitions the theme simply swaps.
 
-Source: `site/css/site.css`, lines 847 to 856
+Source: `site/css/site.css`, lines 850 to 859
 
 ```css
 /* the theme change: a quick crossfade of the whole page, no mask, no blur (Ahmed, Nov 9) */
@@ -223,7 +220,7 @@ The Settings page itself is specified in [Settings](../../templates/settings.md)
 
 The semantic tokens, with the meaning of each one, then every theme block verbatim. This is the whole of the theme system.
 
-Source: `site/css/tokens.css`, lines 53 to 191
+Source: `site/css/tokens.css`, lines 51 to 189
 
 ```css
 /* ---------- themes ----------
@@ -372,3 +369,47 @@ Source: `site/css/tokens.css`, lines 53 to 191
 - In dark and Marathon themes, the small grey type (`.rec-val, .viewer-count, .info-foot, .info-source, .mcp-label, .mcp-note, .mcp-lede, .sp-back, .type-tile-desc` and the MCP step numbers) uses `var(--muted)` instead of the 40–50% ink mixes, so it stays above AA.
 - Marathon: the dot-matrix buttons take the accent on hover.
 - `--blend-ink: screen` (dark themes) is the blend the ink filters use on dark paper.
+
+## The favicon follows the theme
+
+`js/favicon.js` (mounted at the end of `boot()`) draws the tab icon as a 7 × 7 dot matrix holding a circle: each dot's size comes from the circle's signed distance field. It is drawn as an SVG in `--accent-mark` (or `--ink` in the plain themes) on `--paper`, and redrawn on every theme change. Every `link[rel=icon]` takes the live SVG. `assets/favicon.svg` is the same circle in Ember, for the first paint.
+
+Source: `site/js/favicon.js`, whole file
+
+```js
+// The favicon (Ahmed, Nov 11): a 7 by 7 dot matrix holding a circle. Each dot's size comes from the circle's signed
+// distance field (inside, full; past the edge, a faint speck), the same way the harness card's tile draws its square.
+// Drawn as an SVG in the theme's accent (--accent-mark, ink in the plain themes) on its paper, and drawn again
+// whenever the theme changes, so the tab follows the site. assets/favicon.svg is the same circle in Ember, for
+// the first paint and for anything that reads the file (tools/favicon.py made the old "sd").
+import { onTheme } from './theme.js';
+
+const N = 7;
+const esc = (c) => c.replace(/#/g, '%23');
+
+export function faviconSvg(ink, paper) {
+  const cell = 64 / (N + 1);
+  let dots = '';
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    const x = (i - (N - 1) / 2) / ((N - 1) / 2), y = (j - (N - 1) / 2) / ((N - 1) / 2); // -1..1
+    const d = Math.hypot(x, y) - 0.86;                                // the circle's distance field
+    const fill = Math.min(1, Math.max(0, 0.5 - d / 0.34));
+    const r = cell * (0.1 + 0.34 * fill), o = 0.22 + 0.78 * fill;
+    dots += `<circle cx="${(cell * (i + 1)).toFixed(2)}" cy="${(cell * (j + 1)).toFixed(2)}" r="${r.toFixed(2)}"${o < 1 ? ` opacity="${o.toFixed(2)}"` : ''}/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${paper}"/><g fill="${ink}">${dots}</g></svg>`;
+}
+
+export function mountFavicon() {
+  const links = [...document.head.querySelectorAll('link[rel="icon"]')];
+  const draw = () => {
+    const cs = getComputedStyle(document.documentElement);
+    const ink = cs.getPropertyValue('--accent-mark').trim() || cs.getPropertyValue('--ink').trim() || '#000';
+    const paper = cs.getPropertyValue('--paper').trim() || '#fff';
+    const href = 'data:image/svg+xml,' + esc(faviconSvg(ink, paper));
+    // the .ico would win in some browsers, so every icon link takes the live SVG
+    links.forEach(l => { l.href = href; l.type = 'image/svg+xml'; l.removeAttribute('sizes'); });
+  };
+  return onTheme(draw);
+}
+```

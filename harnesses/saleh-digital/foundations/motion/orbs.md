@@ -112,7 +112,7 @@ export function accentLook(L, c) {
 
 ## Which items get one (app.js)
 
-Source: `site/js/app.js`, lines 317 to 353
+Source: `site/js/app.js`, lines 430 to 466
 
 ```js
 // ---------- the yellow orbs ----------
@@ -156,7 +156,7 @@ function syncOrbs() {
 
 ## The shader
 
-Source: `site/js/glsl.js`, lines 421 to 609
+Source: `site/js/glsl.js`, lines 420 to 605
 
 ```js
 // The yellow "new" orb: a smooth union of three wobbling discs, drawn as a

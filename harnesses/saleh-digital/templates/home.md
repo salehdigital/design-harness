@@ -2,7 +2,7 @@
 title: Home Template
 slug: home
 status: published
-description: Homepage layout and structure.
+description: "The front door: since 2026-11-11 / opens Welcome; before that, the newest article."
 chips:
   - Template
   - Layout
@@ -10,9 +10,11 @@ created: 2026-11-11T15:03:00Z
 updated: 2026-11-11T15:03:00Z
 ---
 
-There is no separate home layout. `https://saleh.digital/` resolves to the newest article and renders it with the article template (`templates/article.md`): Articles is active in the menu, the article title is the only item in column 2, the canonical URL is `https://saleh.digital/articles/what-is-a-design-harness/`, and the page `<title>` is "What is a design harness?, Ahmed Saleh".
+**Since 2026-11-11** `https://saleh.digital/` opens **Welcome** (`#/welcome`), the first room in the menu: one serif paragraph introducing Ahmed, with the ways to reach him as its sub-nav. See [welcome](welcome.md). The static `<title>` is "Ahmed Saleh" and the canonical URL `https://saleh.digital/`; the app sets the title to "Welcome, Ahmed Saleh".
 
-So a rebuild of the home page is the article page. Do not add a hero, a welcome line, a list of recent posts, a header logo or a "Home" menu item.
+Before that day, `/` resolved to the newest article ("What is a design harness?") and rendered it with the [article](article.md) template, with Articles active. That article is now at `#/articles`.
+
+There is still no hero, no list of recent posts, no header logo and no "Home" menu item.
 
 ## Head (from the live page)
 

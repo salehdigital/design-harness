@@ -1,12 +1,12 @@
 # Parity: saleh.digital ↔ this harness
 
-Every page, component, interaction, animation, sound and theme on the live site (checked against https://saleh.digital on 2026-11-11), mapped to the record that specifies it.
+Every page, component, interaction, animation, sound and theme on the live site (checked against https://saleh.digital on 2026-11-11, including that day's site sync: Welcome as the front door, Theme/Sound/MCP in the menu, Ember as the default theme), mapped to the record that specifies it.
 
-**Items: 149 · mapped: 149 · unmapped: 0**  (Page: 14 · Component: 44 · Interaction: 27 · Animation: 29 · Sound: 17 · Theme: 18)
+**Items: 174 · mapped: 174 · unmapped: 0**  (Page: 16 · Component: 47 · Interaction: 30 · Animation: 44 · Sound: 17 · Theme: 20)
 
 "Mapped" means the record holds the exact values, and usually the site's real source, needed to rebuild the item. Known differences between the live site and its intent are noted inside the records:
 
-- the phone wordmark overflow (`foundations/motion/webgl.md`)
+- the phone wordmark overflow, fixed in the 2026-11-11 sync (`foundations/motion/webgl.md`)
 - emergence switched off (`foundations/motion/emergence.md`)
 - the post actions hidden (`components/patterns/post-actions.md`)
 
@@ -14,17 +14,19 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 
 | Kind | Item | Record |
 |---|---|---|
-| Page | Articles (home, `#/articles`) | [templates/home.md](templates/home.md) |
+| Page | Welcome (home, `/` and `#/welcome`; the ways to reach Ahmed in its sub-nav) | [templates/welcome.md](templates/welcome.md) |
+| Page | Front door and head (`/`; was the newest article until 2026-11-11) | [templates/home.md](templates/home.md) |
+| Page | Articles (`#/articles`) | [templates/article.md](templates/article.md) |
 | Page | Article: What is a design harness? | [templates/article.md](templates/article.md) |
 | Page | Lectures (`#/lectures/…`) | [templates/lectures.md](templates/lectures.md) |
 | Page | Speaking (`#/talks/…`) | [templates/speaking.md](templates/speaking.md) |
 | Page | Experiments (`#/experiments`) | [templates/experiments.md](templates/experiments.md) |
 | Page | Library (`#/library`) | [templates/library.md](templates/library.md) |
 | Page | Coffee table (`#/coffee-table`) | [templates/coffee-table.md](templates/coffee-table.md) |
-| Page | Contact (`#/contact`) | [templates/contact.md](templates/contact.md) |
-| Page | Settings › Theme | [templates/settings.md](templates/settings.md) |
-| Page | Settings › Sound | [templates/settings.md](templates/settings.md) |
-| Page | Settings › MCP | [templates/settings.md](templates/settings.md) |
+| Page | Contact (retired 2026-11-11: `#/contact` lands on Welcome) | [templates/contact.md](templates/contact.md) |
+| Page | Theme (`#/theme`; was Settings › Theme) | [templates/settings.md](templates/settings.md) |
+| Page | Sound (`#/sound`; was Settings › Sound) | [templates/settings.md](templates/settings.md) |
+| Page | MCP (`#/mcp`; was Settings › MCP) | [templates/settings.md](templates/settings.md) |
 | Page | A record page (single page in a section) | [templates/record.md](templates/record.md) |
 | Page | Reading screen (the article view) | [components/screens/reading.md](components/screens/reading.md) |
 | Page | Footer screen | [components/screens/footer.md](components/screens/footer.md) |
@@ -35,6 +37,9 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 | Component | Ink filters (#ink-ui, #ink-body, #ink-bio, #ink-bas, #ink-mark, #ink-dots, #ink-diagram) | [foundations/materials/texture.md](foundations/materials/texture.md) |
 | Component | Grain layer (#grain) | [foundations/materials/texture.md](foundations/materials/texture.md) |
 | Component | Nav menu (#nav) | [components/patterns/navigation.md](components/patterns/navigation.md) |
+| Component | Post contents in the sticky sub-nav, with the SDF dot marker (added 2026-11-11) | [components/patterns/toc.md](components/patterns/toc.md) |
+| Component | Phone sections pill and its list (liquid glass, added 2026-11-11) | [components/patterns/toc.md](components/patterns/toc.md) |
+| Component | Post reading size: 18/28.8 in the 640px column (since 2026-11-11) | [foundations/typography/type.md](foundations/typography/type.md) |
 | Component | Sub-nav with group labels (#sub) | [components/patterns/navigation.md](components/patterns/navigation.md) |
 | Component | Phone menu glyph and bottom sheet | [components/patterns/navigation.md](components/patterns/navigation.md) |
 | Component | Menu item states (rest / peek / active / orb) | [components/components/menu-item.md](components/components/menu-item.md) |
@@ -111,9 +116,28 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 | Animation | Emergence reveal (off on live) | [foundations/motion/emergence.md](foundations/motion/emergence.md) |
 | Animation | Resonance tiers and life | [foundations/motion/emergence.md](foundations/motion/emergence.md) |
 | Animation | Orb bloom / melt / lean / flare | [foundations/motion/orbs.md](foundations/motion/orbs.md) |
-| Animation | WebGL wordmark (5 life stages, cursor warp) | [foundations/motion/webgl.md](foundations/motion/webgl.md) |
-| Animation | WebGL footer pass | [foundations/motion/webgl.md](foundations/motion/webgl.md) |
-| Animation | Wordmark fit and the mobile overflow | [foundations/motion/webgl.md](foundations/motion/webgl.md) |
+| Animation | WebGL wordmark (5 life stages, cursor warp) | [foundations/motion/webgl-shaders.md](foundations/motion/webgl-shaders.md) |
+| Animation | WebGL footer pass | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Animation | Wordmark fit (and the phone overflow, fixed 2026-11-11) | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Animation | GL renderer setup: WebGL2 context, half-float targets, the jump-flood SDF builder | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Animation | GPU budgets, field cache and the over-budget crossfade | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Animation | GL frame loop: busy rAF, 15/30 fps idle, hidden-tab and off-screen pausing | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Animation | GL DPR cap (1.5, 1.2 while scrolling) and resize | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Animation | GL context loss and the one restore | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Animation | Item morph shader (ITEM_FRAG) and its uniforms | [foundations/motion/webgl-shaders.md](foundations/motion/webgl-shaders.md) |
+| Animation | Body line morph shader (LINES_FRAG) and its uniforms | [foundations/motion/webgl-shaders.md](foundations/motion/webgl-shaders.md) |
+| Animation | Wordmark shader uniforms and how each animates | [foundations/motion/webgl-shaders.md](foundations/motion/webgl-shaders.md) |
+| Animation | Orb shaders (glow and dots) | [foundations/motion/webgl-shaders.md](foundations/motion/webgl-shaders.md) |
+| Animation | Wordmark per-glyph fields and the stage-4 melt | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Animation | Wordmark Arabic hold mix | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Animation | Footer dot strips (GL blobs; 2D canvas fallback) | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Animation | No-WebGL and ?lite fallback (SVG wordmark, DOM ink filters) | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Animation | Reduced motion in the GL layer | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Interaction | Wordmark letter notes and haptics (wordmark:letter) | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Interaction | Mark hover focus in the GL footer | [foundations/motion/webgl-wordmark.md](foundations/motion/webgl-wordmark.md) |
+| Interaction | Cursor warp on the wordmark (document-space pointer) | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Theme | GL re-tint on theme change (uInk, uSwell, uFoot, orb colours) | [foundations/motion/webgl-renderer.md](foundations/motion/webgl-renderer.md) |
+| Theme | Favicon dot matrix follows the theme | [foundations/themes.md](foundations/themes.md) |
 | Animation | Grain jitter 15 fps | [foundations/materials/texture.md](foundations/materials/texture.md) |
 | Animation | Footer dot strips (SDF dot matrix) | [components/patterns/footer.md](components/patterns/footer.md) |
 | Animation | Harness flow flowing dots shader | [components/patterns/harness-flow.md](components/patterns/harness-flow.md) |
@@ -127,6 +151,7 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 | Animation | MCP held controls rise-in | [templates/settings.md](templates/settings.md) |
 | Animation | Sound score playhead | [templates/settings.md](templates/settings.md) |
 | Animation | Slow-motion review aid | [foundations/motion/motion.md](foundations/motion/motion.md) |
+| Animation | Contents marker spring glide and pill entrance | [components/patterns/toc.md](components/patterns/toc.md) |
 | Animation | Orb review stage (bench tool, not on the site) | [foundations/motion/orbs.md](foundations/motion/orbs.md) |
 | Sound | Audio unlock on first gesture | [foundations/sound/sound.md](foundations/sound/sound.md) |
 | Sound | Master switch sd:sound (default on) | [foundations/sound/sound.md](foundations/sound/sound.md) |
@@ -159,7 +184,7 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 | Theme | Moss (marathon-light green) | [foundations/themes/marathon-accents.md](foundations/themes/marathon-accents.md) |
 | Theme | Semantic token mapping per theme | [foundations/themes.md](foundations/themes.md) |
 | Theme | Persistence (sd.theme) and ?theme preview | [foundations/themes.md](foundations/themes.md) |
-| Theme | System preference (prefers-color-scheme) | [foundations/themes.md](foundations/themes.md) |
+| Theme | Default for everyone: Ember (no longer follows prefers-color-scheme) | [foundations/themes.md](foundations/themes.md) |
 | Theme | First-paint inline script + theme-color meta | [foundations/themes.md](foundations/themes.md) |
 | Theme | theme:change event to GL / grain / grids | [foundations/themes.md](foundations/themes.md) |
 | Theme | Switcher UI | [templates/settings.md](templates/settings.md) |
