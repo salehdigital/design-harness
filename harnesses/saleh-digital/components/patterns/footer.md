@@ -37,7 +37,16 @@ The footer is the last child of `.site` (a `min-height: 100vh` flex column, see 
 </footer>
 ```
 
-The marks are the owner's own PNG masks (`assets/footer/*.png`), not part of this harness. Without them, leave the `<li>`s empty-masked (a mask that fails to load paints nothing) or drop the list; do not draw substitutes.
+The marks are PNG masks from the owner's site repo, `site/assets/footer/`, **not part of this harness** (two of them are national symbols, not original artwork). They are painted in `--foot` through `mask`, so only their alpha matters:
+
+| File | Size | Bytes | `--w` | What it shows (source comment) |
+|---|---|---|---|---|
+| `27-45.png` | 90 × 80 | 816 | 22.4px | a swoosh with a sparkle: a long tapering diagonal stroke rising to the right, with a small four-point star above its tip |
+| `27-48.png` | 78 × 84 | 8068 | 18.6px, `--soft` .42px | an interlocking knot: a rosette of six looped bands woven around a centre |
+| `27-49.png` | 80 × 80 | 1594 | 20px | the emblem of Oman: a khanjar dagger over two crossed swords |
+| `27-50.png` | 72 × 80 | 1048 | 18px | a maple leaf |
+
+Every mark is 20px tall and 8px apart, 8px in from the side. At rest it is a hair soft (`blur(soft + .55px)` through `#ink-mark`); on hover it resolves sharp through the field, or through the GL footer pass's `markHover`. Their labels are "Mark 1" to "Mark 4" (`role="img"`). They are decorative for now. Without them, leave the `<li>`s empty-masked (a mask that fails to load paints nothing) or drop the list; do not draw substitutes.
 
 ## CSS
 
@@ -125,7 +134,7 @@ Animated, `time` is seconds since load times `0.4 + 1.2 * --fnd-energy`; under r
 ## What the live footer looks like today
 
 - **Basmala face.** The CSS names Kufigraph Light with `font-display: optional`, and the WebGL footer snapshots the text with whatever face is ready. In practice visitors see the system Arabic fallback (a Naskh-style face), not the square Kufic of Kufigraph. To match the live look, do not load Kufigraph. Kufigraph's license is not covered by this repo either.
-- **Phone wordmark.** At 390 wide the live WebGL pass currently draws the word larger than the fitted DOM box, so it reads "salehdigi" and runs off the right edge. The fitted geometry above (the whole word, 6px from each edge) is the intended one.
+- **Phone wordmark.** At 390 wide the live footer reads "salehdigi" and runs off the right edge, with or without WebGL (`?lite` shows the same thing). The cause: Kult Luxury is `font-display: optional`. The canvas measure in `fitWordmark` runs after `document.fonts.load` and uses Kult's metrics, but the DOM `<text>` has already fallen back to a wider serif. See [webgl](../../foundations/motion/webgl.md) › Mobile overflow. The fitted geometry above (the whole word, 6px from each edge) is the intended one.
 
 ## Rules
 

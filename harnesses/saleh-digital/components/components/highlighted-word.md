@@ -1,65 +1,23 @@
 ---
-title: Highlighted Word
+title: Accent wash
 slug: highlighted-word
 status: published
-description: Inline marked text.
+description: "On light Marathon paper the accent is a highlighter behind the ink: a band from 12% to 92% of the line, 3px past each side."
 chips:
-  - Emphasis
+  - Component
+  - Marathon
+  - Highlight
 created: 2026-11-09T21:04:27Z
-updated: 2026-11-09T21:04:27Z
+updated: 2026-11-11T16:07:17Z
 ---
 
-Inline highlighted word or phrase with subtle background wash. Used in body text for emphasis (non-interactive, distinct from glow).
-
-## Anatomy
-
-```html
-<mark>important term</mark>
-```
-
-## Styling
+On marathon-light, the accent (lime, cyan and so on) can never be type, because it fails contrast on pale paper. Wherever the accent marks "this one", it is a **highlighter band behind the ink** instead:
 
 ```css
-mark {
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-  color: inherit;
-  padding: 0.5px 1px;
-  border-radius: 1px;
-}
+background: linear-gradient(transparent 12%, var(--accent-wash) 12%, var(--accent-wash) 92%, transparent 92%);
+box-shadow: -3px 0 0 var(--accent-wash), 3px 0 0 var(--accent-wash);
 ```
 
-Light theme:
-```css
-[data-theme="light"] mark {
-  background: color-mix(in srgb, var(--accent) 5%, transparent);
-}
-```
+It is used on `.col-nav .item.is-active`, `.nav-sheet-list .item.is-active`, and the Settings miniature's active nav item (`.mini[data-theme="marathon-light"] .m-nav .m-i.on .t`). Selection on marathon-light is `--select-bg: var(--accent-wash)` with ink text.
 
-Dark theme:
-```css
-[data-theme="dark"] mark {
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
-```
-
-Marathon theme:
-```css
-[data-theme^="marathon"] mark {
-  background: color-mix(in srgb, var(--accent) 9%, transparent);
-}
-```
-
-## Difference from Glow
-
-- **Highlight (`<mark>`)**: static, non-interactive, subtle wash background
-- **Glow (`.warm`)**: interactive hover, warm gold text-shadow, no background
-
-Use `<mark>` for definitional terms or passive emphasis; `.warm` for interactive/clickable phrases.
-
-## Usage
-
-- Semantic HTML `<mark>` tag
-- Very subtle alpha (5–9% accent)
-- No bold or font change
-- No user interaction
-- Used in articles and glossary definitions
+`--accent-wash` per accent on marathon-light: lime `#c2fe0b`, cyan `#01ffff`, red `#f88088`, amber `#ffd47a`, green `#96cd74`. In marathon-dark the active item is simply `color: var(--accent-text)`.

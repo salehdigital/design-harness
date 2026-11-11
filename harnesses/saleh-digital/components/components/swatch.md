@@ -2,80 +2,28 @@
 title: Swatch
 slug: swatch
 status: published
-description: Color preview for theme/accent pickers.
+description: "Colour swatches: the rec-swatch inside a colour chip, and the 14px accent chip dots of the Marathon theme cards."
 chips:
-  - Control
+  - Component
+  - Colour
 created: 2026-11-09T21:04:27Z
-updated: 2026-11-09T21:04:27Z
+updated: 2026-11-11T16:07:17Z
 ---
 
-Small color preview square for theme and accent selection in settings. Shows the accent color or a theme preview gradient.
+Two swatches exist:
 
-## Anatomy
+1. **`i.rec-swatch`**, inside a record chip written `#RRGGBB Name` ([chip](chip.md)): a small filled square in that colour before the name.
+2. **`.chip`**, the Marathon accent dots (the CSS is in site.css under the Settings specimens): a 14px circle filled with `--accent`, a 1px inset ink ring at 10%, and a hit area 6px larger. Hover scales it to 1.15. When checked it has a 1px outline in `--ring-page`, offset 2px. Focus-visible gives a dashed outline. The current Theme page has one card per palette and does not show these chips; the CSS is still there.
 
-```html
-<button class="swatch" data-accent="lime" aria-label="Lime accent">
-  <span class="color" style="background: var(--lime);"></span>
-</button>
-```
+Source: `site/css/site.css`, lines 833 to 840
 
-## Styling
-
-Button:
 ```css
-.swatch {
-  width: 32px;
-  height: 32px;
-  border: 1px solid color-mix(in srgb, var(--dot) 20%, transparent);
-  border-radius: 6px;
-  background: transparent;
-  cursor: pointer;
-  padding: 4px;
-  transition: border-color 0.16s var(--ease-land);
-}
+/* Marathon: its five accents as chips under the card; hovering one recolours that card */
+.chips { display: flex; gap: 8px; align-items: center; min-height: 18px; }
+.chip { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); outline: 1px solid transparent; outline-offset: 2px; position: relative;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 10%, transparent); transition: transform 160ms var(--ease-land), outline-color 160ms var(--ease-land); -webkit-tap-highlight-color: transparent; }
+.chip::before { content: ""; position: absolute; inset: -6px; }
+.chip:hover { transform: scale(1.15); }
+.chip[aria-checked="true"] { outline-color: var(--ring-page); }
+.chip:focus-visible { outline: 1px dashed var(--ring-page); }
 ```
-
-Color fill:
-```css
-.swatch .color {
-  width: 100%;
-  height: 100%;
-  border-radius: 3px;
-  display: block;
-}
-```
-
-Active:
-```css
-.swatch.is-active {
-  border-color: var(--accent);
-  border-width: 2px;
-  padding: 3px;
-}
-```
-
-## Accent Swatches
-
-Marathon accents:
-- Lime: `#97ee2c`
-- Cyan: `#33d8ff`
-- Red: `#ff3350`
-- Amber: `#ffbb14`
-- Green: `#00cc88`
-
-## Theme Swatches
-
-For theme picker, show gradient preview:
-```html
-<button class="swatch" data-theme="dark">
-  <span class="color" style="background: linear-gradient(135deg, #000 0%, #111 100%);"></span>
-</button>
-```
-
-## Usage
-
-- 32×32px clickable area
-- Rounded corners (6px outer, 3px inner)
-- Border thickens on active (2px vs 1px)
-- Instant state change on click
-- Always include aria-label

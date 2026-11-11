@@ -1,84 +1,56 @@
 ---
-title: Switch
+title: Quiet switch
 slug: switch
 status: published
-description: Binary toggle control.
+description: "The quiet switch: a label and three 5px dots that fill with the accent mark when on, one after another."
 chips:
-  - Control
+  - Component
+  - Switch
+  - Settings
 created: 2026-11-09T21:04:27Z
-updated: 2026-11-09T21:04:27Z
+updated: 2026-11-11T16:07:17Z
 ---
 
-Binary on/off toggle. Used in settings rows for preferences (sound, view-transitions, hidden-extras, marathon mode).
+There is no toggle track or knob on saleh.digital. A switch is a **label and three dots**: a `<button role="switch" aria-checked>` in the nav's type (Inter Display 16/20). Off, the label sits at `--op-meta` and the dots are `--dot`, with the third dot `--muted`. On, the label goes to 1 and the dots fill with `--accent-mark`, 0, 50 and 100ms apart over 180ms. A press nudges it down .5px. Focus-visible underlines the label.
 
-## Anatomy
+Settings no longer shows a switch (the Sound switch was removed on Nov 9: picking a sound palette turns sound on, and Off is the off). The component is still in the code (`quiet()` in `js/settings.js`) and the CSS.
 
 ```html
-<label class="switch">
-  <input type="checkbox" checked />
-  <span class="track"></span>
-</label>
+<button type="button" class="qs" role="switch" aria-checked="false">
+  <span class="qs-label">Sound</span>
+  <span class="qs-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
 ```
 
-## Styling
+Source: `site/css/site.css`, lines 775 to 789
 
-Track:
 ```css
-.switch .track {
-  width: 40px;
-  height: 24px;
-  background: color-mix(in srgb, var(--dot) 24%, transparent);
-  border-radius: 12px;
-  position: relative;
-  cursor: pointer;
-  transition: background 0.2s var(--ease-land);
-}
+/* the quiet switch: a label and three dots that fill */
+.spec-switches { display: flex; flex-wrap: wrap; column-gap: 28px; row-gap: 10px; }
+.qs { display: inline-flex; align-items: center; gap: 10px; min-height: 24px; outline: none; filter: url(#ink-ui); -webkit-tap-highlight-color: transparent; transition: opacity 160ms var(--ease-land); }
+.qs-label { opacity: var(--op-meta); transition: opacity 160ms var(--ease-land); }
+.qs:hover .qs-label, .qs[aria-checked="true"] .qs-label { opacity: 1; }
+.qs:focus-visible .qs-label { opacity: 1; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.qs-dots { display: inline-flex; gap: 3px; }
+.qs-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--dot); transition: background-color 180ms var(--ease-land); }
+.qs[aria-checked="true"] .qs-dots i { background: var(--accent-mark); }
+.qs[aria-checked="true"] .qs-dots i:nth-child(2) { transition-delay: 50ms; }
+.qs[aria-checked="true"] .qs-dots i:nth-child(3) { transition-delay: 100ms; }
+.qs[aria-checked="false"] .qs-dots i:nth-child(3) { background: var(--muted); }
+.qs:active { transform: translateY(0.5px); }
+.qs.is-muted, .spec-grid.is-muted .spec { opacity: var(--op-faint); }
 ```
 
-Thumb:
-```css
-.switch .track::before {
-  content: '';
-  width: 20px;
-  height: 20px;
-  background: var(--paper);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--dot) 12%, transparent),
-              0 2px 4px color-mix(in srgb, var(--shadow) 24%, transparent);
-  border-radius: 10px;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: left 0.2s var(--ease-land);
+
+Source: `site/js/settings.js`, lines 93 to 100
+
+```js
+// the quiet switch: a label and three dots that fill
+function quiet(label, onFlip) {
+  const s = h('button', { type: 'button', class: 'qs', role: 'switch', 'aria-checked': 'false' },
+    h('span', { class: 'qs-label' }, label), h('span', { class: 'qs-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')));
+  s.addEventListener('click', onFlip);
+  s.set = (v) => s.setAttribute('aria-checked', String(v));
+  return s;
 }
 ```
-
-Checked:
-```css
-.switch input:checked + .track {
-  background: var(--ok);
-}
-
-.switch input:checked + .track::before {
-  left: 18px;
-}
-```
-
-## Colors
-
-- Off track: `--dot` at 24% alpha
-- On track: `--ok` (green)
-- Thumb: `--paper`
-
-## States
-
-- Off: thumb left, gray track
-- On: thumb right, green track
-- Focus: outline on hidden checkbox
-
-## Usage
-
-- Always wrap with semantic `<label>`
-- Hidden `<input type="checkbox">`
-- Settings-only (not for data toggles)
-- Instant visual feedback
-- Single green check mark after save (not persistent on switch)
