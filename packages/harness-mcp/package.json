@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
-    "prepack": "pnpm build && cp -r ../../harnesses ./harnesses",
+    "prepack": "pnpm build && node ../../scripts/copy-harnesses.js",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "echo 'Lint passed'"

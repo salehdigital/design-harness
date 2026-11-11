@@ -4,6 +4,19 @@ import * as path from 'path';
 import * as os from 'os';
 import { initHarness, listFolders, validateHarness } from './commands.js';
 
+function copyHarnesses(): void {
+  const targetDir = path.join(__dirname, '../harnesses');
+  
+  // Remove if exists
+  if (fs.existsSync(targetDir)) {
+    fs.rmSync(targetDir, { recursive: true, force: true });
+  }
+  
+  // Copy from root
+  const sourceDir = path.join(__dirname, '../../../harnesses');
+  copyRecursive(sourceDir, targetDir);
+}
+
 function copyRecursive(src: string, dest: string): void {
   const stats = fs.statSync(src);
   
@@ -24,11 +37,7 @@ describe('commands', () => {
   
   beforeAll(() => {
     // Copy harnesses for tests
-    const harnessesDir = path.join(__dirname, '../../../harnesses');
-    const targetDir = path.join(__dirname, '../harnesses');
-    if (!fs.existsSync(targetDir)) {
-      copyRecursive(harnessesDir, targetDir);
-    }
+    copyHarnesses();
   });
   
   beforeEach(() => {

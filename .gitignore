@@ -5,9 +5,6 @@ dist/
 .env
 .env.local
 *.tgz
-.changeset/*.md
-!.changeset/README.md
-!.changeset/config.json
 .cursor/
 packages/harness/harnesses/
 packages/harness-mcp/harnesses/

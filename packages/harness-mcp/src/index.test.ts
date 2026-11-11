@@ -21,6 +21,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const harnessDir = path.join(__dirname, '../harnesses/saleh-digital');
 
+function copyHarnesses(): void {
+  const targetDir = path.join(__dirname, '../harnesses');
+  
+  // Remove if exists
+  if (fs.existsSync(targetDir)) {
+    fs.rmSync(targetDir, { recursive: true, force: true });
+  }
+  
+  // Copy from root
+  const sourceDir = path.join(__dirname, '../../../harnesses');
+  copyRecursive(sourceDir, targetDir);
+}
+
 function copyRecursive(src: string, dest: string): void {
   const stats = fs.statSync(src);
   
@@ -39,11 +52,7 @@ function copyRecursive(src: string, dest: string): void {
 describe('MCP Server', () => {
   beforeAll(() => {
     // Copy harnesses for tests
-    const harnessesDir = path.join(__dirname, '../../../harnesses');
-    const targetDir = path.join(__dirname, '../harnesses');
-    if (!fs.existsSync(targetDir)) {
-      copyRecursive(harnessesDir, targetDir);
-    }
+    copyHarnesses();
   });
   
   it('creates server and lists tools', async () => {
