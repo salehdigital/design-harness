@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://saleh.digital/schemas/design-harness-record.json",
+  "title": "Design Harness Record",
+  "description": "Schema for design harness record frontmatter",
+  "type": "object",
+  "required": ["title", "slug"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Human-readable title",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly identifier, unique within folder",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line summary"
+    },
+    "status": {
+      "type": "string",
+      "description": "Publication status",
+      "enum": ["draft", "published", "archived"]
+    },
+    "group": {
+      "type": "string",
+      "description": "Top-level group",
+      "enum": ["Foundations", "Intelligence", "Components"]
+    },
+    "order": {
+      "type": "integer",
+      "description": "Display order",
+      "minimum": 0
+    },
+    "chips": {
+      "type": "array",
+      "description": "Short labels or tags",
+      "items": {
+        "type": "string"
+      }
+    },
+    "discuss": {
+      "type": "integer",
+      "description": "Comment count",
+      "minimum": 0
+    },
+    "created": {
+      "type": "string",
+      "description": "Creation timestamp (ISO 8601)",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "description": "Last update timestamp (ISO 8601)",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

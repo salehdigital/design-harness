@@ -1,0 +1,32 @@
+{
+  "name": "design-harness-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design harness monorepo - publish design systems as npm packages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salehdigital/design-harness.git"
+  },
+  "license": "MIT",
+  "author": "Ahmed Saleh <ahmed@saleh.digital>",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.11.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
