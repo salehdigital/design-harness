@@ -10,13 +10,13 @@ updated: 2026-11-09T22:43:46Z
 
 **⚠️ COMMERCIAL LICENSE REQUIRED — NOT INCLUDED IN THIS HARNESS**
 
-Shinka is a commercial serif typeface by Production Type used for body text on saleh.digital.
+Shinka is a commercial serif typeface by Aeiou Tools used for body text on saleh.digital.
 
 ## License
 
 **You must purchase your own license** to use Shinka. It is NOT included in this harness or repository.
 
-**Source:** https://www.productiontype.com/family/shinka
+**Source:** https://aeiou.tools/purchase/shinka
 
 ## Fallback
 

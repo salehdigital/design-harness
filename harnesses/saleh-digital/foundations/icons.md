@@ -14,7 +14,7 @@ The site uses the Amicons icon set for UI icons (discuss, copy, sound, etc.).
 ## ⚠️ COMMERCIAL LICENSE REQUIRED
 
 **Amicons** is a commercially licensed icon set used by Saleh Digital. It is NOT included in this harness. Anyone using this harness must either:
-- Purchase their own license from Amicons (https://amicons.com/)
+- Purchase their own license from Amicons (https://amicons.design/)
 - Use alternative open-source icons (e.g., Heroicons, Lucide, Phosphor)
 
 Do not copy, redistribute, or bundle Amicons SVG files, path data, sprite sheets, or base64 encodings.

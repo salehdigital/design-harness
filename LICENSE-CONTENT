@@ -26,14 +26,14 @@ The saleh.digital design harness (harnesses/saleh-digital/) references three
 commercially licensed assets that are NOT included in this repository or its
 published npm packages:
 
-1. Shinka (serif typeface) by Production Type
-   Source: https://www.productiontype.com/family/shinka
+1. Shinka (serif typeface) by Aeiou Tools
+   Source: https://aeiou.tools/purchase/shinka
 
-2. Kult Luxury (display typeface) by Zetafonts
-   Source: https://www.zetafonts.com/kult
+2. Kult Luxury (display typeface), from its foundry
+   Source: buy a license from the Kult Luxury foundry (not linked here)
 
 3. Amicons (icon set)
-   Source: https://amicons.com/
+   Source: https://amicons.design/
 
 These assets are used by Saleh Digital under commercial license. Anyone using
 this harness to build a project must either:

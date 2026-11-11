@@ -44,7 +44,7 @@ Body text typeface for articles and long-form content.
 **⚠️ COMMERCIAL LICENSE REQUIRED**
 
 Shinka is a commercially licensed typeface used by Saleh Digital. It is NOT included in this harness. Anyone using this harness must either:
-- Purchase their own license from the foundry (Production Type: https://www.productiontype.com/family/shinka)
+- Purchase their own license from the foundry (Aeiou Tools: https://aeiou.tools/purchase/shinka)
 - Use the fallback font stack: `Georgia, serif`
 
 Do not copy, redistribute, or bundle Shinka font files. The owner supplies them separately.
@@ -89,7 +89,7 @@ Display typeface for the `salehdigital` wordmark SVG in the footer.
 **⚠️ COMMERCIAL LICENSE REQUIRED**
 
 Kult Luxury is a commercially licensed typeface used by Saleh Digital. It is NOT included in this harness. Anyone using this harness must either:
-- Purchase their own license from Zetafonts: https://www.zetafonts.com/kult
+- Purchase their own license from the Kult Luxury foundry
 - Use an alternative display font for the wordmark
 
 Do not copy, redistribute, or bundle Kult Luxury font files. The owner supplies them separately.

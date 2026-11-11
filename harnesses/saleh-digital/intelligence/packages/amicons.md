@@ -18,7 +18,7 @@ Amicons is a commercial icon set used for UI icons on saleh.digital.
 
 **You must purchase your own license** to use Amicons. It is NOT included in this harness or repository.
 
-**Source:** https://amicons.com/
+**Source:** https://amicons.design/
 
 ## Fallback Options
 

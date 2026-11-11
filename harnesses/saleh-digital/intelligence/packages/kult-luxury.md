@@ -12,13 +12,13 @@ updated: 2026-11-09T22:43:47Z
 
 **⚠️ COMMERCIAL LICENSE REQUIRED — NOT INCLUDED IN THIS HARNESS**
 
-Kult Luxury is a commercial display typeface by Zetafonts used for the `salehdigital` wordmark in the footer.
+Kult Luxury is a commercial display typeface used for the `salehdigital` wordmark in the footer.
 
 ## License
 
 **You must purchase your own license** to use Kult Luxury. It is NOT included in this harness or repository.
 
-**Source:** https://www.zetafonts.com/kult
+**Source:** buy a license from the Kult Luxury foundry; the owner licenses it separately
 
 ## Fallback
 

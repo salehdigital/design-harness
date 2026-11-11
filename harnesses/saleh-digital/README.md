@@ -16,12 +16,12 @@ This harness enables AI agents to understand and recreate the saleh.digital desi
 
 This design harness references **three commercially licensed assets** used by Saleh Digital:
 
-1. **Shinka** (serif typeface) — Production Type
-   - https://www.productiontype.com/family/shinka
-2. **Kult Luxury** (display typeface for wordmark) — Zetafonts
-   - https://www.zetafonts.com/kult
+1. **Shinka** (serif typeface) — Aeiou Tools
+   - https://aeiou.tools/purchase/shinka
+2. **Kult Luxury** (display typeface for wordmark) — commercial; buy a license from its foundry
+   - (foundry link not recorded; the owner licensed it separately)
 3. **Amicons** (icon set)
-   - https://amicons.com/
+   - https://amicons.design/
 
 **These assets are NOT included in this harness, the npm packages, or this repository.**
 
@@ -35,14 +35,10 @@ If you use this harness to build a project, you must either:
 
 The owner supplies these assets separately for the live site.
 
-### Free/Open Assets
+### Other typefaces
 
-These typefaces are freely usable under their licenses:
-- **Inter Display** — SIL Open Font License 1.1
-  - https://rsms.me/inter/
-- **ABC Favorit Mono Trial** — Trial license (confirm usage terms)
-- **Kufigraph** — (check license)
-- **Kult Luxury** — (check license)
+- **Inter Display** (UI) — SIL Open Font License 1.1, https://rsms.me/inter/. Free to use; still not bundled here.
+- **ABC Favorit Mono Trial** (`--mono`, rarely seen) and **Kufigraph** (the footer basmala) — not open licenses that this repo can grant. They are not bundled either; license them yourself or use the fallbacks in the stacks.
 
 ## Using This Harness
 
@@ -95,7 +91,7 @@ See [LICENSE-CONTENT](../../LICENSE-CONTENT) for details.
 
 - [saleh.digital](https://saleh.digital) — Live site
 - [Design Harness Specification](../../spec/SPEC.md)
-- [Production Type (Shinka)](https://www.productiontype.com/family/shinka)
-- [Zetafonts (Kult Luxury)](https://www.zetafonts.com/kult)
-- [Amicons](https://amicons.com/)
+- [Aeiou Tools (Shinka)](https://aeiou.tools/purchase/shinka)
+- Kult Luxury: buy a license from its foundry
+- [Amicons](https://amicons.design/)
 - [Inter (Inter Display)](https://rsms.me/inter/)
