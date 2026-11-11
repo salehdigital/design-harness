@@ -10,96 +10,21 @@ created: 2026-11-11T15:03:00Z
 updated: 2026-11-11T15:03:00Z
 ---
 
-Homepage template for saleh.digital. Features 4-column grid with navigation, featured content, and footer.
+There is no separate home layout. `https://saleh.digital/` resolves to the newest article and renders it with the article template (`templates/article.md`): Articles is active in the menu, the article title is the only item in column 2, the canonical URL is `https://saleh.digital/articles/what-is-a-design-harness/`, and the page `<title>` is "What is a design harness?, Ahmed Saleh".
 
-## Layout Structure
+So a rebuild of the home page is the article page. Do not add a hero, a welcome line, a list of recent posts, a header logo or a "Home" menu item.
+
+## Head (from the live page)
 
 ```html
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saleh Digital</title>
-  <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/site.css">
-</head>
-<body>
-  <div class="cols">
-    <nav class="col-nav">
-      <ul class="nav-list">
-        <li><a href="/" class="item is-active">Home</a></li>
-        <li><a href="/articles" class="item">Articles</a></li>
-        <li><a href="/library" class="item">Library</a></li>
-        <li><a href="/experiments" class="item">Experiments</a></li>
-        <li><a href="/settings" class="item">Settings</a></li>
-      </ul>
-    </nav>
-
-    <div class="col-sub">
-      <!-- Sub-navigation or context -->
-    </div>
-
-    <main class="col-main">
-      <header class="home-header">
-        <h1>Ahmed Saleh أحمد صالح</h1>
-        <p class="tagline">Designer-founder in pursuit of the infinite.</p>
-      </header>
-
-      <section class="featured-articles">
-        <h2>Recent Articles</h2>
-        <article class="article-card">
-          <h3><a href="/articles/what-is-a-design-harness">What is a design harness</a></h3>
-          <p class="meta">8 min · Nov 4, 2026</p>
-          <p class="excerpt">Design harnesses are specifications that help AI agents...</p>
-        </article>
-        <!-- More article cards -->
-      </section>
-
-      <section class="featured-experiments">
-        <h2>Experiments</h2>
-        <!-- Experiment cards -->
-      </section>
-    </main>
-
-    <aside class="col-margin">
-      <!-- Auxiliary content -->
-    </aside>
-  </div>
-
-  <footer class="site-footer">
-    <!-- Footer from patterns/footer.md -->
-  </footer>
-</body>
-</html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What is a design harness?, Ahmed Saleh</title>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Ahmed Saleh — writing" href="https://saleh.digital/feed.xml">
+<link rel="preload" href="fonts/InterDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
 ```
 
-## Grid Layout
-
-```css
-.cols {
-  display: grid;
-  grid-template-columns: var(--col-nav, 89px) var(--col-sub, 248px) minmax(0, 540px) minmax(0, 1fr);
-  column-gap: var(--gap);
-  min-height: 100vh;
-}
-```
-
-## Content Sections
-
-**Header**: Name in English and Arabic, tagline.
-
-**Featured Articles**: 3–5 recent articles with title, meta, and excerpt.
-
-**Experiments**: Grid of project cards with images.
-
-## Responsive
-
-Mobile (<900px):
-- Collapse to flex column
-- Show nav in bottom sheet modal
-- Full-width main content
-
-## Related
-
-See `foundations/layout-grid.md`, `patterns/footer.md`, and `components/screens/footer.md`.
+Other rooms (Lectures, Speaking, Library, …) are reached from the menu; see `templates/record.md` for a record page such as a lecture and `templates/library.md` for the grid rooms.

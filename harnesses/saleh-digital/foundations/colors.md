@@ -266,3 +266,23 @@ Values:
 - **Warm glow** for hover/focus highlights on emphasized words
 - **Signal** for real-time streaming indicators
 
+
+## Light theme (Paper), verbatim from css/tokens.css
+
+This is the default theme (`<html data-theme="light">`). Copy it as is; several values below (`--op-meta`, `--op-faint`, `--muted`, `--grain-k`) are needed for the menu, captions and grain.
+
+```css
+:root, [data-theme] {
+  color-scheme: light;
+  --paper: #fff; --ink: #000; --dot: #e0e0e0; --glow: #ffc81a; --ok: #1e9e57;
+  --accent: #000; --accent-text: var(--ink); --accent-mark: var(--ink); --accent-wash: transparent; --on-accent: var(--paper);
+  --ring: var(--ink); --signal: var(--ink); --tint: var(--ink); --swell: var(--ink);
+  --shade: #dad8d6; --shadow: #000; --shadow-k: 1; --warm: #d69600; --warm-halo: #ffc400;
+  --select-bg: var(--ink); --select-fg: var(--paper);
+  --op-meta: .56; --op-faint: .39; --grain-k: 1; --foot: var(--ink);
+  --muted: color-mix(in srgb, var(--ink) calc(var(--op-meta) * 100%), var(--paper));
+}
+::selection { background: var(--select-bg); color: var(--select-fg); }
+```
+
+The site's ink is pure black on pure white. What makes it read warm and printed is the ink filters and the grain (foundations/materials/texture.md), not an off-white paper colour.
