@@ -126,7 +126,7 @@ function closeCard() {
 ```
 
 
-Source: `site/css/site.css`, lines 502 to 539
+Source: `site/css/site.css`, lines 505 to 542
 
 ```css
 /* a book's card (Library) */

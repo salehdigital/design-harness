@@ -13,7 +13,7 @@ updated: 2026-11-11T16:10:14Z
 
 Route: `#/lectures/<item>`. The sub-nav lists the lecture pages (live: "Philosophy of design", "Lead UX and Product Design Instructor"). Speaking (`#/talks`) uses the same template ([speaking](speaking.md)).
 
-The menu at every page (live, 2026-11-11): **Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Contact, Settings**. There is one menu entry per CMS section (`js/rooms.js`, `GROUPED = null`). Contact and Settings are app pages, not CMS sections.
+The menu at every page (live, 2026-11-11, after that day's site sync): **Welcome, Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Theme, Sound, MCP**. There is one menu entry per room (`js/rooms.js`); Theme, Sound and MCP are app pages, not CMS sections. See [navigation](../components/patterns/navigation.md).
 
 The page has `html.is-slides` when the page has media:
 
@@ -21,7 +21,7 @@ The page has `html.is-slides` when the page has media:
 2. **The intro text** (serif body), streamed.
 3. **The slides:** the page's media, in order, in `.masonry.slides`, a 2-column grid of 16:9 frames with a 10px gap (8px on a phone). They sit under the text across the free width (`grid-column: 3 / -1`, 40px above; 28px on a phone), and the menus run down beside both rows. Tapping a slide steps through them full screen from there ([viewer](../components/patterns/viewer.md)). The live Philosophy of design page has 92 slides.
 
-Source: `site/css/site.css`, lines 551 to 566
+Source: `site/css/site.css`, lines 553 to 568
 
 ```css
 /* a talk (Presentations): its text where it always is, then its slides under it across the free width,

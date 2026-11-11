@@ -2,7 +2,7 @@
 title: Marathon dark
 slug: marathon-dark
 status: published
-description: "The acid graphic look on dark paper: one accent (lime by default) for the footer, highlights and glow."
+description: "The acid graphic look on dark paper: one accent for the footer, highlights and glow. Ember (amber) is the site default for every first visit."
 chips:
   - Theme
   - Marathon

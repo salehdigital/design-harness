@@ -377,7 +377,7 @@ export async function mount({ col, recs, openViewer, signal }) {
 ```
 
 
-Source: `site/css/site.css`, lines 668 to 700
+Source: `site/css/site.css`, lines 670 to 702
 
 ```css
 /* Experiments, "Glyph matrix": every cell drawn by the canvas; the DOM holds the buttons, captions and focus */

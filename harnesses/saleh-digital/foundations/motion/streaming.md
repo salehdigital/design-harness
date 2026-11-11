@@ -36,7 +36,7 @@ The actions row comes back on `stream:end`.
 
 ## CSS
 
-Source: `site/css/site.css`, lines 306 to 309
+Source: `site/css/site.css`, lines 309 to 312
 
 ```css
 /* the post streaming in: words ink in behind a small caret at the leading edge, in the theme's accent (ink in Paper and Night) */

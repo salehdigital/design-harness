@@ -17,7 +17,7 @@ The icons are Amicons (commercial): see [amicons](../../intelligence/packages/am
 
 On the live site the actions row (Discuss, Copy link, Copy text, Sound) is rendered but `hidden`. With every action switched off, the row takes no room.
 
-Source: `site/css/site.css`, lines 125 to 150
+Source: `site/css/site.css`, lines 128 to 153
 
 ```css
 /* ---------- meta ---------- */
@@ -49,7 +49,7 @@ Source: `site/css/site.css`, lines 125 to 150
 ```
 
 
-Source: `site/css/site.css`, lines 738 to 739
+Source: `site/css/site.css`, lines 741 to 742
 
 ```css
 /* success state for icon actions: a single check in green */

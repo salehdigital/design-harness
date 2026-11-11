@@ -2,7 +2,7 @@
 title: Settings
 slug: settings
 status: published
-description: "Settings: an app page with three sub-pages. Theme (twelve live miniatures of the site), Sound (each palette as a dot-matrix score that plays), MCP (a short conversation)."
+description: "Theme, Sound and MCP: three app pages in the main menu (they were Settings' sub-pages until 2026-11-11). Theme (twelve live miniatures of the site), Sound (each palette as a dot-matrix score that plays), MCP (a short conversation)."
 chips:
   - Template
   - Settings
@@ -12,16 +12,16 @@ created: 2026-11-11T15:03:00Z
 updated: 2026-11-11T16:10:14Z
 ---
 
-Route: `#/settings` and `#/settings/<page>`, where the page is `theme` (the default), `sound` or `mcp`. `#/mcp` also opens MCP. Settings is a page of the app, not of the CMS (`js/settings.js`). It sits in the same columns: the menu, its three pages in the sub-nav (**Theme, Sound, MCP**), then the controls in the body column, which widens across the free width (`html.is-specimens .cols { grid-template-columns: var(--col-nav) var(--col-sub) minmax(0, 1fr) }`). The title is an `h1.sr-only` ("Theme, Settings"). The page is not a "piece", so nothing counts as read. Leaving tears down every listener (`settingsTeardown`). On arrival the controls glide in (`flowIn`: 240ms, 22ms stagger).
+**Site change, 2026-11-11 (the sync after this harness was first written):** Settings no longer exists as a page. **Theme, Sound and MCP are each their own page in the main menu** (`#/theme`, `#/sound`, `#/mcp`; `SETTING_PAGES` in `js/settings.js`), after a paragraph step under the rooms. Each page has an empty sub-nav (column 2) and draws its controls in the body column, which widens across the free width (`html.is-specimens`). Old links `#/settings` and `#/settings/<page>` open the page itself. The controls on each page are unchanged and specified below. The live Theme page's hidden heading reads "Theme, Theme".
 
-The menu at every page (live, 2026-11-11): **Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Contact, Settings**. There is one menu entry per CMS section (`js/rooms.js`, `GROUPED = null`). Contact and Settings are app pages, not CMS sections.
+The menu at every page (live, 2026-11-11, after the sync): **Welcome, Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Theme, Sound, MCP**. See [navigation](../components/patterns/navigation.md).
 
 ## Theme
 
 A `radiogroup` (aria-label "Theme") of **twelve cards**, one per palette, in this order: Paper, Night, Acid, Static, Siren, Ember, Reactor, Sulphur, Glacier, Flare, Honey, Moss ([themes](../foundations/themes.md)).
 
 - **Card.** Each card is a `button.spec-pick[role=radio]` holding a **live miniature of the site** in that palette's own tokens. The miniature is a 960 × 600 `.mini[data-theme][data-accent]`, scaled by `--k` = the card width / 960, inside a 16:10 clip with 6px corners. It contains:
-  - the nav: Articles, Speaking, Lectures, Harness, Past works, Experiments, Contact, Settings, with Settings active
+  - the nav (live after the 2026-11-11 sync): Welcome, Articles, Lectures, Speaking, Experiments, Library, Coffee table, Theme, with Theme active
   - the sub-nav: Theme (active), Sound
   - the heading "Welcome" and a paragraph
   - the bio and the fitted `salehdigital` wordmark, in that theme's `--foot`
@@ -150,6 +150,8 @@ if (dlg) {
 
 ## Code
 
+The contact address in `CONNECT_LINKS` is replaced by `mailto:…`; everything else is verbatim.
+
 Source: `site/js/settings.js`, whole file
 
 ```js
@@ -163,42 +165,51 @@ import { audio, PALETTES } from './audio.js';
 import { APPS, MCP } from './mcp.js';
 import { streamIn } from './resolve.js';
 
+// Theme, Sound and MCP are each their own page in the main menu (Ahmed, Nov 11); Settings is gone.
+// SETTINGS stays as the group the three belong to (for code that asks "is this a settings page?").
 const items = [
   { slug: 'theme', title: 'Theme' },
   { slug: 'sound', title: 'Sound' },
-  { slug: 'mcp', title: 'MCP' }, // MCP lives in Settings now (Ahmed, Nov 9); #/mcp still opens it
+  { slug: 'mcp', title: 'MCP' },
 ];
 export const SETTINGS = { slug: 'settings', title: 'Settings', id: 'settings', kind: 'section', app: true, items: [] };
 SETTINGS.items = items.map(it => ({ ...it, id: `settings/${it.slug}`, kind: 'item', section: SETTINGS, paras: [], body: [], discuss: 0 }));
+// one single-page section per item, for the menu: #/theme, #/sound, #/mcp
+export const SETTING_PAGES = SETTINGS.items.map(it => {
+  const sec = { slug: it.slug, title: it.title, id: `page-${it.slug}`, kind: 'section', app: true, setting: true, items: [] };
+  sec.items = [{ ...it, section: sec }];
+  return sec;
+});
 // MCP: its own page in the menu (it used to be a page of Settings)
 export const MCP_PAGE = { slug: 'mcp', title: 'MCP', id: 'mcp', kind: 'section', app: true, items: [] };
 MCP_PAGE.items = [{ slug: 'connect', title: 'Connect via MCP', id: 'mcp/connect', kind: 'item', section: MCP_PAGE, paras: [], body: [], discuss: 0 }];
 
-// Contact: its own page in the menu (it was Book a call, then Connect; Ahmed, Nov 9). #/connect still opens it. Its sub-menu is the
+// The ways to reach Ahmed: Welcome's sub-menu (Ahmed, Nov 11; they were the Contact page, now gone). #/contact and #/connect land on Welcome. Its sub-menu is the
 // ways to reach Ahmed, each going straight out. An address left '' shows the row but
 // leads back to Connect until it is set here.
 export const CONNECT_LINKS = [
-  { slug: 'email', title: 'Email', href: '' },            // mailto:…
+  { slug: 'email', title: 'Email', href: 'mailto:…' },
   { slug: 'meeting', title: 'Book a meeting', href: '' }, // empty: the CMS booking link (BOOKING_URL)
-  { slug: 'x', title: 'X/Twitter', href: '' },            // https://x.com/…
-  { slug: 'linkedin', title: 'LinkedIn', href: '' },      // https://www.linkedin.com/in/…
-  { slug: 'company', title: 'Company website', href: '' },
+  { slug: 'x', title: 'X/Twitter', href: 'https://x.com/saleh_digital' },
+  { slug: 'linkedin', title: 'LinkedIn', href: 'https://www.linkedin.com/in/saleh-ahmed/' },
 ];
 export const CONNECT = { slug: 'contact', title: 'Contact', id: 'connect', kind: 'section', app: true, links: true, items: [] };
 CONNECT.items = [{ slug: 'all', title: 'Contact', id: 'connect/all', kind: 'item', section: CONNECT, paras: [], body: [], discuss: 0 }];
 export const connectLinks = (bookingUrl = '') => CONNECT_LINKS.map(l => {
   const href = l.href || (l.slug === 'meeting' ? bookingUrl : l.slug === 'email' && CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : '');
-  return { ...l, href: href || '#/contact', out: !!href && !href.startsWith('mailto:'), id: `connect/${l.slug}` };
+  return { ...l, href: href || '#/welcome', out: !!href && !href.startsWith('mailto:'), id: `connect/${l.slug}` };
 });
 
 // '#/settings' and '#/settings/<page>' (the first page when the page is unknown)
 export function settingsRoute(hash, sectionIndex) {
   const parts = (hash || '').replace(/^#\/?/, '').split('/').filter(Boolean);
-  if (parts[0] === 'contact' || parts[0] === 'connect') return { section: CONNECT, item: CONNECT.items[0], sub: null, app: true, sectionIndex: sectionIndex + 2, itemIndex: 0, hash: '#/contact' };
-  if (parts[0] === 'mcp') parts.splice(0, 1, 'settings', 'mcp');
-  if (parts[0] !== 'settings') return null;
-  const item = SETTINGS.items.find(x => x.slug === parts[1]) || SETTINGS.items[0];
-  return { section: SETTINGS, item, sub: null, app: true, sectionIndex, itemIndex: SETTINGS.items.indexOf(item), hash: `#/settings/${item.slug}` };
+  if (parts[0] === 'contact' || parts[0] === 'connect') return null; // the Contact page is gone (Ahmed, Nov 11): its links are on Welcome; the router sends old links there
+  // #/settings and #/settings/<page> (old links) open the page itself; Settings has no page of its own any more
+  const slug = parts[0] === 'settings' ? (parts[1] || 'theme') : parts[0];
+  const i = SETTING_PAGES.findIndex(p => p.slug === slug);
+  if (i < 0) return null;
+  const sec = SETTING_PAGES[i];
+  return { section: sec, item: sec.items[0], sub: null, app: true, sectionIndex: sectionIndex + 3 + i, itemIndex: 0, hash: `#/${sec.slug}` };
 }
 
 // ---------- small builders ----------
@@ -259,7 +270,7 @@ function specimen(frame, name, aside, extra = {}) {
 }
 
 // ---------- Theme: each theme a live miniature of the site in its own tokens ----------
-const NAV = ['Articles', 'Speaking', 'Lectures', 'Harness', 'Past works', 'Experiments', 'Contact', 'Settings']; // the menu as it is (sections, Nov 9), in miniature
+const NAV = ['Welcome', 'Articles', 'Lectures', 'Speaking', 'Experiments', 'Library', 'Coffee table', 'Theme']; // the menu as it is (sections, Nov 9), in miniature
 const SUB = ['Theme', 'Sound'];
 const LINE = 'Welcome to my online abode. What you see is a living website that generates in real-time based off your attention, interaction and time spent on the site.';
 const mctx = document.createElement('canvas').getContext('2d');
@@ -301,7 +312,7 @@ function sweep(apply, from) {
 }
 function choose(theme, accent, from) {
   const cur = currentTheme();
-  if (pickTheme().source !== 'system' && cur.theme === theme && cur.accent === accent) return;
+  if (pickTheme().source !== 'default' && cur.theme === theme && cur.accent === accent) return;
   sweep(() => setTheme(theme, accent), from);
 }
 
@@ -432,9 +443,9 @@ function soundPage() {
   return [grid];
 }
 
-// Connect: one line; the ways in are the sub-menu beside it
+// Contact: no copy (Ahmed, Nov 11); the ways in are the sub-menu beside it
 function connectPage(kit) {
-  return [h('p', { class: 'set-lede' }, 'Email for anything. A meeting for a proper conversation. The rest to follow along.')];
+  return [];
 }
 
 // MCP: a short conversation. Ahmed says what the server is for and asks which
@@ -565,7 +576,7 @@ export function settingsBody(item, kit) {
 ```
 
 
-Source: `site/css/site.css`, lines 756 to 897
+Source: `site/css/site.css`, lines 758 to 899
 
 ```css
 /* ---------- Settings (js/settings.js): the app's own page, in the nav's type ----------

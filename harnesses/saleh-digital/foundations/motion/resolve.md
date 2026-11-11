@@ -162,18 +162,16 @@ Routing uses hashes: `#/section/item`. Path entry points such as `/articles/slug
 
 The same item with a different sub-page (a gallery's project) only re-renders the gallery and calls `flowIn`, scrolling smoothly to the top.
 
-Source: `site/js/app.js`, lines 354 to 386
+Source: `site/js/app.js`, lines 468 to 499
 
 ```js
 // ---------- routing ----------
 function go(initial = false) {
   const r = routeOf(location.hash);
   if (!r) { renderEmpty(); return; }
-  // Align path (canonical) + hash (in-app). Prefer replaceState over assigning hash alone
-  // so deep links like /articles/slug/ stay on the path entry point.
-  syncCanonicalLocation(r);
+  if (location.hash !== r.hash) history.replaceState(null, '', r.hash);
   const open = (x) => (x.app ? E.closePiece() : E.openPiece(x.item)); // Settings is not a piece: nothing is read there
-  if (initial || !route) { open(r); render(r); trackPostOpened(r); document.querySelector('.post-meta')?.classList.add('is-away'); streamIn(article, 'load'); return; }
+  if (initial || !route) { open(r); render(r); document.querySelector('.post-meta')?.classList.add('is-away'); streamIn(article, 'load'); return; }
   if (route.section === r.section && route.item === r.item) {
     if (r.sub !== route.sub) { route = r; renderGallery(r); flowIn(); if (window.scrollY > 0 && innerWidth >= 900) window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'auto' : 'smooth' }); }
     return;
@@ -181,7 +179,6 @@ function go(initial = false) {
   open(r); // clears its badges: their orbs melt into the label
   const chord = SOUND.voicing(r.section.slug, r.itemIndex);
   transition(() => render(r), { body: true, kind: 'state', section: r.sectionIndex, item: r.itemIndex, sectionSlug: r.section.slug, chord });
-  trackPostOpened(r);
   flowIn(); // the grid and the settings page glide in rather than cut
   syncOrbs();
   if (window.scrollY > 0 && innerWidth >= 900) window.scrollTo({ top: 0 });
@@ -197,6 +194,9 @@ function flowIn() {
   ], { duration: 240, delay: Math.min(i, 8) * 22, easing: 'cubic-bezier(0.2, 0, 0, 1)', fill: 'backwards' }));
 }
 window.addEventListener('hashchange', () => go());
+
+// ---------- emergence: something new resolves into place ----------
+function onReveal(node, title) {
 ```
 
 
@@ -204,7 +204,7 @@ window.addEventListener('hashchange', () => go());
 
 Inactive menu items rest at `opacity: var(--op-rest)` (.39) with the `#ink-ui` filter. Hovering, or focusing with `:focus-visible`, resolves the item partway: `.is-peek` gives `--op-peek` .695, as a hover-kind morph over 300ms with a third of the noise. The active item is sharp at 1. Touch never peeks, but a touch press emits `hover` for the sound and haptics. Focus-visible also underlines the item (1px, offset 3px).
 
-Source: `site/css/site.css`, lines 57 to 72
+Source: `site/css/site.css`, lines 56 to 71
 
 ```css
 /* ---------- items: active sharp, the rest recede ---------- */
@@ -226,7 +226,7 @@ Source: `site/css/site.css`, lines 57 to 72
 ```
 
 
-Source: `site/js/app.js`, lines 504 to 518
+Source: `site/js/app.js`, lines 614 to 628
 
 ```js
 // ---------- hover and focus partially resolve inactive items ----------
@@ -250,7 +250,7 @@ function bindPeek(a) {
 
 Icons are Amicons masks. They are not in this harness: rebuild them as `<span class="ico">` slots. At rest an icon is its line variant at ink .56. Hover is the line variant at 1. Pressed or active is the solid variant. Every change between them runs through the field. Mid-flight the icon dissolves into a halftone (dot pitch 1.75px) and lands crisp. A toggle takes 380ms. A hover takes 260ms with a lighter halftone. "Copied" is a single green check (`--ok`) that holds for 1.6s.
 
-Source: `site/js/app.js`, lines 519 to 564
+Source: `site/js/app.js`, lines 629 to 674
 
 ```js
 // ---------- col 4: icons that toggle through an SDF dot matrix ----------
@@ -303,7 +303,7 @@ function bindIcon(btn, el, keyFn) {
 
 ## The actions row (code)
 
-Source: `site/js/app.js`, lines 572 to 590
+Source: `site/js/app.js`, lines 682 to 700
 
 ```js
 // the actions row under the post: it follows the text, so while the body changes it
@@ -327,7 +327,7 @@ bus.on('stream:end', () => { if (!postMeta) return; clearTimeout(metaSafety); re
 ```
 
 
-Source: `site/css/site.css`, lines 299 to 304
+Source: `site/css/site.css`, lines 302 to 307
 
 ```css
 /* the actions row steps out while the post changes and settles back once the text lands */

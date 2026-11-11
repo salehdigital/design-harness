@@ -9,7 +9,7 @@ created: 2026-11-09T19:23:22Z
 updated: 2026-11-09T19:23:22Z
 ---
 
-The typography system uses three typefaces: Inter Display (UI), Shinka (body/serif), and ABC Favorit Mono Trial (code). Type is rendered with texture filters (`#ink-ui`, `#ink-body`, `#ink-bio`) that apply subtle ink displacement, blur, and grain for a tactile, printed quality.
+The typography system uses three typefaces: Inter Display (UI), Shinka (body/serif), and a system monospace stack (code). Type is rendered with texture filters (`#ink-ui`, `#ink-body`, `#ink-bio`) that apply subtle ink displacement, blur, and grain for a tactile, printed quality.
 
 ## Typefaces
 
@@ -66,12 +66,12 @@ descent-override: 25%;
 line-gap-override: 0%;
 ```
 
-### ABC Favorit Mono Trial (Code)
-Monospace typeface for code, technical values, and tabular data.
+### Monospace (code)
+Code, technical values and tabular data. Since 2026-11-11 the `--mono` stack is system monospace only; ABC Favorit Mono Trial is still named directly by the gallery grids' canvas fonts.
 
 **Font stack:**
 ```css
---mono: "ABC Favorit Mono Trial", "SF Mono", ui-monospace, Menlo, monospace
+--mono: "SF Mono", ui-monospace, Menlo, monospace
 ```
 
 **Weight:** 400 regular only
@@ -230,6 +230,6 @@ font-style: italic;
 - **Navigation, UI, buttons:** Inter Display 16px
 - **Article body:** Shinka 16px/20.8px
 - **Headings:** Inter Display 20px–28px, tight tracking
-- **Code, values:** ABC Favorit Mono 13px, zero tracking
+- **Code, values:** `--mono` (system monospace) 13px, zero tracking
 - **Arabic text:** Kufigraph (basmala only)
 

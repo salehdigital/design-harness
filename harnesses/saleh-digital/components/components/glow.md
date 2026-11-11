@@ -16,7 +16,7 @@ A **warm word** is text written `{{word|secret}}` in the CMS. It renders as `<sp
 
 `--warm` / `--warm-halo` per theme: light `#d69600` / `#ffc400`; dark `#ffb81a` / `#ffc400`; Marathon dark: the accent; Marathon light: `#8fbf00` (lime), `#00b3bf` (cyan), `#ff0d1a` (red), `#e09a00` (amber) or `#59b41d` (green), with the accent as the halo.
 
-Source: `site/css/site.css`, lines 118 to 123
+Source: `site/css/site.css`, lines 121 to 126
 
 ```css
 /* warm words: faintly warm, no underline; a long hover resolves them heavier */

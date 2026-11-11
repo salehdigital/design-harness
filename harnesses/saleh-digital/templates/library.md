@@ -13,7 +13,7 @@ updated: 2026-11-11T16:10:14Z
 
 Route: `#/library`. It is a section that is one grid page, so `html` has `is-solo is-gallery is-flat`: there is no sub-nav, and the grid starts right after the menu (`.col-gallery { grid-column: 2 / -1 }`).
 
-The menu at every page (live, 2026-11-11): **Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Contact, Settings**. There is one menu entry per CMS section (`js/rooms.js`, `GROUPED = null`). Contact and Settings are app pages, not CMS sections.
+The menu at every page (live, 2026-11-11, after that day's site sync): **Welcome, Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Theme, Sound, MCP**. There is one menu entry per room (`js/rooms.js`); Theme, Sound and MCP are app pages, not CMS sections. See [navigation](../components/patterns/navigation.md).
 
 - **Header** (`.sp-head`): the page title "Books" (`.sp-title`) and a count (`.sp-count`).
 - **Grid:** the [Library shelf](../components/patterns/bookshelf.md) ("Spines"), made of [book spines](../components/components/spine.md). A pulled book shows its [book card](../components/components/cover.md) details beside it in `.sp-reader` (cover, title, by, details).

@@ -22,7 +22,7 @@ Settings no longer shows a switch (the Sound switch was removed on Nov 9: pickin
 </button>
 ```
 
-Source: `site/css/site.css`, lines 775 to 789
+Source: `site/css/site.css`, lines 777 to 791
 
 ```css
 /* the quiet switch: a label and three dots that fill */
@@ -42,7 +42,7 @@ Source: `site/css/site.css`, lines 775 to 789
 ```
 
 
-Source: `site/js/settings.js`, lines 93 to 100
+Source: `site/js/settings.js`, lines 101 to 108
 
 ```js
 // the quiet switch: a label and three dots that fill

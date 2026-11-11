@@ -65,7 +65,7 @@ The article page (`/articles/:slug`, routed as `#/articles/:slug`). This is the 
 
 ## Checks before you call it done (compare against the live page)
 
-- At 1440 x 900: menu at x 24, section list at x 128, the first `h2` at x 405 on the same top line (y 24), body column 540px wide; Shinka 16/20.8; the grain is visible as a faint speckle over the white; no footer in view.
+- At 1440 x 900: menu at x 24, section list at x 128, the first `h2` at x 405 on the same top line (y 24), body column 540px wide; Shinka 16/20 (measured before the 2026-11-11 sync; since then the column is 640px and the body 18/28.8 with −0.2px tracking, see [type](../foundations/typography/type.md#reading-size-since-2026-11-11), and the sub-nav carries the post's contents, see [contents](../components/patterns/toc.md)).8; the grain is visible as a faint speckle over the white; no footer in view.
 - At 390 x 844: the two-line glyph top left, the article title under it, then the post; no row of menu links.
 - Headings are Inter Display 28/32 (24/28 on phones), never bold.
 - Terms have dotted underlines, the Rubric Labs link a solid faint one.

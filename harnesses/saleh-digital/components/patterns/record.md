@@ -185,7 +185,7 @@ export function recordsEl(records, inlineInto, paraEl, { plain = false } = {}) {
 ```
 
 
-Source: `site/css/site.css`, lines 352 to 397
+Source: `site/css/site.css`, lines 354 to 399
 
 ```css
 /* ---------- harness records: icon, title, description, chips ---------- */

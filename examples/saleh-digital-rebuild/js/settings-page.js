@@ -25,3 +25,5 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
   [...root.querySelectorAll('.settings:not(.settings-mcp) > *')].slice(0, 14).forEach((el, i) => el.animate([
     { opacity: 0, transform: 'translateY(6px)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0px)' }
   ], { duration: 240, delay: Math.min(i, 8) * 22, easing: 'cubic-bezier(0.2, 0, 0, 1)', fill: 'backwards' }));
+
+// the GL wordmark and footer start in js/boot.js (bootGL from js/wordmark.js), as on every page

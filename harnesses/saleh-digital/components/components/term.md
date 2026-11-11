@@ -108,7 +108,7 @@ function describe(slug, g) {
   if (!box) { box = document.createElement('div'); box.id = 'term-defs'; box.hidden = true; document.body.append(box); }
   if (!document.getElementById(defId(slug))) {
     const d = document.createElement('span'); d.id = defId(slug);
-    d.textContent = `${g.layer ? `${layerTitle(g.layer)} layer. ` : ''}${g.def}`;
+    d.textContent = g.def;
     box.append(d);
   }
   return defId(slug);
@@ -125,11 +125,8 @@ function build() {
   pop.setAttribute('role', 'dialog');
   pop.setAttribute('aria-labelledby', 'term-pop-term');
   pop.innerHTML = `
-    <div class="term-pop-head"><span class="term-pop-term" id="term-pop-term"></span><span class="term-pop-layer"></span></div>
+    <div class="term-pop-head"><span class="term-pop-term" id="term-pop-term"></span></div>
     <p class="term-pop-def"></p>
-    <div class="term-pop-acts">
-      <a class="term-pop-act term-see" href="#">See it in the harness</a>
-    </div>
     <span class="sr-only" role="status" aria-live="polite"></span>`;
   [elTerm, elLayer, elDef, elSee, elCopy, elStatus] = ['.term-pop-term', '.term-pop-layer', '.term-pop-def', '.term-see', '.term-copy', '[role=status]'].map(s => pop.querySelector(s));
   document.body.append(pop);
@@ -138,7 +135,7 @@ function build() {
   pop.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse' && !pinned) closeSoon(); });
   pop.addEventListener('keydown', onPopKey);
   pop.addEventListener('focusout', onFocusOut);
-  elSee.addEventListener('click', () => close(false));
+  // the layer label and "See it in the harness" removed from the popover (Ahmed, Nov 11): the term and its definition only
   // Copy definition removed from the popover (Ahmed, Nov 10)
 }
 
@@ -152,10 +149,7 @@ function open(c, { pin = false } = {}) {
   chip = c; pinned = pinned && same ? true : pin;
   if (!same) {
     elTerm.textContent = g.term;
-    elLayer.textContent = !g.layer ? '' : g.layer === c.dataset.term ? 'Layer' : `${layerTitle(g.layer)}`;
-    elLayer.hidden = !g.layer;
     elDef.textContent = g.def;
-    elSee.hidden = !g.href; if (g.href) elSee.href = g.href;
     elStatus.textContent = '';
     pop.hidden = false; openedAt = performance.now();
     place();
@@ -306,7 +300,7 @@ Source: `site/css/terms.css`, whole file
 .term-pop {
   position: fixed; z-index: 60; left: 0; top: 0;
   box-sizing: border-box; width: min(320px, calc(100vw - 24px));
-  padding: 14px 16px 6px;
+  padding: 14px 16px 14px;
   background: var(--paper); color: var(--ink);
   border-radius: 12px;
   box-shadow:
@@ -330,7 +324,7 @@ Source: `site/css/terms.css`, whole file
 .term-pop-term { font: 400 16px/20.8px var(--serif); letter-spacing: var(--track); }
 .term-pop-layer { flex: none; font: 400 12px/16px var(--ui); letter-spacing: -0.12px; opacity: var(--op-meta); }
 .term-pop-layer[hidden] { display: none; }
-.term-pop-def { margin: 6px 0 10px; font: 400 15px/20px var(--serif); letter-spacing: var(--track); text-wrap: pretty; color: color-mix(in srgb, var(--ink) 80%, var(--paper)); }
+.term-pop-def { margin: 6px 0 0; font: 400 15px/20px var(--serif); letter-spacing: var(--track); text-wrap: pretty; color: color-mix(in srgb, var(--ink) 80%, var(--paper)); }
 
 .term-pop-acts { display: flex; flex-wrap: wrap; gap: 0 4px; margin: 0 -8px; padding-top: 2px; } /* no divider (Ahmed, Nov 10) */
 .term-pop-act {

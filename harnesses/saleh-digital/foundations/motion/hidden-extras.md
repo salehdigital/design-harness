@@ -20,7 +20,7 @@ Small rewards for attention, all in `js/app.js` and `js/emergence.js`. Each foun
 
 The footer bio, basmala and marks share the wordmark's hover: under the cursor their outlines warp, then melt and bleed. In GL that is `FOOT_HOVER` in the wordmark pass. Without GL, or with `?lite`, it is the SVG `#ink-mark` / `#ink-bio` filters, and it is off under reduced motion.
 
-Source: `site/js/app.js`, lines 422 to 503
+Source: `site/js/app.js`, lines 532 to 613
 
 ```js
 // (a) warm words: faintly warm at rest, resolve heavier on a long hover, open a hidden piece

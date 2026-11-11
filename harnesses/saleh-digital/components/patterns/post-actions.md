@@ -22,7 +22,7 @@ The icons are [icon buttons](../components/icon-button.md).
 
 **On the live site every action is `hidden`**, and with every action switched off the row takes no room (`.post-meta[hidden] { display: none }`). MCP moved to Settings › MCP. Rebuild the row hidden. Its motion is still specified: it steps out while the body changes (`.is-away`: opacity 0, translateY 4px, blur 3px over 90ms) and settles back when the stream ends (opacity and filter 260ms, transform 320ms, land). See [resolve](../../foundations/motion/resolve.md).
 
-Source: `site/css/site.css`, lines 292 to 304
+Source: `site/css/site.css`, lines 295 to 307
 
 ```css
 /* ---------- actions under the post: Open in, then link and sound ---------- */
@@ -41,7 +41,7 @@ Source: `site/css/site.css`, lines 292 to 304
 ```
 
 
-Source: `site/css/site.css`, lines 312 to 351
+Source: `site/css/site.css`, lines 314 to 353
 
 ```css
 /* ---------- Open in MCP: three app marks, then a sheet with the steps ---------- */
@@ -86,7 +86,7 @@ Source: `site/css/site.css`, lines 312 to 351
 ```
 
 
-Source: `site/css/site.css`, lines 898 to 901
+Source: `site/css/site.css`, lines 900 to 903
 
 ```css
 /* with every action switched off, the actions row takes no room */

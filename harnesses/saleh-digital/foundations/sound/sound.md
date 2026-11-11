@@ -129,7 +129,7 @@ bus.on('wordmark:letter', (d) => buzz(d.index === 0 || d.index === d.total - 1 ?
 
 ## Tokens (`SOUND` in `js/tokens.js`)
 
-Source: `site/js/tokens.js`, lines 140 to 167
+Source: `site/js/tokens.js`, lines 139 to 166
 
 ```js
 export const SOUND = {

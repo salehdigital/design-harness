@@ -40,7 +40,7 @@ function chipEl(text) {
 ```
 
 
-Source: `site/css/site.css`, lines 352 to 366
+Source: `site/css/site.css`, lines 354 to 368
 
 ```css
 /* ---------- harness records: icon, title, description, chips ---------- */
@@ -60,7 +60,7 @@ Source: `site/css/site.css`, lines 352 to 366
 ```
 
 
-Source: `site/css/site.css`, lines 752 to 754
+Source: `site/css/site.css`, lines 755 to 757
 
 ```css
 /* Speaking: the title, then its data in one quiet line */

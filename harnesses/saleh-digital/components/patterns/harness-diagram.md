@@ -14,12 +14,12 @@ Embeds are placed in a post by a paragraph that is only `::name` (`EMBED = /^::(
 
 **What it is.** The design harness in one idea, as a classic black-and-white flowchart built on the site's own tokens, so it follows all twelve themes. The **Harness** box is in the middle. **Foundations** and **Intelligence** are on its left and **Components** and **Moves** on its right, each feeding it through one connector. Connectors are thin, orthogonal, square-cornered lines with small open arrowheads: each side has a line out of each layer, a bus between the pair, and one arrow into the harness. Hovering or focusing a layer lifts it (`.is-lit`), lights its line, and shows its one-line definition (from `js/glossary.js`) underneath. On a phone it is one column (Foundations, Intelligence, Harness, Components, Moves), with a bus down the right side that gathers the four and turns into the harness. It is drawn through the `#ink-diagram` SVG filter. Under reduced motion, cards and wires do not transition and a lit card does not move. A text alternative is included for screen readers.
 
-At 900px and wider, the diagram breaks out of the 540px text column:
+At 900px and wider, the diagram breaks out of the 640px text column (540px until 2026-11-11):
 
-Source: `site/css/site.css`, lines 86 to 95
+Source: `site/css/site.css`, lines 85 to 94
 
 ```css
-/* full-width embeds (Ahmed, Nov 10): the diagram, the work grid and the harness viewer break out of the 540px text column
+/* full-width embeds (Ahmed, Nov 10): the diagram, the work grid and the harness viewer break out of the 640px text column (540 until Nov 11)
    to the page's right padding, capped at 820px (narrower, Ahmed Nov 10) (desktop only; on a phone the column is already the page) */
 @media (min-width: 900px) {
   .col-body .embed-harness-diagram, .col-body .embed-harness-flow, .col-body .embed-harness-viewer, .col-body .embed-work-grid {
@@ -306,8 +306,8 @@ Source: `site/js/glossary.js`, whole file
 export const LAYERS = [
   { slug: 'foundations', title: 'Foundations', def: 'The design system values: the decisions every design starts from.' },
   { slug: 'intelligence', title: 'Intelligence', def: 'A layer of context for agents: who does the work, what they may and may not do, and what they remember.' },
-  { slug: 'components', title: 'Components', def: 'The built pieces: components, the patterns they combine into, the screens made of those, and the flows between screens.' },
-  { slug: 'moves', title: 'Moves', def: 'Defined design actions for agents: the ways a prompt becomes a design complete, with the designer in the loop.' },
+  { slug: 'components', title: 'Components', def: 'The built pieces: components, the patterns they combine into, and the screens made of those.' },
+  { slug: 'moves', title: 'Commands', def: 'Defined design actions for agents: the ways a prompt becomes a design complete, with the designer in the loop.' },
 ];
 
 const T = (term, def, extra = {}) => ({ term, def, ...extra });
@@ -324,7 +324,7 @@ export const GLOSSARY = {
   foundations: T('Foundations', LAYERS[0].def, { layer: 'foundations', href: '#/harness' }),
   intelligence: T('Intelligence', LAYERS[1].def, { layer: 'intelligence', href: '#/harness' }),
   components: T('Components', LAYERS[2].def, { layer: 'components', href: '#/harness/components' }),
-  moves: T('Moves', LAYERS[3].def, { layer: 'moves' }),
+  moves: T('Commands', LAYERS[3].def, { layer: 'moves' }),
 
   // Foundations
   brand: T('Brand', 'Who the work is for and how it should feel: positioning, voice, marks and the lines it never crosses.', { layer: 'foundations', href: '#/harness/brand' }),
@@ -355,7 +355,7 @@ export const GLOSSARY = {
   screens: T('Screens', 'Whole views made of patterns, with their states (empty, loading, error, full).', { layer: 'components', href: '#/harness/screens' }),
   flows: T('Flows', 'Screens in sequence: how someone gets from one to the next to finish a task.', { layer: 'components' }),
 
-  // Moves
+  // Commands (slug stays 'moves')
   steer: T('Steer', 'The agent stops and asks the designer to decide what is theirs to decide (taste, scope, audience) before building.', { layer: 'moves' }),
   concept: T('Concept', 'The agent goes wide first: a few genuinely different directions, side by side, before narrowing to one.', { layer: 'moves' }),
   tune: T('Tune', 'The designer drags broad sliders (density, tone, energy) and the agent reworks the design to sit there.', { layer: 'moves' }),
@@ -374,7 +374,7 @@ export const GLOSSARY = {
 export const STRUCTURE = {
   foundations: ['brand', 'colors', 'typography', 'icons', 'spacing', 'motion', 'sound', 'images', 'layout', 'materials', 'writing', 'themes', 'shaders'],
   intelligence: ['generalists', 'specialists', 'policies', 'skills', 'vocabulary', 'memories'],
-  components: ['components-item', 'patterns', 'screens', 'flows'],
+  components: ['components-item', 'patterns', 'screens'],
   moves: ['steer', 'concept', 'tune', 'comment', 'review'],
 };
 

@@ -2,7 +2,7 @@
 title: Light
 slug: light
 status: published
-description: "Paper: the default theme. White paper, black ink; also the base every other theme overrides."
+description: "Paper: white paper, black ink; the base every other theme overrides."
 chips:
   - Theme
   - Light
@@ -10,7 +10,7 @@ created: 2026-11-09T19:23:22Z
 updated: 2026-11-11T15:59:05Z
 ---
 
-Palette name: **Paper**. `data-theme="light"`, no `data-accent`. This is the theme when nothing is stored and the system is not dark.
+Palette name: **Paper**. `data-theme="light"`, no `data-accent`. It is the base block every other theme overrides. It is not the first-visit theme: that is Ember (marathon-dark, amber), whatever the system prefers.
 
 The base block below applies to `:root` and to every `[data-theme]`. The other themes override only what they change, and everything else falls back to these values.
 

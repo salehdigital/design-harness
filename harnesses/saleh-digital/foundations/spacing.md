@@ -43,7 +43,7 @@ Desktop (≥900px):
   grid-template-columns: 
     var(--col-nav, 89px)    /* left navigation */
     var(--col-sub, 248px)   /* sub-navigation */
-    minmax(0, 540px)        /* body content, max 540px */
+    minmax(0, 640px)        /* body content, max 640px (540 until 2026-11-11) */
     minmax(0, 1fr);         /* media/gallery */
   column-gap: var(--gap);    /* 24px default */
   padding: 24px 24px 48px;

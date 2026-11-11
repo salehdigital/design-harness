@@ -41,3 +41,73 @@ st = block('templates/settings.md', 'settings.js')
 st = st.replace("import { CONTACT_EMAIL } from './content.js';", "const CONTACT_EMAIL = '';")
 st = st.replace("from './resolve.js';", "from './stream.js';")
 put('settings.js', st)
+
+# ---------- the WebGL layer (foundations/motion/webgl*.md), round 3 ----------
+# The renderer, every shader, the raster and the orb look, whole files, unchanged.
+put('gl.js', block('foundations/motion/webgl-renderer.md', 'gl.js'))
+put('glsl.js', block('foundations/motion/webgl-shaders.md', 'glsl.js'))
+put('raster.js', block('foundations/motion/webgl-wordmark.md', 'raster.js'))
+put('orb.js', block('foundations/motion/orbs.md', 'orb.js'))
+
+# js/wordmark.js: the page side of the GL layer. The middle is the site's own app.js,
+# copied verbatim from the webgl-wordmark record: the hold and letter hooks (lines 562 to 604),
+# fitWordmark (822 to 879) and bakeFooter (881 to 904). Only the preamble (the names those
+# blocks use from the rest of app.js) and bootGL (app.js boot(), lines 1062 to 1083, cut to
+# the GL steps) are written here.
+W = 'foundations/motion/webgl-wordmark.md'
+pre = """import { createGL } from './gl.js';
+import { preloadMask, snapshot } from './raster.js';
+import { bus, params } from './state.js';
+// what the copied app.js blocks use from the rest of the site's app.js
+const $ = (s, r = document) => r.querySelector(s);
+const wordSvg = $('.wordmark'), wordText = $('.wordmark text');
+const WORD = 'salehdigital', WORD_AR = 'أحمد صالح';
+const LITE = new URLSearchParams(location.search).has('lite');
+const MARKS = []; // the footer marks' masks are the owner's PNGs, not in this repo: no marks
+const E = { unlock() {}, slowHover() {} }; // emergence is off on the live site: secrets are no-ops here
+let gl = null;
+function updateLife() { gl?.setLife(params.life || 0); gl?.setTraces([]); } // life 0 unless --fnd-life is set, as live
+"""
+post = """
+// app.js boot(), the GL steps only (fonts first: a field built from a fallback face would not match the DOM)
+export async function bootGL() {
+  const fonts = ['400 16px "Inter Display"', '400 100px "Kult Luxury"'];
+  try { await Promise.all(fonts.map(f => document.fonts.load(f, f.includes('Inter Display') ? 'Ahmed' : 'salehdigital'))); } catch (e) {}
+  await document.fonts.ready;
+  window.__sdGLFit = true; // site.js leaves the wordmark to fitWordmark below
+  gl = createGL($('#gl'), {
+    lost() { document.documentElement.classList.remove('gl'); },
+    restored() { document.documentElement.classList.add('gl'); fitKey = ''; fitWordmark(); bakeFooter(); updateLife(); }
+  });
+  if (gl) document.documentElement.classList.add('gl');
+  fitWordmark();
+  bakeFooter();
+  updateLife();
+  let rt = 0, lastW = document.documentElement.clientWidth;
+  new ResizeObserver(() => {
+    const w = document.documentElement.clientWidth;
+    if (w === lastW) return;
+    lastW = w; clearTimeout(rt); rt = setTimeout(() => { fitWordmark(); bakeFooter(); }, 120);
+  }).observe(document.documentElement);
+  return gl;
+}
+export const glHandle = () => gl;
+"""
+put('wordmark.js', pre + '\n' + block(W, 'app.js', (562, 604)) + '\n' + block(W, 'app.js', (822, 879))
+    + '\n' + block(W, 'app.js', (881, 904)) + post)
+
+# the import map, the GL canvas and the first-paint script, into each page (idempotent)
+import json
+themes = open(os.path.join(H, 'foundations/themes.md'), encoding='utf-8').read()
+first = re.search(r'## Before first paint.*?```html\n(.*?)\n```', themes, re.S).group(1)
+IMAP = '<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>'
+for page in ('index.html', 'inner.html', 'settings.html'):
+    p = os.path.join(ROOT, page); s = open(p, encoding='utf-8').read()
+    s = re.sub(r'  <!-- first paint: foundations/themes.md › Before first paint -->\n.*?</script>\n',
+               '  <!-- first paint: foundations/themes.md › Before first paint -->\n' + first + '\n', s, count=1, flags=re.S)
+    if 'type="importmap"' not in s:
+        s = s.replace('  <link rel="stylesheet" href="style.css">', '  <link rel="stylesheet" href="style.css">\n  <!-- three.js for the GL layer: foundations/motion/webgl.md -->\n  ' + IMAP, 1)
+    if 'id="gl"' not in s:
+        s = s.replace('<script src="site.js"></script>', '<canvas id="gl" aria-hidden="true"></canvas>\n<script src="site.js"></script>', 1)
+    open(p, 'w', encoding='utf-8').write(s)
+    print('patched ' + page)

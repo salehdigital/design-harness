@@ -309,7 +309,7 @@ export { BY_ID };
 
 ## In app.js
 
-Source: `site/js/app.js`, lines 387 to 421
+Source: `site/js/app.js`, lines 497 to 531
 
 ```js
 // ---------- emergence: something new resolves into place ----------

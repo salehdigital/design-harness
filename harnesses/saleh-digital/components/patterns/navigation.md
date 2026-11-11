@@ -16,24 +16,29 @@ Two lists on the left of every page: the rooms (column 1) and the pages of the c
     <span class="nav-btn-l" aria-hidden="true"></span><span class="nav-btn-l" aria-hidden="true"></span>
   </button>
   <ul id="nav">
-    <li><a class="item is-active" href="#/articles" aria-current="page">Articles</a></li>
-    <li><a class="item" href="#/lectures">Lectures</a></li>
-    <li><a class="item" href="#/talks">Speaking</a></li>
-    <li><a class="item" href="#/experiments">Experiments</a></li>
-    <li><a class="item" href="#/library">Library</a></li>
-    <li><a class="item" href="#/coffee-table">Coffee table</a></li>
-    <li class="nav-step"><a class="item" href="#/contact">Contact</a></li>
-    <li><a class="item" href="#/settings">Settings</a></li>
+    <li><a class="item is-active" href="#/welcome" aria-current="page" data-morph="nav-welcome" data-node="room:welcome">Welcome</a></li>
+    <li><a class="item" href="#/articles" data-morph="nav-articles" data-node="room:articles">Articles</a></li>
+    <li><a class="item" href="#/lectures" data-morph="nav-lectures" data-node="room:lectures">Lectures</a></li>
+    <li><a class="item" href="#/talks" data-morph="nav-talks" data-node="room:talks">Speaking</a></li>
+    <li><a class="item" href="#/experiments" data-morph="nav-experiments" data-node="room:experiments">Experiments</a></li>
+    <li><a class="item" href="#/library" data-morph="nav-library" data-node="room:library">Library</a></li>
+    <li><a class="item" href="#/coffee-table" data-morph="nav-coffee-table" data-node="room:coffee-table">Coffee table</a></li>
+    <li class="nav-step"><a class="item" href="#/theme" data-morph="nav-theme" data-node="page-theme">Theme</a></li>
+    <li><a class="item" href="#/sound" data-morph="nav-sound" data-node="page-sound">Sound</a></li>
+    <li><a class="item" href="#/mcp" data-morph="nav-mcp" data-node="page-mcp">MCP</a></li>
   </ul>
 </nav>
 <nav class="col col-sub" aria-label="In this section">
-  <ul id="sub" aria-label="Articles">
-    <li><a class="item is-active" href="#/articles/what-is-a-design-harness" aria-current="page">What is a design harness?</a></li>
+  <ul id="sub" aria-label="Welcome">
+    <li><a class="item" href="mailto:…" data-morph="sub-connect-email" data-node="connect/email">Email</a></li>
+    <li><a class="item" href="https://cal.com/ahmed-saleh/30min" target="_blank" rel="noopener" aria-label="Book a meeting (opens in a new tab)">Book a meeting</a></li>
+    <li><a class="item" href="https://x.com/saleh_digital" target="_blank" rel="noopener" aria-label="X/Twitter (opens in a new tab)">X/Twitter</a></li>
+    <li><a class="item" href="https://www.linkedin.com/in/saleh-ahmed/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)">LinkedIn</a></li>
   </ul>
 </nav>
 ```
 
-These are the live menu labels, in this order. Six rooms, then a step of air, then Contact and Settings. Column 2 lists only the pages of the current room: on Articles that is the one article title; on Lectures it is "Philosophy of design" and "Lead UX and Product Design Instructor".
+These are the live menu labels at `/`, in this order (checked 2026-11-11 after that day's site sync). Seven rooms, then a step of air, then the three app pages Theme, Sound and MCP (until that sync the menu was Articles … Coffee table, then Contact and Settings). Column 2 lists only the pages of the current room: on Welcome it is the ways to reach Ahmed; on Articles the one article title; on Lectures it is "Philosophy of design" and "Lead UX and Product Design Instructor".
 
 ## CSS
 
@@ -44,7 +49,7 @@ These are the live menu labels, in this order. Six rooms, then a step of air, th
 .item.is-active { opacity: 1; filter: url(#ink-ui); }
 .col-nav .item.is-active { color: var(--accent-text); }
 .item:focus-visible { opacity: 1; filter: url(#ink-ui); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.col-nav .nav-step { margin-top: calc(var(--para) - var(--stack)); }        /* 12px: Contact starts a new group */
+.col-nav .nav-step { margin-top: calc(var(--para) - var(--stack)); }        /* 12px: Theme starts a new group */
 .sub-group { opacity: var(--op-meta); filter: url(#ink-ui); white-space: nowrap; cursor: default; user-select: none; }
 .sub-group:not(:first-child), .sub-one:not(:first-child) { margin-top: calc(var(--para) - var(--stack)); }
 /* a long page title wraps instead of widening the column */
@@ -227,7 +232,7 @@ if (nav && col) {
 ```
 
 
-Source: `site/css/site.css`, lines 210 to 266
+Source: `site/css/site.css`, lines 212 to 268
 
 ```css
 /* ---------- the phone menu (js/navsheet.js): a two-line glyph top left, a bottom sheet of the nav ---------- */
@@ -289,7 +294,7 @@ Source: `site/css/site.css`, lines 210 to 266
 ```
 
 
-Source: `site/js/app.js`, lines 906 to 946
+Source: `site/js/app.js`, lines 1016 to 1054
 
 ```js
 // even column spacing: the nav and sub-nav columns are exactly as wide as their
@@ -299,7 +304,7 @@ Source: `site/js/app.js`, lines 906 to 946
 const SUB_MAX = 264;
 function fitColumns() {
   const c = document.createElement('canvas').getContext('2d');
-  c.font = '400 16px "Inter Display"';
+  c.font = '400 16px "Inter Display", sans-serif';
   try { c.letterSpacing = '-0.64px'; } catch (e) {}
   const w = (t) => Math.ceil(c.measureText(t).width);
   let nav = 0, sub = 0;
@@ -309,7 +314,7 @@ function fitColumns() {
   for (const rm of rooms()) nav = Math.max(nav, w(rm.title));
   for (const l of navLinks()) nav = Math.max(nav, w(l.title));
   const pagesW = (s) => (s.items || []).reduce((m, it) => Math.max(m, w(it.title), it.group ? w(it.group) : 0), 0);
-  for (const s of [...SECTIONS, MCP_PAGE, SETTINGS, { ...CONNECT, items: connectLinks() }]) {
+  for (const s of [...SECTIONS.map(x => x.slug === 'welcome' ? { ...x, items: [...(x.items || []), ...connectLinks()] } : x), MCP_PAGE, ...SETTING_PAGES]) {
     const rm = roomOf(s.slug);
     const own = rm && rm.sections.length > 1 ? Math.max(w(s.title), pagesW(s)) : pagesW(s);
     const key = rm ? rm.slug : s.slug;
@@ -331,6 +336,4 @@ function applySub(slug = subSection) {
   const max = Math.max(subBase, Math.floor(innerWidth * 0.3)); // never more than ~30% of the window
   document.documentElement.style.setProperty('--col-sub', Math.min(Math.max(subBase, own), max) + 'px');
 }
-
-async function boot() {
 ```

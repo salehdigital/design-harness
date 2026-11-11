@@ -366,7 +366,7 @@ function close(v = 0) {
 ```
 
 
-Source: `site/css/site.css`, lines 474 to 501
+Source: `site/css/site.css`, lines 476 to 503
 
 ```css
 /* the full-screen viewer */
