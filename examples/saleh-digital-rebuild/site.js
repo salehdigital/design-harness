@@ -26,6 +26,8 @@ function startGrain() {
   const el = document.createElement('div'); el.id = 'grain'; el.setAttribute('aria-hidden', 'true');
   document.body.append(el);
   el.style.backgroundImage = `url(${makeTile().toDataURL()})`;
+  // a theme change re-makes the tile in the new ink and paper (foundations/themes.md, js/grain.js)
+  window.__sdRetint = (ink, paper) => { el.style.backgroundImage = `url(${makeTile(ink, paper).toDataURL()})`; document.querySelectorAll('.foot-dots').forEach(drawDots); };
   const dpr = window.devicePixelRatio || 1, t = TILE / dpr;
   el.style.backgroundSize = `${t}px ${t}px`;
   el.style.width = `calc(100vw + ${t}px)`; el.style.height = `calc(100vh + ${t}px)`;

@@ -2,7 +2,7 @@
 
 Every page, component, interaction, animation, sound and theme on the live site (checked against https://saleh.digital on 2026-11-11), mapped to the record that specifies it.
 
-**Items: 148 · mapped: 148 · unmapped: 0**  (Page: 14 · Component: 44 · Interaction: 27 · Animation: 28 · Sound: 17 · Theme: 18)
+**Items: 149 · mapped: 149 · unmapped: 0**  (Page: 14 · Component: 44 · Interaction: 27 · Animation: 29 · Sound: 17 · Theme: 18)
 
 "Mapped" means the record holds the exact values, and usually the site's real source, needed to rebuild the item. Known differences between the live site and its intent are noted inside the records:
 
@@ -127,6 +127,7 @@ What is deliberately **not** in the harness (commercial or third-party assets) i
 | Animation | MCP held controls rise-in | [templates/settings.md](templates/settings.md) |
 | Animation | Sound score playhead | [templates/settings.md](templates/settings.md) |
 | Animation | Slow-motion review aid | [foundations/motion/motion.md](foundations/motion/motion.md) |
+| Animation | Orb review stage (bench tool, not on the site) | [foundations/motion/orbs.md](foundations/motion/orbs.md) |
 | Sound | Audio unlock on first gesture | [foundations/sound/sound.md](foundations/sound/sound.md) |
 | Sound | Master switch sd:sound (default on) | [foundations/sound/sound.md](foundations/sound/sound.md) |
 | Sound | Bed sd:bed (pad + air) | [foundations/sound/sound.md](foundations/sound/sound.md) |

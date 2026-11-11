@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" class="has-nav-sheet" style="--col-nav: 80px; --col-sub: 253px;">
+<html lang="en" data-section="lectures" class="has-nav-sheet" style="--col-nav: 80px; --col-sub: 253px;">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Lead UX and Product Design Instructor, Ahmed Saleh</title>
+  <!-- first paint: foundations/themes.md › Before first paint -->
   <meta name="theme-color" content="#ffffff">
+  <script>
+  /* the theme before first paint (js/theme.js has the same rules): ?theme=&accent= > stored > system */
+  (function(){var d=document.documentElement,q=new URLSearchParams(location.search),T=['light','dark','marathon-dark','marathon-light'],A=['lime','cyan','red','amber','green'],t=q.get('theme'),a=q.get('accent'),s=null;
+  if(T.indexOf(t)<0){try{s=JSON.parse(localStorage.getItem('sd.theme')||'null')}catch(e){}t=s&&T.indexOf(s.theme)>=0?s.theme:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');a=s&&(s.accent==='orange'?'amber':s.accent)}
+  d.setAttribute('data-theme',t);if(t.indexOf('marathon')===0)d.setAttribute('data-accent',A.indexOf(a)>=0?a:'lime');
+  var P={light:'#ffffff',dark:'#0b0b0c','marathon-dark':'#1c2338','marathon-light':'#f1f3f7'};document.currentScript.previousElementSibling.setAttribute('content',P[t]);})();
+  </script>
   <!-- fonts/ is owner-supplied and gitignored. Shinka and Kult Luxury are commercial: license them yourself or the fallbacks apply. -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -81,7 +89,7 @@
         <li><a class="item" href="#/library">Library</a></li>
         <li><a class="item" href="#/coffee-table">Coffee table</a></li>
         <li class="nav-step"><a class="item" href="#/contact">Contact</a></li>
-        <li><a class="item" href="#/settings">Settings</a></li>
+        <li><a class="item" href="settings.html">Settings</a></li>
       </ul>
     </nav>
     <nav class="col col-sub" aria-label="In this section">
@@ -122,5 +130,6 @@
 </div>
 <dialog id="nav-sheet" class="nav-sheet" aria-label="Menu"><div class="nav-sheet-grab" aria-hidden="true"><span></span></div><nav aria-label="Sections"><ul class="nav-sheet-list"></ul></nav></dialog>
 <script src="site.js"></script>
+<script type="module" src="js/boot.js"></script>
 </body>
 </html>

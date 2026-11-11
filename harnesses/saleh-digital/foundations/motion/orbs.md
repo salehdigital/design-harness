@@ -346,3 +346,84 @@ void main(){
 
 export const ORB_FRAG = ORB.style === 'dots' ? ORB_DOTS_FRAG : ORB_GLOW_FRAG;
 ```
+
+## The orb stage (review bench, not on the site)
+
+`orb-stage.js` draws the same marker outside the site, for the demo page and the bench tiles. It renders a 16px Inter Display label on white with the marker after it, magnified into any 2D canvas. One offscreen WebGL renderer serves every canvas, so a page never runs out of WebGL contexts. It uses the same shader (`ORB_GLOW_FRAG`) and the same uniforms (`orbUniforms`, `applyLook`, `orbFlare`, `orbBloom`) as the site. Nothing on saleh.digital imports it, and with emergence off no orb is drawn there anyway.
+
+Source: `site/js/orb-stage.js`, whole file
+
+```js
+// A stage for looking at the "new" marker outside the site: a 16px label on
+// white with the marker after it, magnified, drawn into any 2D canvas. One
+// offscreen WebGL renderer serves every canvas (the demo, every bench tile),
+// so a page never runs out of contexts. Same shader, same uniforms as the site.
+import { ORB_GLOW_FRAG, QUAD_VERT } from './glsl.js';
+import { ORB } from './tokens.js';
+import { orbUniforms, applyLook, orbFlare, orbBloom } from './orb.js';
+
+export const LABEL_FONT = '"Inter Display", "Helvetica Neue", Arial, sans-serif';
+
+export async function loadLabelFont(base) {
+  try {
+    const fs = [new FontFace('Inter Display', `url(${base}fonts/InterDisplay-Regular.woff2)`)];
+    for (const f of await Promise.all(fs.map(f => f.load()))) document.fonts.add(f);
+  } catch (e) { console.warn('label font', e); }
+}
+
+export function createOrbStage(THREE) {
+  const glc = document.createElement('canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas: glc, alpha: true, antialias: false, premultipliedAlpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(1); renderer.setClearColor(0, 0);
+  const camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, -1, 1);
+  const scene = new THREE.Scene();
+  const u = orbUniforms(THREE);
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({ vertexShader: QUAD_VERT, fragmentShader: ORB_GLOW_FRAG, uniforms: u, transparent: true, depthTest: false, depthWrite: false }));
+  scene.add(mesh);
+
+  // s: { width, height (CSS px of the target), dpr, zoom, label, look, time (s),
+  //      age (ms since it appeared), hover 0..1, melt 0..1, lean {x,y}, seed, reduced }
+  // Returns the layout in site px, so a caller can hit-test the marker.
+  function draw(ctx, s) {
+    const dpr = s.dpr || 1, Z = s.zoom || 1, W = s.width, H = s.height;
+    const pw = Math.max(1, Math.round(W * dpr)), ph = Math.max(1, Math.round(H * dpr));
+    if (glc.width !== pw || glc.height !== ph) renderer.setSize(pw, ph, false);
+    // the scene in site px
+    const sw = W / Z, sh = H / Z, L = s.look;
+    ctx.save();
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+    ctx.scale(Z, Z);
+    ctx.font = `400 16px ${LABEL_FONT}`;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '-0.64px';
+    const label = s.label || 'Articles';
+    const tw = ctx.measureText(label).width, cap = ctx.measureText('H').actualBoundingBoxAscent || 11.4;
+    const r = L.size / 2 * (s.sizeScale || 1);
+    const left = Math.round((sw - (tw + ORB.gap + 2 * r)) / 2 + (s.shift || 0)), base = Math.round(sh / 2 + cap / 2 - (s.lift || 0));
+    ctx.fillStyle = '#000'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText(label, left, base);
+    ctx.restore();
+    const cy = base - cap / 2, cx = left + tw + ORB.gap + r;
+    u.frame.value.set(0, 0, sw, sh);
+    u.center.value.set(cx, cy); u.target.value.set(left + cap * 0.22, cy);
+    u.lean.value.set(s.lean?.x || 0, s.lean?.y || 0);
+    u.edge.value = left + tw + 0.5;
+    u.radius.value = r;
+    applyLook(u, L);
+    const age = s.age ?? 1e9;
+    u.bloom.value = s.reduced ? 1 : orbBloom(age);
+    u.flare.value = s.reduced ? 0 : orbFlare(age, L.flare ?? ORB.flare);
+    u.melt.value = s.melt || 0; u.meltMove.value = s.reduced ? 0 : 1; u.fade.value = 1;
+    u.hover.value = s.hover || 0; u.time.value = s.reduced ? 0 : (s.time || 0);
+    u.unit.value = 1 / (Z * dpr); u.seed.value = s.seed ?? 3.1;
+    if (s.reduced) { u.pulse.value = 0; u.bob.value = 0; }
+    renderer.render(scene, camera);
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.drawImage(glc, 0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.restore();
+    return { cx, cy, r, left, right: left + tw, zoom: Z };
+  }
+  return { draw, renderer };
+}
+```
+

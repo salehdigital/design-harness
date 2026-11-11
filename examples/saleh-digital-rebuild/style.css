@@ -223,3 +223,257 @@ p { margin: 0; }
   .foot-row > .foot-side:first-child { grid-column: 1 / -1; }
   .basmala { padding-left: 12px; justify-self: start; }
 }
+
+/* ---- round 2: every theme (foundations/themes.md, tokens.css verbatim) ---- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0b0b0c;
+  --ink: #ece8e1;
+  --dot: #2b2a28;
+  --glow: #FFC81A;
+  --ok: #3ecf7e;
+  --accent: var(--ink);
+  --shade: #000;
+  --shadow: #000;
+  --shadow-k: 2.4;
+  --warm: #ffb81a;
+  --warm-halo: #ffc400;
+  --op-meta: 0.6;
+  --op-faint: 0.5;
+  --grain-k: 1.5;
+  --blend-ink: screen;
+}
+/* Marathon: the acid graphic look. One accent (data-accent), the others as signals. */
+[data-theme="marathon-dark"] {
+  color-scheme: dark;
+  --paper: #0b0b0c;               /* the dark theme's paper, no navy */
+  --ink: #ece8e1;
+  --dot: #2b2a28;
+  --foot: var(--accent);          /* footer wordmark, marks and bio in the accent */
+  --accent: #c2fe0b;
+  --accent-text: var(--accent);
+  --accent-mark: var(--accent);
+  --accent-wash: var(--accent);
+  --on-accent: #0b0b0c;
+  --signal: #01ffff;
+  --glow: var(--accent);
+  --ok: var(--accent);
+  --ring: var(--accent-mark);
+  --tint: var(--signal);
+  --swell: var(--signal);
+  --shade: #000;
+  --shadow: #000;
+  --shadow-k: 2.4;
+  --warm: var(--accent);
+  --warm-halo: var(--accent);
+  --select-bg: var(--accent);
+  --select-fg: var(--on-accent);
+  --op-meta: 0.64;
+  --op-faint: 0.52;
+  --grain-k: 1.4;
+  --blend-ink: screen;
+}
+[data-theme="marathon-dark"][data-accent="cyan"] { --accent: #01ffff; --signal: #c2fe0b; }
+[data-theme="marathon-dark"][data-accent="red"] { --accent: #ff0d1a; --accent-text: #ff4d55; --accent-mark: #ff4d55; --ok: #59b41d; --on-accent: #fff; }
+[data-theme="marathon-dark"][data-accent="amber"] { --accent: #ffb000; }
+[data-theme="marathon-dark"][data-accent="green"] { --accent: #59b41d; }
+[data-theme="marathon-light"] {
+  color-scheme: light;
+  --foot: var(--accent-mark);     /* the accent, deepened so it reads on light paper */
+  --paper: #f1f3f7;
+  --ink: #29324f;
+  --dot: #d5dae4;
+  --accent: #c2fe0b;
+  --accent-text: var(--ink);       /* lime is never type on light paper: it sits behind it */
+  --accent-mark: #587c00;
+  --accent-wash: var(--accent);
+  --on-accent: var(--ink);
+  --signal: #ff0d1a;
+  --glow: var(--accent);
+  --ok: #38801a;
+  --ring: var(--accent-mark);
+  --tint: var(--ink);
+  --swell: var(--signal);
+  --shade: #c3c9d6;
+  --shadow: #29324f;
+  --shadow-k: 1.2;
+  --warm: #8fbf00;
+  --warm-halo: var(--accent);
+  --select-bg: var(--accent-wash);
+  --select-fg: var(--ink);
+  --op-meta: 0.78;
+  --op-faint: 0.72;
+  --grain-k: 1.1;
+}
+[data-theme="marathon-light"][data-accent="cyan"] { --accent: #01ffff; --accent-mark: #007f88; --warm: #00b3bf; }
+[data-theme="marathon-light"][data-accent="red"] { --accent: #ff0d1a; --accent-wash: #f88088; --accent-mark: #e00012; --signal: #fd6c1d; --warm: #ff0d1a; }
+[data-theme="marathon-light"][data-accent="amber"] { --accent: #ffb000; --accent-wash: #ffd47a; --accent-mark: #9a6200; --warm: #e09a00; }
+[data-theme="marathon-light"][data-accent="green"] { --accent: #59b41d; --accent-wash: #96cd74; --accent-mark: #38801a; --warm: #59b41d; }
+[data-theme="marathon-light"] .col-nav .item.is-active { background: linear-gradient(transparent 12%, var(--accent-wash) 12%, var(--accent-wash) 92%, transparent 92%); box-shadow: -3px 0 0 var(--accent-wash), 3px 0 0 var(--accent-wash); }
+[data-theme="marathon-light"] .nav-sheet-list .item.is-active { background: linear-gradient(transparent 12%, var(--accent-wash) 12%, var(--accent-wash) 92%, transparent 92%); box-shadow: -3px 0 0 var(--accent-wash), 3px 0 0 var(--accent-wash); }
+:is([data-theme="dark"], [data-theme^="marathon"]) :is(.rec-val, .mcp-label, .mcp-note, .mcp-lede) { color: var(--muted); }
+
+/* ---- streaming caret (foundations/motion/streaming.md) ---- */
+/* the post streaming in: words ink in behind a small caret at the leading edge, in the theme's accent (ink in Paper and Night) */
+.col-body article { position: relative; }
+.col-body .sw { display: inline; }
+.stream-caret { position: absolute; left: 0; top: 0; width: 7px; height: 0.72em; background: var(--accent-mark, currentColor); border-radius: 1px; pointer-events: none; opacity: .85; filter: blur(.3px); will-change: transform; }
+
+/* ---- the actions row stepping out (components/patterns/post-actions.md) ---- */
+/* ---------- actions under the post: Open in, then link and sound ---------- */
+.post-meta {
+  flex-direction: row; align-items: center; gap: 16px;
+  margin-top: calc(var(--para) * 1.5);
+  font: 400 16px/16px var(--ui); letter-spacing: var(--track);
+}
+.post-meta .openin { margin-right: 4px; }
+
+/* the actions row steps out while the post changes and settles back once the text lands */
+.post-meta { transition: opacity 260ms var(--ease-land), transform 320ms var(--ease-land), filter 260ms var(--ease-land); }
+.post-meta.is-away { opacity: 0; transform: translateY(4px); filter: url(#ink-ui) blur(3px); pointer-events: none; transition-duration: 90ms; }
+@media (prefers-reduced-motion: reduce) { .post-meta, .post-meta.is-away { transition: opacity 120ms linear; transform: none; filter: url(#ink-ui); } }
+.post-meta[hidden] { display: none; }
+
+/* ---- Settings: Theme, Sound, MCP (templates/settings.md) ---- */
+/* ---------- Settings (js/settings.js): the app's own page, in the nav's type ----------
+   Theme and Sound are specimens: each theme a live miniature of the site, each sound a
+   dot-matrix score of its notes. The switches are quiet: a label and three dots. */
+:root {
+  --fnd-set-scale: 0.4;    /* Settings. Small cards -> Large */
+  --fnd-set-detail: 0.85;  /* Settings. Schematic -> Faithful: bars of ink up to the real type */
+  --set-type: min(1, calc(var(--fnd-set-detail) * 1.7));
+  --set-bar: max(0, calc((0.55 - var(--fnd-set-detail)) * 1.6));
+  --spec-gap: calc(44px - 32px * var(--fnd-density));
+  --spec-row: calc(56px - 36px * var(--fnd-density));
+  --spec-edge: color-mix(in srgb, var(--ink) 12%, transparent);
+  --spec-r: 6px;
+  /* the theme crossfade: 260ms when Still, 180ms when Lively */
+  --vt-ms: calc(260ms - 80ms * var(--fnd-energy));
+}
+html.is-specimens .cols { grid-template-columns: var(--col-nav, 89px) var(--col-sub, 248px) minmax(0, 1fr); }
+.settings { display: flex; flex-direction: column; gap: calc(var(--para) * 1.5); font: 400 16px/20px var(--ui); letter-spacing: var(--track); }
+.settings-theme, .settings-sound { gap: var(--spec-row); }
+
+/* the quiet switch: a label and three dots that fill */
+.spec-switches { display: flex; flex-wrap: wrap; column-gap: 28px; row-gap: 10px; }
+.qs { display: inline-flex; align-items: center; gap: 10px; min-height: 24px; outline: none; filter: url(#ink-ui); -webkit-tap-highlight-color: transparent; transition: opacity 160ms var(--ease-land); }
+.qs-label { opacity: var(--op-meta); transition: opacity 160ms var(--ease-land); }
+.qs:hover .qs-label, .qs[aria-checked="true"] .qs-label { opacity: 1; }
+.qs:focus-visible .qs-label { opacity: 1; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.qs-dots { display: inline-flex; gap: 3px; }
+.qs-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--dot); transition: background-color 180ms var(--ease-land); }
+.qs[aria-checked="true"] .qs-dots i { background: var(--accent-mark); }
+.qs[aria-checked="true"] .qs-dots i:nth-child(2) { transition-delay: 50ms; }
+.qs[aria-checked="true"] .qs-dots i:nth-child(3) { transition-delay: 100ms; }
+.qs[aria-checked="false"] .qs-dots i:nth-child(3) { background: var(--muted); }
+.qs:active { transform: translateY(0.5px); }
+.qs.is-muted, .spec-grid.is-muted .spec { opacity: var(--op-faint); }
+
+/* a grid of specimens */
+.spec-grid { --ring-page: var(--ink); display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); column-gap: var(--spec-gap); row-gap: var(--spec-row); align-items: start; }
+.spec { display: flex; flex-direction: column; gap: 10px; min-width: 0; transition: opacity 160ms var(--ease-land); }
+.spec-pick { display: flex; flex-direction: column; gap: 10px; width: 100%; text-align: left; outline: none; -webkit-tap-highlight-color: transparent; }
+.spec-frame { position: relative; display: block; width: 100%; border-radius: var(--spec-r); box-shadow: 0 0 0 1px var(--spec-edge); outline: 1px solid transparent; outline-offset: 4px;
+  transition: outline-color 200ms var(--ease-land), box-shadow 200ms var(--ease-land), transform 220ms var(--ease-land); }
+.spec-pick:hover .spec-frame { box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 28%, transparent); }
+.spec-pick[aria-checked="true"] .spec-frame { outline-color: var(--ring); }
+.spec-pick:focus-visible .spec-frame { outline: 1px dashed var(--ring); }
+.spec-pick:active .spec-frame { transform: scale(0.992); }
+.spec-name { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; filter: url(#ink-ui); }
+.spec-name > span:first-child { opacity: var(--op-meta); transition: opacity 160ms var(--ease-land); }
+.spec-pick:hover .spec-name > span:first-child, .spec-pick[aria-checked="true"] .spec-name > span:first-child { opacity: 1; }
+
+/* a theme specimen: the site itself, small, in that theme's tokens */
+.mini-clip { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--spec-r); }
+.mini { position: absolute; left: 0; top: 0; width: 960px; height: 600px; transform-origin: 0 0; transform: scale(var(--k, 0.25));
+  background: var(--paper); color: var(--ink); display: flex; flex-direction: column; justify-content: space-between;
+  font: 400 16px/16px var(--ui); letter-spacing: var(--track); pointer-events: none; user-select: none;
+  transition: background-color calc(var(--vt-ms) * .5) var(--ease-land); }
+.mini .m-cols { display: grid; grid-template-columns: max-content max-content minmax(0, 1fr); column-gap: 24px; padding: 24px; }
+.mini ul { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.mini .m-i { opacity: var(--op-rest); white-space: nowrap; }
+.mini .m-i.on { opacity: 1; }
+.mini .m-nav .m-i.on { color: var(--accent-text); }
+.mini[data-theme="marathon-light"] .m-nav .m-i.on .t { background: linear-gradient(transparent 12%, var(--accent-wash) 12%, var(--accent-wash) 92%, transparent 92%); box-shadow: -3px 0 0 var(--accent-wash), 3px 0 0 var(--accent-wash); }
+.mini .m-body { font: 400 16px/20.8px var(--serif); max-width: 540px; display: flex; flex-direction: column; gap: 12px; }
+.mini .m-body h2 { margin: 0; font: 400 20px/24px var(--ui); letter-spacing: -0.8px; }
+.mini .m-body p { margin: 0; }
+.mini .m-foot { color: var(--foot); }
+.mini .m-bio { margin: 0; padding: 0 0 0 12px; width: 322px; line-height: 19.2px; }
+.mini .m-word { display: block; width: 960px; }
+.mini .m-word text { font-family: "Kult Luxury"; fill: var(--foot); fill-opacity: var(--set-type); }
+.mini .m-word rect { fill: var(--foot); opacity: var(--set-bar); }
+/* Detail: Faithful is the real type; Schematic turns each run into a bar of its own ink */
+.mini .t { position: relative; -webkit-text-fill-color: color-mix(in srgb, currentColor calc(var(--set-type) * 100%), transparent); }
+.mini .t::after { content: ""; position: absolute; left: 0; right: 0; top: 22%; bottom: 18%; border-radius: 1px; background: currentColor; opacity: var(--set-bar); }
+.mini .m-body .t { display: inline; }
+.mini .m-body .t::after { display: none; }
+.mini .m-para { position: relative; }
+.mini .m-lines { position: absolute; inset: 0; opacity: var(--set-bar); border-radius: 1px;
+  background: repeating-linear-gradient(transparent 0 5px, currentColor 5px 16px, transparent 16px 20.8px); }
+
+/* Marathon: its five accents as chips under the card; hovering one recolours that card */
+.chips { display: flex; gap: 8px; align-items: center; min-height: 18px; }
+.chip { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); outline: 1px solid transparent; outline-offset: 2px; position: relative;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 10%, transparent); transition: transform 160ms var(--ease-land), outline-color 160ms var(--ease-land); -webkit-tap-highlight-color: transparent; }
+.chip::before { content: ""; position: absolute; inset: -6px; }
+.chip:hover { transform: scale(1.15); }
+.chip[aria-checked="true"] { outline-color: var(--ring-page); }
+.chip:focus-visible { outline: 1px dashed var(--ring-page); }
+
+/* a sound specimen: the palette's notes as a dot-matrix score */
+.score { display: block; width: 100%; height: auto; aspect-ratio: 52 / 29; }
+.spec-frame.is-score { padding: calc(14px - 6px * var(--fnd-density)); }
+.spec-time { font: 400 12px/16px var(--mono); letter-spacing: 0; opacity: var(--op-faint); font-variant-numeric: tabular-nums; }
+
+/* the theme change: a quick crossfade of the whole page, no mask, no blur (Ahmed, Nov 9) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { animation: vt-out var(--vt-ms) var(--ease-land) both; }
+::view-transition-new(root) { animation: vt-in var(--vt-ms) var(--ease-land) both; }
+@keyframes vt-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vt-out { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 120ms; animation-timing-function: linear; }
+  .qs-label, .qs-dots i, .spec-frame, .chip, .mini { transition: none; }
+}
+@media (max-width: 899px) {
+  :root { --spec-gap: calc(24px - 12px * var(--fnd-density)); --spec-row: calc(36px - 16px * var(--fnd-density)); }
+  .spec-switches { column-gap: 20px; }
+}
+
+/* MCP: the server once, then each app's steps (in the body face), its command and its link */
+.set-field { width: 100%; font: 400 14px/20px var(--ui); letter-spacing: -0.2px; }
+.set-field .set-copy { flex: none; height: 20px; width: 20px; justify-content: center; }
+.set-note { font-size: 14px; line-height: 20px; letter-spacing: -0.2px; color: var(--muted); overflow-wrap: anywhere; }
+.settings-mcp { gap: calc(var(--para) * 2); }
+.chat [data-held] { opacity: 0; pointer-events: none; } /* held until the words have streamed in (js/settings.js mcpPage) */
+.settings .set-lede { margin: 0; max-width: 540px; font: 400 16px/20.8px var(--serif); letter-spacing: var(--track); }
+/* MCP as a conversation: no bubbles, no avatars. Ahmed on the left in the post's serif,
+   the visitor's line set right in the UI face, a hairline between turns. */
+.chat { display: flex; flex-direction: column; gap: calc(var(--para) * 2); max-width: 540px; }
+.chat-msg { display: flex; flex-direction: column; gap: var(--para); outline: none; position: relative; scroll-margin: 96px; }
+.chat-msg p { margin: 0; }
+.chat-site > p { font: 400 16px/20.8px var(--serif); letter-spacing: var(--track); }
+.chat-site > p.chat-more { margin-top: calc(var(--para) * 0.5); }
+.chat-you { align-items: flex-end; text-align: right; padding-top: calc(var(--para) * 2); margin-bottom: calc(var(--para) * -0.5); border-top: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); }
+.chat-you p { max-width: 75%; font: 400 16px/20px var(--ui); letter-spacing: var(--track); }
+.chat-steps { font: 400 16px/20.8px var(--serif); letter-spacing: var(--track); gap: calc(var(--stack) * 2); }
+.chat-steps li { grid-template-columns: 20px 1fr; }
+.chat-steps li::before { font-family: var(--ui); color: var(--muted); }
+.chat-go { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+.chat-go .set-note { flex: 1 1 200px; margin: 0; }
+.chat-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chat-chip { height: 32px; display: inline-flex; align-items: center; gap: 8px; padding: 0 14px 0 11px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); font: 400 15px/20px var(--ui); letter-spacing: -0.3px; cursor: pointer;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 16%, transparent);
+  transition: box-shadow 160ms var(--ease-land), background-color 160ms var(--ease-land), transform 120ms var(--ease-land); }
+.chat-chip:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 40%, transparent); background: var(--accent-wash); }
+.chat-chip:active { transform: scale(0.97); }
+.chat-chip:focus-visible { outline: none; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 40%, transparent), 0 0 0 2px var(--paper), 0 0 0 3px var(--ring); }
+.chat-chip-quiet { padding: 0 12px; color: var(--muted); box-shadow: none; }
+.chat-chip-quiet:hover { color: var(--ink); box-shadow: none; background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.chat-ico { display: grid; place-items: center; width: 16px; height: 16px; color: var(--muted); transition: color 160ms var(--ease-land); }
+.chat-ico svg { width: 16px; height: 16px; display: block; }
+.chat-chip:hover .chat-ico, .chat-chip:focus-visible .chat-ico { color: var(--ink); }
+@media (max-width: 480px) { .chat-you p { max-width: 90%; } .chat-go { flex-direction: column; align-items: stretch; } .chat-go .mcp-go { justify-content: center; } .chat-go .set-note { flex: none; } }
+@media (max-width: 899px) { .set-field code { font-size: 12px; } .set-field .mcp-label { display: none; } }
+
