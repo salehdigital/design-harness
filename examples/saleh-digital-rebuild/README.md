@@ -25,4 +25,4 @@ cd examples/saleh-digital-rebuild
 
 ## Copy changes
 
-The rebuild uses the live article's text, with two edits. The first sentence's company name is replaced with "[company]". The work grid, architecture diagram, harness viewer, download actions and FAQ embeds are left out, because the harness does not specify them yet. Everything above the fold matches the live page.
+The rebuild uses the live article's text, with one edit. The first sentence's company name is replaced with "[company]". The work grid, architecture diagram, harness viewer, download actions and FAQ embeds are left out, because the harness does not specify them yet. Everything above the fold matches the live page.
