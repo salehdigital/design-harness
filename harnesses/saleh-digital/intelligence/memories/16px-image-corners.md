@@ -21,7 +21,7 @@ All images in article content (photos, diagrams, screenshots) use a 16px border-
 **Scope**: Applies to:
 - Article body images (`<img>` in `.article-body`)
 - Figure images (`<figure><img>`)
-- Gallery/carousel images
+- Gallery and viewer images
 
 **Exceptions**:
 - Book covers: 2px radius (minimal, preserves rectangular book shape)

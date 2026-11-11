@@ -1,102 +1,28 @@
 ---
-title: Library Template
+title: Library
 slug: library
 status: published
-description: Library/bookshelf layout.
+description: "Library: one grid page (\"Books\"), no sub-nav; the books stand spine-out on shelves drawn in three.js, and a click pulls one out with its details beside it."
 chips:
   - Template
   - Library
+  - Grid
 created: 2026-11-11T15:03:00Z
-updated: 2026-11-11T15:03:00Z
+updated: 2026-11-11T16:10:14Z
 ---
 
-Library template for `/library` route. Features coffee table (featured books) and bookshelf (full collection) grids.
+Route: `#/library`. It is a section that is one grid page, so `html` has `is-solo is-gallery is-flat`: there is no sub-nav, and the grid starts right after the menu (`.col-gallery { grid-column: 2 / -1 }`).
 
-## Layout Structure
+The menu at every page (live, 2026-11-11): **Articles, Lectures, Speaking, Experiments, Library, Coffee table**, a paragraph step, then **Contact, Settings**. There is one menu entry per CMS section (`js/rooms.js`, `GROUPED = null`). Contact and Settings are app pages, not CMS sections.
+
+- **Header** (`.sp-head`): the page title "Books" (`.sp-title`) and a count (`.sp-count`).
+- **Grid:** the [Library shelf](../components/patterns/bookshelf.md) ("Spines"), made of [book spines](../components/components/spine.md). A pulled book shows its [book card](../components/components/cover.md) details beside it in `.sp-reader` (cover, title, by, details).
+- **Live:** 34 books on 2 shelves at 1440 × 1000. With GL on, `html` also has `has-grid-gl sp-gl`.
+- **Fallbacks:** without WebGL or under reduced motion, static DOM spines.
+- **Sound:** a phone shelf scroll steps the drag palette.
+
+Rendered structure (live at 1440, 2026-11-11; trimmed to the first two books of each shelf):
 
 ```html
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Library – Saleh Digital</title>
-  <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/site.css">
-</head>
-<body>
-  <div class="cols">
-    <nav class="col-nav">
-      <!-- Nav -->
-    </nav>
-
-    <div class="col-sub">
-      <!-- Filters or search -->
-    </div>
-
-    <main class="col-main">
-      <section class="coffee-table">
-        <h2>On the Table</h2>
-        <div class="table-grid">
-          <article class="featured-book">
-            <img src="/covers/book-1.jpg" alt="Book Title" class="cover">
-            <div class="book-info">
-              <h3>Book Title</h3>
-              <p class="author">Author Name</p>
-              <p class="excerpt">Brief description or excerpt...</p>
-            </div>
-          </article>
-          <!-- More featured books -->
-        </div>
-      </section>
-
-      <section class="bookshelf">
-        <h2>Collection</h2>
-        <div class="shelf-grid">
-          <article class="book-card">
-            <img src="/covers/book-10.jpg" alt="Book Title" class="cover">
-            <h3 class="title">Book Title</h3>
-            <p class="author">Author Name</p>
-          </article>
-          <!-- More books -->
-        </div>
-      </section>
-    </main>
-
-    <aside class="col-margin"></aside>
-  </div>
-
-  <footer class="site-footer">
-    <!-- Footer -->
-  </footer>
-</body>
-</html>
+'+open('/workspace/lib-excerpt.html').read()+'
 ```
-
-## Grids
-
-**Coffee Table** (featured):
-```css
-.table-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: calc(var(--gap) * 1.6);
-}
-```
-
-**Bookshelf** (full collection):
-```css
-.shelf-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: var(--gap);
-}
-```
-
-## Click Behavior
-
-Clicking a book navigates to `/library/book/:id` (in-place detail view, NOT a modal). See `memories/no-modals-for-books.md`.
-
-## Related
-
-See `patterns/coffee-table.md`, `patterns/bookshelf.md`, and `components/components/cover.md`.
