@@ -2,7 +2,7 @@
 title: sips
 slug: sips
 status: published
-order: 4
+order: 2
 description: Resizes uploaded images in the CMS.
 chips:
   - macOS

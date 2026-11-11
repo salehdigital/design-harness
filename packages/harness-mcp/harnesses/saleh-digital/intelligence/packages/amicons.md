@@ -2,7 +2,7 @@
 title: Amicons
 slug: amicons
 status: published
-order: 10
+order: 9
 description: Interface icons.
 chips:
   - "2.0"

@@ -147,25 +147,15 @@ export function validateHarness(harnessDir: string): ValidationResult {
     });
   }
   
-  const seenSlugs = new Map<string, string>();
-  
+  // Check slug uniqueness within each folder (records only, not index)
   for (const folder of folders) {
     const folderData = readFolder(harnessDir, folder);
+    const folderSlugs = new Map<string, string>();
     
     if (folderData.index) {
       const recordErrors = validateRecord(folderData.index.frontmatter, folderData.index.path);
       errors.push(...recordErrors);
-      
-      const slug = folderData.index.frontmatter.slug;
-      if (seenSlugs.has(slug)) {
-        errors.push({
-          path: folderData.index.path,
-          field: 'slug',
-          message: `Duplicate slug "${slug}" (also in ${seenSlugs.get(slug)})`,
-        });
-      } else {
-        seenSlugs.set(slug, folderData.index.path);
-      }
+      // Index file slug is allowed to match a record in the same folder
     }
     
     for (const record of folderData.records) {
@@ -173,14 +163,14 @@ export function validateHarness(harnessDir: string): ValidationResult {
       errors.push(...recordErrors);
       
       const slug = record.frontmatter.slug;
-      if (seenSlugs.has(slug)) {
+      if (folderSlugs.has(slug)) {
         errors.push({
           path: record.path,
           field: 'slug',
-          message: `Duplicate slug "${slug}" (also in ${seenSlugs.get(slug)})`,
+          message: `Duplicate slug "${slug}" within folder (also in ${folderSlugs.get(slug)})`,
         });
       } else {
-        seenSlugs.set(slug, record.path);
+        folderSlugs.set(slug, record.path);
       }
     }
   }

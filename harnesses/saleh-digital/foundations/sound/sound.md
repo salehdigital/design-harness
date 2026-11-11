@@ -1,6 +1,6 @@
 ---
 title: Sound
-slug: sound-palette
+slug: sound
 status: published
 order: 6
 description: Ambient and quiet, in D minor. Nothing is struck hard, and page changes are silent.

@@ -2,7 +2,7 @@
 title: Tiptap
 slug: tiptap
 status: published
-order: 2
+order: 5
 description: The CMS writing editor.
 chips:
   - 2.27.3

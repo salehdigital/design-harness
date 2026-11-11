@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -6,6 +6,7 @@ import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
+import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import {
@@ -20,7 +21,31 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const harnessDir = path.join(__dirname, '../harnesses/saleh-digital');
 
+function copyRecursive(src: string, dest: string): void {
+  const stats = fs.statSync(src);
+  
+  if (stats.isDirectory()) {
+    fs.mkdirSync(dest, { recursive: true });
+    const entries = fs.readdirSync(src);
+    
+    for (const entry of entries) {
+      copyRecursive(path.join(src, entry), path.join(dest, entry));
+    }
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+}
+
 describe('MCP Server', () => {
+  beforeAll(() => {
+    // Copy harnesses for tests
+    const harnessesDir = path.join(__dirname, '../../../harnesses');
+    const targetDir = path.join(__dirname, '../harnesses');
+    if (!fs.existsSync(targetDir)) {
+      copyRecursive(harnessesDir, targetDir);
+    }
+  });
+  
   it('creates server and lists tools', async () => {
     const server = new Server(
       {

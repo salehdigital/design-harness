@@ -2,7 +2,7 @@
 title: three.js
 slug: three-js
 status: published
-order: 1
+order: 4
 description: SDF wordmark, grain, text morphs and the gallery grids.
 chips:
   - 0.186.1

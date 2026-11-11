@@ -1,6 +1,6 @@
 ---
 title: Icons
-slug: icons-transitions
+slug: icons
 status: published
 order: 4
 description: Change shape by dissolving through a dot matrix.

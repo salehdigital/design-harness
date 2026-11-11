@@ -9,3 +9,5 @@ dist/
 !.changeset/README.md
 !.changeset/config.json
 .cursor/
+packages/harness/harnesses/
+packages/harness-mcp/harnesses/

@@ -1,11 +1,35 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, beforeAll } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import { initHarness, listFolders, validateHarness } from './commands.js';
 
+function copyRecursive(src: string, dest: string): void {
+  const stats = fs.statSync(src);
+  
+  if (stats.isDirectory()) {
+    fs.mkdirSync(dest, { recursive: true });
+    const entries = fs.readdirSync(src);
+    
+    for (const entry of entries) {
+      copyRecursive(path.join(src, entry), path.join(dest, entry));
+    }
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+}
+
 describe('commands', () => {
   let tempDir: string;
+  
+  beforeAll(() => {
+    // Copy harnesses for tests
+    const harnessesDir = path.join(__dirname, '../../../harnesses');
+    const targetDir = path.join(__dirname, '../harnesses');
+    if (!fs.existsSync(targetDir)) {
+      copyRecursive(harnessesDir, targetDir);
+    }
+  });
   
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'harness-test-'));

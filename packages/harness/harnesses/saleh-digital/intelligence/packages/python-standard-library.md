@@ -2,7 +2,7 @@
 title: Python standard library
 slug: python-standard-library
 status: published
-order: 3
+order: 1
 description: "The CMS server: http.server, json, pathlib, threading."
 chips:
   - Python 3

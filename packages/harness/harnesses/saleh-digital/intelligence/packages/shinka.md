@@ -1,13 +1,10 @@
 ---
-title: Kult Luxury
-slug: shinka-font
+title: Shinka
+slug: shinka
 status: published
-order: 8
-description: Wordmark shader font.
-chips:
-  - Atipo
+order: 7
+description: Body type.
 created: 2026-11-09T22:43:46Z
 updated: 2026-11-09T22:43:46Z
 ---
-
 

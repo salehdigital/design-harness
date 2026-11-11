@@ -2,7 +2,7 @@
 title: Open Library
 slug: open-library
 status: published
-order: 11
+order: 10
 description: Book covers and descriptions.
 chips:
   - Data

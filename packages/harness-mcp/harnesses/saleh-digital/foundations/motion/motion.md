@@ -1,6 +1,6 @@
 ---
 title: Motion
-slug: motion-curve
+slug: motion
 status: published
 order: 1
 description: "One curve, called think: quick off the mark, lingering through the middle, gentle to land."

@@ -1,6 +1,6 @@
 ---
 title: Footer
-slug: footer-screen
+slug: footer
 status: published
 order: 2
 description: A line about me, four marks, and the wordmark across the bottom.

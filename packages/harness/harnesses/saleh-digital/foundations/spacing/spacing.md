@@ -1,6 +1,6 @@
 ---
 title: Spacing
-slug: spacing-system
+slug: spacing
 status: published
 order: 3
 description: Each column is exactly as wide as its longest title, so the gaps between menu, pages and post stay even.

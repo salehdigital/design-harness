@@ -2,7 +2,7 @@
 title: Kult Luxury
 slug: kult-luxury
 status: published
-order: 9
+order: 8
 description: The salehdigital wordmark.
 chips:
   - Display
