@@ -2,7 +2,7 @@
 title: Wordmark
 slug: wordmark
 status: published
-description: "salehdigital" logotype and dot matrix rendering.
+description: salehdigital logotype and dot matrix rendering.
 chips:
   - Brand
   - SDF
