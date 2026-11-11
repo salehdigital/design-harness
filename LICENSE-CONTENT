@@ -17,3 +17,30 @@ Under the following terms:
 
 This license applies to all Markdown files and design content in the harnesses/ directory.
 The code in packages/ is separately licensed under the MIT License (see LICENSE file).
+
+---
+
+NOTICE: COMMERCIAL ASSETS REFERENCED IN SALEH-DIGITAL HARNESS
+
+The saleh.digital design harness (harnesses/saleh-digital/) references three
+commercially licensed assets that are NOT included in this repository or its
+published npm packages:
+
+1. Shinka (serif typeface) by Production Type
+   Source: https://www.productiontype.com/family/shinka
+
+2. Kult Luxury (display typeface) by Zetafonts
+   Source: https://www.zetafonts.com/kult
+
+3. Amicons (icon set)
+   Source: https://amicons.com/
+
+These assets are used by Saleh Digital under commercial license. Anyone using
+this harness to build a project must either:
+- Purchase their own licenses from the respective vendors
+- Use the documented fallback alternatives (Georgia serif, Arial Black/Impact, 
+  open-source icons)
+
+DO NOT copy, redistribute, or bundle Shinka or Kult Luxury font files, or
+Amicons icon files. These are proprietary assets and are not covered by the
+CC BY 4.0 license above.
